@@ -445,16 +445,16 @@ class ProductController extends Controller
         }
 
         // Check Features
-        if(in_array(null, $request->features) || in_array(null, $request->colors))
-        {
-            $input['features'] = null;
-            $input['colors'] = null;
-        }
-        else
-        {
-            $input['features'] = implode(',', str_replace(',',' ',$request->features));
-            $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
-        }
+        // if(in_array(null, $request->features) || in_array(null, $request->colors))
+        // {
+        //     $input['features'] = null;
+        //     $input['colors'] = null;
+        // }
+        // else
+        // {
+        //     $input['features'] = implode(',', str_replace(',',' ',$request->features));
+        //     $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
+        // }
 
         //tags
         if (!empty($request->tags))
