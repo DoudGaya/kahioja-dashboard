@@ -41,7 +41,7 @@
         </ul>
     </li>
     <!-- Affiliate Products  -->
-    <li>
+    <!-- <li>
         <a href="#affiliateprod" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="icofont-cart"></i>{{ __('Affiliate Products') }}
         </a>
@@ -53,7 +53,7 @@
                 <a href="{{ route('admin-import-index') }}"><span>{{ __('All Affiliate Products') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li> -->
     <!-- Customers  -->
     <li>
         <a href="#menu3" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -168,11 +168,11 @@
         </ul>
     </li>
     <!-- Bulk Upload  -->
-    <li>
+    <!-- <li>
         <a href="{{ route('admin-prod-import') }}"><i class="fas fa-upload"></i>{{ __('Bulk Product Upload') }}</a>
-    </li>
+    </li> -->
     <!-- Product Discussion  -->
-    <li>
+    <!-- <li>
         <a href="#menu4" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="icofont-speech-comments"></i>{{ __('Product Discussion') }}
         </a>
@@ -187,13 +187,13 @@
                 <a href="{{ route('admin-report-index') }}"><span>{{ __('Reports') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li> -->
     <!-- Coupons  -->
-    <li>
+    <!-- <li>
         <a href="{{ route('admin-coupon-index') }}" class=" wave-effect"><i class="fas fa-percentage"></i>{{ __('Set Coupons') }}</a>
-    </li>
+    </li> -->
     <!-- Blog  -->
-    <li>
+    <!-- <li>
         <a href="#blog" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-fw fa-newspaper"></i>{{ __('Blog') }}
         </a>
@@ -205,9 +205,9 @@
                 <a href="{{ route('admin-blog-index') }}"><span>{{ __('Posts') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li> -->
     <!-- Messages  -->
-    <li>
+    <!-- <li>
         <a href="#msg" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-fw fa-newspaper"></i>{{ __('Messages') }}
         </a>
@@ -219,7 +219,7 @@
                 <a href="{{ route('admin-message-dispute') }}"><span>{{ __('Disputes') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li> -->
     <!-- General Settings  -->
     <li>
         <a href="#general" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -271,7 +271,7 @@
         </ul>
     </li>
     <!-- Home Page Settings -->
-    <li>
+    <!-- <li>
         <a href="#homepage" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-edit"></i>{{ __('Home Page Settings') }}
         </a>
@@ -311,9 +311,9 @@
                 <a href="{{ route('admin-ps-customize') }}"><span>{{ __('Home Page Customization') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li> -->
     <!-- Menu Page settings -->
-    <li>
+    <!-- <li>
         <a href="#menu" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-file-code"></i>{{ __('Menu Page Settings') }}
         </a>
@@ -328,9 +328,9 @@
                 <a href="{{ route('admin-page-index') }}"><span>{{ __('Other Pages') }}</span></a>
             </li>
         </ul>
-    </li>
+    </li> -->
     <!-- Email Settings  -->
-    <li>
+    <!-- <li>
         <a href="#emails" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-at"></i>{{ __('Email Settings') }}
         </a>
@@ -339,9 +339,9 @@
             <li><a href="{{route('admin-mail-config')}}"><span>{{ __('Email Configurations') }}</span></a></li>
             <li><a href="{{route('admin-group-show')}}"><span>{{ __('Group Email') }}</span></a></li>
         </ul>
-    </li>
+    </li> -->
     <!-- Payment Settings  -->
-    <li>
+    <!-- <li>
         <a href="#payments" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-file-code"></i>{{ __('Payment Settings') }}
         </a>
@@ -350,9 +350,9 @@
             <li><a href="{{route('admin-payment-index')}}"><span>{{ __('Payment Gateways') }}</span></a></li>
             <li><a href="{{route('admin-currency-index')}}"><span>{{ __('Currencies') }}</span></a></li>
         </ul>
-    </li>
+    </li> -->
     <!-- Social Settings -->
-    <li>
+    <!-- <li>
         <a href="#socials" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-paper-plane"></i>{{ __('Social Settings') }}
         </a>
@@ -361,9 +361,9 @@
                 <li><a href="{{route('admin-social-facebook')}}"><span>{{ __('Facebook Login') }}</span></a></li>
                 <li><a href="{{route('admin-social-google')}}"><span>{{ __('Google Login') }}</span></a></li>
         </ul>
-    </li>
+    </li> -->
     <!-- Language Settings  -->
-    <li>
+    <!-- <li>
         <a href="#langs" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-language"></i>{{ __('Language Settings') }}
         </a>
@@ -372,7 +372,7 @@
                 <li><a href="{{route('admin-tlang-index')}}"><span>{{ __('Admin Panel Language') }}</span></a></li>
 
         </ul>
-    </li>
+    </li> -->
     <!-- SEO -->
     <li>
         <a href="#seoTools" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
