@@ -949,6 +949,61 @@ Route::group(['middleware'=>'permissions:super'],function(){
 });
 // ************************************ ADMIN SECTION ENDS**********************************************
 
+// ************************************ LOGISTICS SECTION **********************************************
+Route::prefix('logistics')->group(function() {
+    
+  //LOGISTICS LOGIN
+  Route::get('/login', 'Logistics\LoginController@showLoginForm')->name('logistics.login');
+  Route::post('/login', 'Logistics\LoginController@login')->name('logistics.login.submit');
+  Route::get('/forgot', 'Logistics\LoginController@showForgotForm')->name('logistics.forgot');
+  Route::post('/forgot', 'Logistics\LoginController@forgot')->name('logistics.forgot.submit');
+  Route::get('/change-password/{token}', 'Logistics\LoginController@showChangePassForm')->name('logistics.change.token');
+  Route::post('/change-password', 'Logistics\LoginController@changepass')->name('logistics.change.password');
+  Route::get('/logout', 'Logistics\LoginController@logout')->name('logistics.logout');
+  //END OF LOGISTICS
+  
+  //------------ LOGISTICS DASHBOARD & PROFILE SECTION ------------
+  Route::get('/', 'Logistics\DashboardController@index')->name('logistics.dashboard');
+  Route::get('/profile', 'Logistics\DashboardController@profile')->name('logistics.profile');
+  Route::post('/profile/update', 'Logistics\DashboardController@profileupdate')->name('logistics.profile.update');
+  Route::get('/password', 'Logistics\DashboardController@passwordreset')->name('logistics.password');
+  Route::post('/password/update', 'Logistics\DashboardController@changepass')->name('logistics.password.update');
+  //------------ LOGISTICS DASHBOARD & PROFILE SECTION ENDS ------------
+  
+  //READY FOR PACKAGING
+  Route::get('/ready_for_packaging', 'Logistics\ReadyforpackagingController@index')->name('logistics-ready-for-packaging-index');
+  Route::get('/ready_for_packaging/{id}/show', 'Logistics\ReadyforpackagingController@show')->name('logistics-packaging-show');
+  Route::get('/pick_up_for_packaging', 'Logistics\ReadyforpackagingController@pickupforpackaging')->name('logistics-pick-up-for-packaging-index');
+  Route::post('/ready_for_packaging/update/{id}', 'Logistics\ReadyforpackagingController@status')->name('accept-packaging-order-status');
+  Route::post('/ready_for_packaging/cancel/{id}', 'Logistics\ReadyforpackagingController@cancel')->name('accept-packaging-order-cancel');
+  
+  //COMPLETED PACKAGING
+  Route::get('/completed_packaging/datatables', 'Logistics\ReadyforpackagingController@datatablescompletedpackaging')->name('logistics-completed-packaging-datatables');
+  Route::get('/completed_packaging', 'Logistics\ReadyforpackagingController@completedpackaging')->name('logistics-completed-packaging-index');
+  
+  //READY FOR DELIVERY
+  Route::get('/ready_for_delivery', 'Logistics\ReadyfordeliveryController@index')->name('logistics-ready-for-delivery-index');
+  Route::get('/ready_for_delivery/{id}/show', 'Logistics\ReadyfordeliveryController@show')->name('logistics-delivery-show');
+  Route::get('/vendors/{id}/show', 'Logistics\ReadyfordeliveryController@showVendor')->name('logistics-vendor-show');
+  Route::get('/pick_up_for_delivery', 'Logistics\ReadyfordeliveryController@pickupfordelivery')->name('logistics-pick-up-for-delivery-index');
+  Route::post('/ready_for_delivery/update/{id}', 'Logistics\ReadyfordeliveryController@status')->name('accept-delivery-order-status');
+  Route::post('/ready_for_delivery/cancel/{id}', 'Logistics\ReadyfordeliveryController@cancel')->name('accept-delivery-order-cancel');
+  Route::post('/ready_for_delivery/confirm/{id}', 'Logistics\ReadyfordeliveryController@confirmdelivery')->name('logistics-delivery-confirm');
+  Route::get('/on_delivery', 'Logistics\ReadyfordeliveryController@ondelivery')->name('logistics-on-delivery');
+  
+  //COMPLETED DELIVERY
+  Route::get('/completed_delivery/datatables', 'Logistics\ReadyfordeliveryController@datatablescompleteddelivery')->name('logistics-completed-delivery-datatables');
+  Route::get('/completed_delivery', 'Logistics\ReadyfordeliveryController@completeddelivery')->name('logistics-completed-delivery-index');
+
+  //WITHDRAWAL
+  Route::get('/withdraw/datatables', 'Logistics\WithdrawController@datatables')->name('logistics-wt-datatables');
+  Route::get('/withdraw', 'Logistics\WithdrawController@index')->name('logistics-wt-index');
+  Route::get('/withdraw/create', 'Logistics\WithdrawController@create')->name('logistics-wt-create');
+  Route::post('/withdraw/create', 'Logistics\WithdrawController@store')->name('logistics-wt-store');
+  
+});
+// ************************************ LOGISTICS SECTION ENDS **********************************************
+
 // ************************************ FRONT SECTION **********************************************
   Route::get('/', 'Admin\LoginController@showLoginForm')->name('front.index');
 
