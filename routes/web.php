@@ -1147,8 +1147,237 @@ Route::prefix('user')->group(function() {
 
 // ************************************ USER SECTION ENDS**********************************************
 
+// ************************************ VENDOR SECTION **********************************************
+
+
+Route::prefix('vendor')->group(function() {
+
+
+  Route::group(['middleware'=>'vendor'],function(){
+  // Vendor Dashboard
+  Route::get('/dashboard', 'Vendor\VendorController@index')->name('vendor-dashboard');
+
+
+    //IMPORT SECTION
+    Route::get('/products/import/create', 'Vendor\ImportController@createImport')->name('vendor-import-create');
+    Route::get('/products/import/edit/{id}', 'Vendor\ImportController@edit')->name('vendor-import-edit');
+    Route::get('/products/import/csv', 'Vendor\ImportController@importCSV')->name('vendor-import-csv');
+    Route::get('/products/import/datatables', 'Vendor\ImportController@datatables')->name('vendor-import-datatables');
+    Route::get('/products/import/index', 'Vendor\ImportController@index')->name('vendor-import-index');
+    Route::post('/products/import/store', 'Vendor\ImportController@store')->name('vendor-import-store');
+    Route::post('/products/import/update/{id}', 'Vendor\ImportController@update')->name('vendor-import-update');
+    Route::post('/products/import/csv/store', 'Vendor\ImportController@importStore')->name('vendor-import-csv-store');
+    //IMPORT SECTION
+
+
+  //------------ ADMIN ORDER SECTION ------------
+  Route::get('/orders', 'Vendor\OrderController@index')->name('vendor-order-index');
+  Route::get('/order/{id}/show', 'Vendor\OrderController@show')->name('vendor-order-show');
+  Route::get('/order/{id}/invoice', 'Vendor\OrderController@invoice')->name('vendor-order-invoice');
+  Route::get('/order/{id}/print', 'Vendor\OrderController@printpage')->name('vendor-order-print');
+  Route::get('/order/{slug}/status/{status}', 'Vendor\OrderController@status')->name('vendor-order-status');
+  Route::post('/order/email/', 'Vendor\OrderController@emailsub')->name('vendor-order-emailsub');
+  Route::post('/order/{slug}/license', 'Vendor\OrderController@license')->name('vendor-order-license');
+  Route::get('/pick_up_for_packaging', 'Vendor\OrderController@pickupforpackaging')->name('pick-up-for-packaging-index');
+  Route::post('/pick_up_for_packaging/confirm/{id}', 'Vendor\OrderController@confirm')->name('accept-packaging-order-confirm');
+  Route::get('/on-delivery', 'Vendor\OrderController@ondelivery')->name('on-delivery');
+  Route::get('/all-delivery', 'Vendor\OrderController@alldelivery')->name('all-delivery');
+
+  //------------ ADMIN CATEGORY SECTION ENDS------------
+
+
+  //------------ VENDOR SUBCATEGORY SECTION ------------
+
+  Route::get('/load/subcategories/{id}/', 'Vendor\VendorController@subcatload')->name('vendor-subcat-load'); //JSON REQUEST
+
+  //------------ VENDOR SUBCATEGORY SECTION ENDS------------
+
+  //------------ VENDOR CHILDCATEGORY SECTION ------------
+
+  Route::get('/load/childcategories/{id}/', 'Vendor\VendorController@childcatload')->name('vendor-childcat-load'); //JSON REQUEST
+
+  //------------ VENDOR CHILDCATEGORY SECTION ENDS------------
+
+  //------------ VENDOR PRODUCT SECTION ------------
+
+  Route::get('/products/datatables', 'Vendor\ProductController@datatables')->name('vendor-prod-datatables'); //JSON REQUEST
+  Route::get('/products', 'Vendor\ProductController@index')->name('vendor-prod-index');
+
+  Route::post('/products/upload/update/{id}', 'Vendor\ProductController@uploadUpdate')->name('vendor-prod-upload-update');
+
+  // CREATE SECTION
+  Route::get('/products/types', 'Vendor\ProductController@types')->name('vendor-prod-types');
+  Route::get('/products/physical/create', 'Vendor\ProductController@createPhysical')->name('vendor-prod-physical-create');
+  Route::get('/products/digital/create', 'Vendor\ProductController@createDigital')->name('vendor-prod-digital-create');
+  Route::get('/products/license/create', 'Vendor\ProductController@createLicense')->name('vendor-prod-license-create');
+  Route::post('/products/store', 'Vendor\ProductController@store')->name('vendor-prod-store');
+  Route::get('/getattributes', 'Vendor\ProductController@getAttributes')->name('vendor-prod-getattributes');
+  Route::get('/products/import', 'Vendor\ProductController@import')->name('vendor-prod-import');
+  Route::post('/products/import-submit', 'Vendor\ProductController@importSubmit')->name('vendor-prod-importsubmit');
+
+  Route::get('/products/catalog/datatables', 'Vendor\ProductController@catalogdatatables')->name('admin-vendor-catalog-datatables');
+  Route::get('/products/catalogs', 'Vendor\ProductController@catalogs')->name('admin-vendor-catalog-index');
+
+  // CREATE SECTION
+
+  // EDIT SECTION
+  Route::get('/products/edit/{id}', 'Vendor\ProductController@edit')->name('vendor-prod-edit');
+  Route::post('/products/edit/{id}', 'Vendor\ProductController@update')->name('vendor-prod-update');
+
+  Route::get('/products/catalog/{id}', 'Vendor\ProductController@catalogedit')->name('vendor-prod-catalog-edit');
+  Route::post('/products/catalog/{id}', 'Vendor\ProductController@catalogupdate')->name('vendor-prod-catalog-update');
+
+  // EDIT SECTION ENDS
+
+  // STATUS SECTION
+  Route::get('/products/status/{id1}/{id2}', 'Vendor\ProductController@status')->name('vendor-prod-status');
+  // STATUS SECTION ENDS
+
+  // DELETE SECTION
+  Route::get('/products/delete/{id}', 'Vendor\ProductController@destroy')->name('vendor-prod-delete');
+  // DELETE SECTION ENDS
+
+  //------------ VENDOR PRODUCT SECTION ENDS------------
+
+  //------------ VENDOR GALLERY SECTION ------------
+
+  Route::get('/gallery/show', 'Vendor\GalleryController@show')->name('vendor-gallery-show');
+  Route::post('/gallery/store', 'Vendor\GalleryController@store')->name('vendor-gallery-store');
+  Route::get('/gallery/delete', 'Vendor\GalleryController@destroy')->name('vendor-gallery-delete');
+
+  //------------ VENDOR GALLERY SECTION ENDS------------
+
+  //------------ ADMIN SHIPPING ------------
+
+Route::get('/shipping/datatables', 'Vendor\ShippingController@datatables')->name('vendor-shipping-datatables');
+Route::get('/shipping', 'Vendor\ShippingController@index')->name('vendor-shipping-index');
+Route::get('/shipping/create', 'Vendor\ShippingController@create')->name('vendor-shipping-create');
+Route::post('/shipping/create', 'Vendor\ShippingController@store')->name('vendor-shipping-store');
+Route::get('/shipping/edit/{id}', 'Vendor\ShippingController@edit')->name('vendor-shipping-edit');
+Route::post('/shipping/edit/{id}', 'Vendor\ShippingController@update')->name('vendor-shipping-update');
+Route::get('/shipping/delete/{id}', 'Vendor\ShippingController@destroy')->name('vendor-shipping-delete');
+
+  //------------ ADMIN SHIPPING ENDS ------------
+
+
+  //------------ ADMIN PACKAGE ------------
+
+Route::get('/package/datatables', 'Vendor\PackageController@datatables')->name('vendor-package-datatables');
+Route::get('/package', 'Vendor\PackageController@index')->name('vendor-package-index');
+Route::get('/package/create', 'Vendor\PackageController@create')->name('vendor-package-create');
+Route::post('/package/create', 'Vendor\PackageController@store')->name('vendor-package-store');
+Route::get('/package/edit/{id}', 'Vendor\PackageController@edit')->name('vendor-package-edit');
+Route::post('/package/edit/{id}', 'Vendor\PackageController@update')->name('vendor-package-update');
+Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('vendor-package-delete');
+
+
+  //------------ ADMIN PACKAGE ENDS------------
+
+
+
+  //------------ VENDOR NOTIFICATION SECTION ------------
+
+  // Order Notification
+  Route::get('/order/notf/show/{id}', 'Vendor\NotificationController@order_notf_show')->name('vendor-order-notf-show');
+  Route::get('/order/notf/count/{id}','Vendor\NotificationController@order_notf_count')->name('vendor-order-notf-count');
+  Route::get('/order/notf/clear/{id}','Vendor\NotificationController@order_notf_clear')->name('vendor-order-notf-clear');
+  // Order Notification Ends
+
+  // Product Notification Ends
+
+  //------------ VENDOR NOTIFICATION SECTION ENDS ------------
+
+  // Vendor Profile
+  Route::get('/profile', 'Vendor\VendorController@profile')->name('vendor-profile');
+  Route::post('/profile', 'Vendor\VendorController@profileupdate')->name('vendor-profile-update');
+  // Vendor Profile Ends
+
+  // Vendor Shipping Cost
+  Route::get('/shipping-cost', 'Vendor\VendorController@ship')->name('vendor-shop-ship');
+
+  // Vendor Shipping Cost
+  Route::get('/banner', 'Vendor\VendorController@banner')->name('vendor-banner');
+
+  // Vendor Social
+  Route::get('/social', 'Vendor\VendorController@social')->name('vendor-social-index');
+  Route::post('/social/update', 'Vendor\VendorController@socialupdate')->name('vendor-social-update');
+
+  Route::get('/withdraw/datatables', 'Vendor\WithdrawController@datatables')->name('vendor-wt-datatables');
+  Route::get('/withdraw', 'Vendor\WithdrawController@index')->name('vendor-wt-index');
+  Route::get('/withdraw/create', 'Vendor\WithdrawController@create')->name('vendor-wt-create');
+  Route::post('/withdraw/create', 'Vendor\WithdrawController@store')->name('vendor-wt-store');
+
+  Route::get('/service/datatables', 'Vendor\ServiceController@datatables')->name('vendor-service-datatables');
+  Route::get('/service', 'Vendor\ServiceController@index')->name('vendor-service-index');
+  Route::get('/service/create', 'Vendor\ServiceController@create')->name('vendor-service-create');
+  Route::post('/service/create', 'Vendor\ServiceController@store')->name('vendor-service-store');
+  Route::get('/service/edit/{id}', 'Vendor\ServiceController@edit')->name('vendor-service-edit');
+  Route::post('/service/edit/{id}', 'Vendor\ServiceController@update')->name('vendor-service-update');
+  Route::get('/service/delete/{id}', 'Vendor\ServiceController@destroy')->name('vendor-service-delete');
+
+
+ Route::get('/verify', 'Vendor\VendorController@verify')->name('vendor-verify');
+ Route::get('/warning/verify/{id}', 'Vendor\VendorController@warningVerify')->name('vendor-warning');
+ Route::post('/verify', 'Vendor\VendorController@verifysubmit')->name('vendor-verify-submit');
+
+  });
+
+});
+
+// ************************************ VENDOR SECTION ENDS**********************************************
+
 // ************************************ FRONT SECTION **********************************************
   Route::get('/', 'Admin\LoginController@showLoginForm')->name('front.index');
+  Route::get('/currency/{id}', 'Front\FrontendController@currency')->name('front.currency');
+  Route::get('/language/{id}', 'Front\FrontendController@language')->name('front.language');
+  Route::get('/price/{id}', 'Front\FrontendController@price')->name('front.price');
+
+  // BLOG SECTION
+  Route::get('/blog','Front\FrontendController@blog')->name('front.blog');
+  Route::get('/blog/{id}','Front\FrontendController@blogshow')->name('front.blogshow');
+  Route::get('/blog/category/{slug}','Front\FrontendController@blogcategory')->name('front.blogcategory');
+  Route::get('/blog/tag/{slug}','Front\FrontendController@blogtags')->name('front.blogtags');
+  Route::get('/blog-search','Front\FrontendController@blogsearch')->name('front.blogsearch');
+  Route::get('/blog/archive/{slug}','Front\FrontendController@blogarchive')->name('front.blogarchive');
+  // BLOG SECTION ENDS
+
+  // FAQ SECTION
+  Route::get('/faq','Front\FrontendController@faq')->name('front.faq');
+  // FAQ SECTION ENDS
+
+  // CONTACT SECTION
+  Route::get('/contact','Front\FrontendController@contact')->name('front.contact');
+  Route::post('/contact','Front\FrontendController@contactemail')->name('front.contact.submit');
+  Route::get('/contact/refresh_code','Front\FrontendController@refresh_code');
+  // CONTACT SECTION  ENDS
+
+  // PRODCT AUTO SEARCH SECTION
+  Route::get('/autosearch/product/{slug}','Front\FrontendController@autosearch');
+  // PRODCT AUTO SEARCH SECTION ENDS
+
+  // VENDOR SECTION
+  Route::get('/store/{category}','Front\VendorController@index')->name('front.vendor');
+  Route::post('/vendor/contact','Front\VendorController@vendorcontact');
+  // VENDOR SECTION ENDS
+
+  // SUBSCRIBE SECTION
+
+  Route::post('/subscriber/store', 'Front\FrontendController@subscribe')->name('front.subscribe');
+
+  // SUBSCRIBE SECTION ENDS
+  
+  // LOGIN WITH FACEBOOK OR GOOGLE SECTION
+  Route::get('auth/{provider}', 'User\SocialRegisterController@redirectToProvider')->name('social-provider');
+  Route::get('auth/{provider}/callback', 'User\SocialRegisterController@handleProviderCallback');
+  // LOGIN WITH FACEBOOK OR GOOGLE SECTION ENDS
+
+  //  CRONJOB
+  Route::get('/vendor/subscription/check','Front\FrontendController@subcheck');
+  // CRONJOB ENDS
+
+  // PAGE SECTION
+  Route::get('/{slug}','Front\FrontendController@page')->name('front.page');
+  // PAGE SECTION ENDS
 
   // PRODCT SECTION
   Route::get('/item/{slug}','Front\CatalogController@product')->name('front.product');
@@ -1157,4 +1386,33 @@ Route::prefix('user')->group(function() {
   Route::post('/item/review','Front\CatalogController@reviewsubmit')->name('front.review.submit');
   Route::get('/item/view/review/{id}','Front\CatalogController@reviews')->name('front.reviews');
   // PRODCT SECTION ENDS
+
+  // COMMENT SECTION
+  Route::post('/item/comment/store', 'Front\CatalogController@comment')->name('product.comment');
+  Route::post('/item/comment/edit/{id}', 'Front\CatalogController@commentedit')->name('product.comment.edit');
+  Route::get('/item/comment/delete/{id}', 'Front\CatalogController@commentdelete')->name('product.comment.delete');
+  // COMMENT SECTION ENDS
+
+  // REPORT SECTION
+  Route::post('/item/report', 'Front\CatalogController@report')->name('product.report');
+  // REPORT SECTION ENDS
+
+  // COMPARE SECTION
+  Route::get('/item/compare/view', 'Front\CompareController@compare')->name('product.compare');
+  Route::get('/item/compare/add/{id}', 'Front\CompareController@addcompare')->name('product.compare.add');
+  Route::get('/item/compare/remove/{id}', 'Front\CompareController@removecompare')->name('product.compare.remove');
+  // COMPARE SECTION ENDS
+
+  // REPLY SECTION
+  Route::post('/item/reply/{id}', 'Front\CatalogController@reply')->name('product.reply');
+  Route::post('/item/reply/edit/{id}', 'Front\CatalogController@replyedit')->name('product.reply.edit');
+  Route::get('/item/reply/delete/{id}', 'Front\CatalogController@replydelete')->name('product.reply.delete');
+  // REPLY SECTION ENDS
   
+  // CATEGORY SECTION
+  Route::get('/category/{category?}/{subcategory?}/{childcategory?}','Front\CatalogController@category')->name('front.category');
+  Route::get('/category/{slug1}/{slug2}','Front\CatalogController@subcategory')->name('front.subcat');
+  Route::get('/category/{slug1}/{slug2}/{slug3}','Front\CatalogController@childcategory')->name('front.childcat');
+  Route::get('/categories/','Front\CatalogController@categories')->name('front.categories');
+  Route::get('/childcategories/{slug}', 'Front\CatalogController@childcategories')->name('front.childcategories');
+  // CATEGORY SECTION ENDS
