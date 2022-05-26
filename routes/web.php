@@ -1004,6 +1004,149 @@ Route::prefix('logistics')->group(function() {
 });
 // ************************************ LOGISTICS SECTION ENDS **********************************************
 
+// ************************************ USER SECTION **********************************************
+
+Route::prefix('user')->group(function() {
+
+  // User Dashboard
+  Route::get('/dashboard', 'User\UserController@index')->name('user-dashboard');
+
+  // User Login
+  Route::get('/login', 'User\LoginController@showLoginForm')->name('user.login');
+  Route::post('/login', 'User\LoginController@login')->name('user.login.submit');
+  // User Login End
+
+  // User Register
+  Route::get('/register', 'User\RegisterController@showRegisterForm')->name('user-register');
+  Route::post('/register', 'User\RegisterController@register')->name('user-register-submit');
+  Route::get('/register/verify/{token}', 'User\RegisterController@token')->name('user-register-token');
+  // User Register End
+
+  // User Reset
+  Route::get('/reset', 'User\UserController@resetform')->name('user-reset');
+  Route::post('/reset', 'User\UserController@reset')->name('user-reset-submit');
+  // User Reset End
+
+  // User Profile
+  Route::get('/profile', 'User\UserController@profile')->name('user-profile');
+  Route::post('/profile', 'User\UserController@profileupdate')->name('user-profile-update');
+  // User Profile Ends
+
+  // User Forgot
+  Route::get('/forgot', 'User\ForgotController@showforgotform')->name('user-forgot');
+  Route::post('/forgot', 'User\ForgotController@forgot')->name('user-forgot-submit');
+  // User Forgot Ends
+
+  // User Wishlist
+  Route::get('/wishlists','User\WishlistController@wishlists')->name('user-wishlists');
+  Route::get('/wishlist/add/{id}','User\WishlistController@addwish')->name('user-wishlist-add');
+  Route::get('/wishlist/remove/{id}','User\WishlistController@removewish')->name('user-wishlist-remove');
+  // User Wishlist Ends
+
+  // User Review
+  Route::post('/review/submit','User\UserController@reviewsubmit')->name('front.review.submit');
+  // User Review Ends
+
+// User Orders
+
+  Route::get('/orders', 'User\OrderController@orders')->name('user-orders');
+  Route::get('/order/tracking', 'User\OrderController@ordertrack')->name('user-order-track');
+  Route::get('/order/trackings/{id}', 'User\OrderController@trackload')->name('user-order-track-search');
+  Route::get('/order/{id}', 'User\OrderController@order')->name('user-order');
+  Route::post('/order/confirm/', 'User\OrderController@orderconfirm')->name('user-order-confirm');
+  Route::get('/download/order/{slug}/{id}', 'User\OrderController@orderdownload')->name('user-order-download');
+  Route::get('print/order/print/{id}', 'User\OrderController@orderprint')->name('user-order-print');
+  Route::get('/json/trans','User\OrderController@trans');
+
+// User Orders Ends
+
+
+// User Subscription
+
+  Route::get('/package', 'User\UserController@package')->name('user-package');
+  Route::get('/subscription/{id}', 'User\UserController@vendorrequest')->name('user-vendor-request');
+  Route::post('/vendor-request', 'User\UserController@vendorrequestsub')->name('user-vendor-request-submit');
+
+  Route::post('/paypal/submit', 'User\PaypalController@store')->name('user.paypal.submit');
+  Route::get('/paypal/cancle', 'User\PaypalController@paycancle')->name('user.payment.cancle');
+  Route::get('/paypal/return', 'User\PaypalController@payreturn')->name('user.payment.return');
+  Route::post('/paypal/notify', 'User\PaypalController@notify')->name('user.payment.notify');
+  Route::post('/stripe/submit', 'User\StripeController@store')->name('user.stripe.submit');
+
+  Route::get('/instamojo/notify', 'User\InstamojoController@notify')->name('user.instamojo.notify');
+  Route::post('/instamojo/submit', 'User\InstamojoController@store')->name('user.instamojo.submit');
+
+
+  Route::get('/molly/notify', 'User\MollyController@notify')->name('user.molly.notify');
+  Route::post('/molly/submit', 'User\MollyController@store')->name('user.molly.submit');
+
+  Route::get('/paystack/check', 'User\PaystackController@check')->name('user.paystack.check');
+  Route::post('/paystack/submit', 'User\PaystackController@store')->name('user.paystack.submit');
+
+  Route::get('/flutterwave/check', 'User\FlutterwaveController@check')->name('user.flutterwave.check');
+  Route::post('/flutterwave/initialize', 'User\FlutterwaveController@initialize')->name('user.flutterwave.initialize');
+  Route::get('/flutterwave/submit', 'User\FlutterwaveController@callback')->name('user.flutterwave.submit');
+
+  //PayTM Routes
+  Route::post('/paytm/submit', 'User\PaytmController@store')->name('user.paytm.submit');;
+  Route::post('/paytm/notify', 'User\PaytmController@notify')->name('user.paytm.notify');
+
+
+
+  //PayTM Routes
+  Route::post('/razorpay/submit', 'User\RazorpayController@store')->name('user.razorpay.submit');;
+  Route::post('/razorpay/notify', 'User\RazorpayController@notify')->name('user.razorpay.notify');
+
+
+// User Subscription Ends
+
+// User Vendor Send Message
+
+  Route::post('/user/contact', 'User\MessageController@usercontact');
+  Route::get('/messages', 'User\MessageController@messages')->name('user-messages');
+  Route::get('/message/{id}', 'User\MessageController@message')->name('user-message');
+  Route::post('/message/post', 'User\MessageController@postmessage')->name('user-message-post');
+  Route::get('/message/{id}/delete', 'User\MessageController@messagedelete')->name('user-message-delete');
+  Route::get('/message/load/{id}', 'User\MessageController@msgload')->name('user-vendor-message-load');
+
+// User Vendor Send Message Ends
+
+// User Admin Send Message
+
+
+// Tickets
+  Route::get('admin/tickets', 'User\MessageController@adminmessages')->name('user-message-index');
+// Disputes
+  Route::get('admin/disputes', 'User\MessageController@adminDiscordmessages')->name('user-dmessage-index');
+
+  Route::get('admin/message/{id}', 'User\MessageController@adminmessage')->name('user-message-show');
+  Route::post('admin/message/post', 'User\MessageController@adminpostmessage')->name('user-message-store');
+  Route::get('admin/message/{id}/delete', 'User\MessageController@adminmessagedelete')->name('user-message-delete1');
+  Route::post('admin/user/send/message', 'User\MessageController@adminusercontact')->name('user-send-message');
+  Route::get('admin/message/load/{id}', 'User\MessageController@messageload')->name('user-message-load');
+// User Admin Send Message Ends
+
+  Route::get('/affilate/code', 'User\WithdrawController@affilate_code')->name('user-affilate-code');
+  Route::get('/affilate/withdraw', 'User\WithdrawController@index')->name('user-wwt-index');
+  Route::get('/affilate/withdraw/create', 'User\WithdrawController@create')->name('user-wwt-create');
+  Route::post('/affilate/withdraw/create', 'User\WithdrawController@store')->name('user-wwt-store');
+
+// User Favorite Seller
+
+  Route::get('/favorite/seller', 'User\UserController@favorites')->name('user-favorites');
+  Route::get('/favorite/{data1}/{data2}', 'User\UserController@favorite')->name('user-favorite');
+  Route::get('/favorite/seller/{id}/delete', 'User\UserController@favdelete')->name('user-favorite-delete');
+
+// User Favorite Seller Ends
+
+  // User Logout
+  Route::get('/logout', 'User\LoginController@logout')->name('user-logout');
+  // User Logout Ends
+
+});
+
+// ************************************ USER SECTION ENDS**********************************************
+
 // ************************************ FRONT SECTION **********************************************
   Route::get('/', 'Admin\LoginController@showLoginForm')->name('front.index');
 
