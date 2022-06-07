@@ -83,11 +83,11 @@
 									<li class="login-profile-area">
 										<a class="dropdown-toggle-1" href="javascript:;">
 											<div class="user-img">
-              @if(Auth::user()->is_provider == 1)
-              <img src="{{ Auth::user()->photo ? asset(Auth::user()->photo):asset('assets/images/noimage.png') }}" alt="">
-              @else
-              <img src="{{ Auth::user()->photo ? asset('assets/images/users/'.Auth::user()->photo ):asset('assets/images/noimage.png') }}" alt="">
-              @endif
+												@if(Auth::user()->is_provider == 1)
+												<img src="{{ Auth::user()->photo ? asset(Auth::user()->photo):asset('assets/images/noimage.png') }}" alt="">
+												@else
+												<img src="{{ Auth::user()->photo ? asset('assets/images/users/'.Auth::user()->photo ):asset('assets/images/noimage.png') }}" alt="">
+												@endif
 											</div>
 										</a>
 										<div class="dropdown-menu">

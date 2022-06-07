@@ -6,7 +6,7 @@ Route::prefix('admin')->group(function() {
 
   //------------ ADMIN LOGIN SECTION ------------
 
-  Route::get('/', 'Admin\LoginController@showLoginForm')->name('front.index');
+  // Route::get('/', 'Admin\LoginController@showLoginForm')->name('front.index');
   Route::get('/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
   Route::post('/login', 'Admin\LoginController@login')->name('admin.login.submit');
   Route::get('/forgot', 'Admin\LoginController@showForgotForm')->name('admin.forgot');
@@ -1327,7 +1327,7 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
 // ************************************ VENDOR SECTION ENDS**********************************************
 
 // ************************************ FRONT SECTION **********************************************
-  Route::get('/', 'Admin\LoginController@showLoginForm')->name('front.index');
+  Route::get('/', 'Front\FrontendController@index')->name('front.index');
   Route::get('/currency/{id}', 'Front\FrontendController@currency')->name('front.currency');
   Route::get('/language/{id}', 'Front\FrontendController@language')->name('front.language');
   Route::get('/price/{id}', 'Front\FrontendController@price')->name('front.price');
