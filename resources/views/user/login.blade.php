@@ -39,7 +39,7 @@
           <div class="col-lg-5">
             <div class="login-area">
               <div class="header-area">
-                <h4 class="title">{{ __('User Login') }}</h4>
+                <h4 class="title">{{ __('Vendor Login') }}</h4>
                 <p class="text">{{ __('Please login below') }}</p>
               </div>
               <div class="login-form">
