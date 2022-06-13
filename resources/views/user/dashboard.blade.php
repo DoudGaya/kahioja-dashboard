@@ -14,7 +14,7 @@
                 <div class="account-info">
                   <div class="header-area">
                     <h4 class="title">
-                      {{ $langg->lang208 }}
+                      Account Information
                     </h4>
                   </div>
                   <div class="edit-info-area">
@@ -23,31 +23,31 @@
                     <h5 class="title">{{ $user->name }}</h5>
                     <ul class="list">
                       <li>
-                        <p><span class="user-title">{{ $langg->lang209 }}:</span> {{ $user->email }}</p>
+                        <p><span class="user-title">Email:</span> {{ $user->email }}</p>
                       </li>
                       @if($user->phone != null)
                       <li>
-                        <p><span class="user-title">{{ $langg->lang210 }}:</span> {{ $user->phone }}</p>
+                        <p><span class="user-title">Phone:</span> {{ $user->phone }}</p>
                       </li>
                       @endif
                       @if($user->fax != null)
                       <li>
-                        <p><span class="user-title">{{ $langg->lang211 }}:</span> {{ $user->fax }}</p>
+                        <p><span class="user-title">Fax:</span> {{ $user->fax }}</p>
                       </li>
                       @endif
                       @if($user->city != null)
                       <li>
-                        <p><span class="user-title">{{ $langg->lang212 }}:</span> {{ $user->city }}</p>
+                        <p><span class="user-title">City:</span> {{ $user->city }}</p>
                       </li>
                       @endif
                       @if($user->zip != null)
                       <li>
-                        <p><span class="user-title">{{ $langg->lang213 }}:</span> {{ $user->zip }}</p>
+                        <p><span class="user-title">Zip:</span> {{ $user->zip }}</p>
                       </li>
                       @endif
                       @if($user->address != null)
                       <li>
-                        <p><span class="user-title">{{ $langg->lang214 }}:</span> {{ $user->address }}</p>
+                        <p><span class="user-title">Address:</span> {{ $user->address }}</p>
                       </li>
                       @endif
                     </ul>
@@ -61,7 +61,7 @@
                 <div class="account-info wallet h100">
                   <div class="header-area">
                     <h4 class="title">
-                      {{ isset($langg->lang812) ? $langg->lang812 : 'My Balance' }}
+                       My Balance
                     </h4>
                   </div>
                   <div class="edit-info-area">
@@ -69,8 +69,6 @@
                   <div class="main-info">
                     <h3 class="title w-title">Current Balance:</h3>
                     <h3 class="title w-price">₦{{ $user->current_balance }}</h3>
-                    <!--<h3 class="title w-title">{{ $langg->lang215 }}:</h3>-->
-                    <!--<h3 class="title w-price">{{ App\Models\Product::vendorConvertPrice($user->affilate_income) }}</h3>-->
                   </div>
                 </div>
               </div>
@@ -85,8 +83,8 @@
                   <p>{{ Auth::user()->orders()->where('status','completed')->count() }}</p>
                 </div>
                 <div class="c-info-box-content">
-                    <h6 class="title">{{ isset($langg->lang809) ? $langg->lang809 : 'Total Orders' }}</h6>
-                    <p class="text">{{ isset($langg->lang811) ? $langg->lang811 : 'All Time' }}</p>
+                    <h6 class="title">Total Orders</h6>
+                    <p class="text">All Time</p>
                 </div>
             </div>
           </div>
@@ -96,8 +94,8 @@
                       <p>{{ Auth::user()->orders()->where('status','pending')->count() }}</p>
                   </div>
                   <div class="c-info-box-content">
-                      <h6 class="title">{{ isset($langg->lang810) ? $langg->lang810 : 'Pending Orders' }}</h6>
-                      <p class="text">{{ isset($langg->lang811) ? $langg->lang811 : 'All Time' }}</p>
+                      <h6 class="title">Pending Orders</h6>
+                      <p class="text">All Time</p>
                   </div>
               </div>
           </div>
@@ -109,7 +107,7 @@
             <div class="account-info wallet">
               <div class="header-area">
                 <h4 class="title">
-                  {{ isset($langg->lang808) ? $langg->lang808 : 'Recent Orders' }}
+                  Recent Orders
                 </h4>
               </div>
               <div class="edit-info-area">
@@ -120,11 +118,11 @@
 											<table id="example" class="table table-hover dt-responsive" cellspacing="0" width="100%">
 												<thead>
 													<tr>
-														<th>{{ $langg->lang278 }}</th>
-														<th>{{ $langg->lang279 }}</th>
-														<th>{{ $langg->lang280 }}</th>
-														<th>{{ $langg->lang281 }}</th>
-														<th>{{ $langg->lang282 }}</th>
+														<th>#Order</th>
+														<th>Date</th>
+														<th>Order Total</th>
+														<th>Order Status</th>
+														<th>View</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -147,7 +145,7 @@
 														</td>
 														<td>
 															<a class="mybtn2 sm" href="{{route('user-order',$order->id)}}">
-																	{{ $langg->lang283 }}
+																	View Order
 															</a>
 														</td>
 													</tr>

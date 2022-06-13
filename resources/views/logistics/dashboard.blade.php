@@ -23,7 +23,7 @@
                 <div class="col-md-12 col-lg-6 col-xl-4">
                     <div class="mycard bg6">
                         <div class="left">
-                            <h5 class="title">{{ $langg->lang470 }}</h5>
+                            <h5 class="title">Total Earnings!</h5>
                             <span class="number">{{App\Models\Product::vendorConvertPrice( App\Models\VendorOrder::where('logistics_id','=',$logistics_id)->where('status','=','delivered')->sum('ship_fee') )}}</span>
                         </div>
                         <!--<div class="right d-flex align-self-center">-->

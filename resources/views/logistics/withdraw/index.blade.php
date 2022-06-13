@@ -6,13 +6,13 @@
 						<div class="mr-breadcrumb">
 							<div class="row">
 								<div class="col-lg-12">
-										<h4 class="heading">{{ $langg->lang472 }}</h4>
+										<h4 class="heading">My Withdraws</h4>
 										<ul class="links">
 											<li>
-												<a href="{{ route('logistics.dashboard') }}">{{ $langg->lang441 }} </a>
+												<a href="{{ route('logistics.dashboard') }}">Dashboard</a>
 											</li>
 											<li>
-												<a href="{{ route('logistics-wt-index') }}">{{ $langg->lang472 }}</a>
+												<a href="{{ route('logistics-wt-index') }}">My Withdraws</a>
 											</li>
 										</ul>
 								</div>
@@ -32,13 +32,13 @@
 												<table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
 													<thead>
 														<tr>
-						                                <th>{{ $langg->lang474 }}</th>
+						                                <th>Withdraw Date</th>
 						                                <th>Bank Name</th>
 						                                <th>Account No</th>
 						                                <th>Account Name</th>
-						                                <th>{{ $langg->lang477 }}</th>
+						                                <th>Amount</th>
 						                                <th>{{ __("Charges") }}</th>
-						                                <th>{{ $langg->lang478 }}</th>
+						                                <th>Status</th>
 														</tr>
 													</thead>
 
@@ -88,7 +88,7 @@
       	$(function() {
         $(".btn-area").append('<div class="col-sm-4 text-right">'+
         	'<a class="add-btn" href="{{route('logistics-wt-create')}}">'+
-          '<i class="fas fa-plus"></i> {{ $langg->lang473 }}'+
+          '<i class="fas fa-plus"></i> Withdraw Now'+
           '</a>'+
           '</div>');
       });												

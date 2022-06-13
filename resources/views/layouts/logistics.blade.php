@@ -130,7 +130,7 @@
 								<a href="{{ route('logistics-completed-delivery-index') }}"><i class="fas fa-truck"></i> {{ __('Total Delivery') }}</a>
 							</li>
 							<li>
-								<a href="{{route('logistics-wt-index')}}" class="wave-effect"><i class="fas fa-list"></i>{{ $langg->lang451 }}</a>
+								<a href="{{route('logistics-wt-index')}}" class="wave-effect"><i class="fas fa-list"></i>{{ __('Withdraws') }}</a>
 							</li>
                             <li>
 								<a href="{{ route('logistics.profile') }}"><i class="fas fa-user"></i> {{ __('Edit Profile') }}</a>
