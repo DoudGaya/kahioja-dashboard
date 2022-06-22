@@ -54,7 +54,7 @@ class ProductController extends Controller
          return Datatables::of($datas)
                             ->editColumn('name', function(Product $data) {
                                 $name = strlen(strip_tags($data->name)) > 50 ? substr(strip_tags($data->name),0,50).'...' : strip_tags($data->name);
-                                $id = '<small>Product ID: <a href="'.route('front.product', $data->slug).'" target="_blank">'.sprintf("%'.08d",$data->id).'</a></small>';
+                                $id = '<small>Product ID: <a href="/item/'.$data->slug.'" target="_blank">'.sprintf("%'.08d",$data->id).'</a></small>';
                                 return  $name.'<br>'.$id;
                             })
                             ->editColumn('price', function(Product $data) {
@@ -423,6 +423,7 @@ class ProductController extends Controller
             $data = new Product;
             $sign = Currency::where('is_default','=',1)->first();
             $input = $request->all();
+            
             // Check File
             if ($file = $request->file('file'))
             {
@@ -457,12 +458,13 @@ class ProductController extends Controller
             if ($request->product_condition_check == ""){
                 $input['product_condition'] = 0;
             }
+            
 
             // Check Shipping Time
             if ($request->shipping_time_check == ""){
                 $input['ship'] = null;
             }
-
+            
             // Check Size
             if(empty($request->size_check ))
             {
@@ -532,20 +534,22 @@ class ProductController extends Controller
              }
 
             }
+            
 
             // Check Seo
-        if (empty($request->seo_check))
-         {
-            $input['meta_tag'] = null;
-            $input['meta_description'] = null;
-         }
-         else {
-        if (!empty($request->meta_tag))
-         {
-            $input['meta_tag'] = implode(',', $request->meta_tag);
-         }
-         }
+            if (empty($request->seo_check))
+             {
+                $input['meta_tag'] = null;
+                $input['meta_description'] = null;
+             }
+             else {
+            if (!empty($request->meta_tag))
+             {
+                $input['meta_tag'] = implode(',', $request->meta_tag);
+             }
+             }
 
+    
              // Check License
 
             if($request->type == "License")
@@ -563,6 +567,7 @@ class ProductController extends Controller
                 }
 
             }
+            
 
              // Check Features
             if(in_array(null, $request->features) || in_array(null, $request->colors))
@@ -575,18 +580,21 @@ class ProductController extends Controller
                 $input['features'] = implode(',', str_replace(',',' ',$request->features));
                 $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
             }
+            
 
             //tags
             if (!empty($request->tags))
              {
                 $input['tags'] = implode(',', $request->tags);
              }
+             
 
             // Conert Price According to Currency
              $input['price'] = ($input['price'] / $sign->value);
              $input['previous_price'] = ($input['previous_price'] / $sign->value);
          	 $input['user_id'] = Auth::user()->id;
-
+            
+            
            // store filtering attributes for physical product
            $attrArr = [];
            if (!empty($request->category_id)) {
@@ -651,62 +659,44 @@ class ProductController extends Controller
              $input['attributes'] = $jsonAttr;
            }
 
-            // Save Data
-                $data->fill($input)->save();
-
-            // Set SLug
-
-                $prod = Product::find($data->id);
-                if($prod->type != 'Physical'){
-                    $prod->slug = str_slug($data->name,'-').'-'.strtolower(str_random(3).$data->id.str_random(3));
-                }
-                else {
-                    $prod->slug = str_slug($data->name,'-').'-'.strtolower($data->sku);
-                }
-                // Set Photo
-                $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(800, null, function ($c) {
-                    $c->aspectRatio();
-                });
-                $photo = time().str_random(8).'.jpg';
-                $resizedImage->save(public_path().'/assets/images/products/'.$photo);
-
-
-                // Set Thumbnail
-                $background = Image::canvas(300, 300);
-                $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(300, 300, function ($c) {
-                    $c->aspectRatio();
-                    $c->upsize();
-                });
-
-                // insert resized image centered into background
-                $background->insert($resizedImage, 'center');
-
-                // save or do whatever you like
-                $thumbnail = time().str_random(8).'.jpg';
-                $background->save(public_path().'/assets/images/thumbnails/'.$thumbnail);
-
-
-                $prod->thumbnail  = $thumbnail;
-                $prod->photo  = $photo;
-                $prod->update();
-
+            
+            $slug = str_slug($input['name'],'-').'-'.strtolower($input['sku']);
+            
+            Product::create([
+                'name' => $input['name'],
+                'sku' => $input['sku'],
+                'slug' => $slug,
+                'photo' => $name,
+                'product_condition' => $input['product_condition'],
+                'ship' => $input['ship'],
+                'size' => $input['size'],
+                'size_qty' => $input['size_qty'],
+                'size_price' => $input['size_price'],
+                'color' => $input['color'],
+                'measure' => $input['measure'],
+                'meta_tag' => $input['meta_tag'],
+                'meta_description' => $input['meta_description'],
+                'features' => $input['features'],
+                'colors' => $input['colors'],
+                'price' => $input['price'],
+                'previous_price' => $input['previous_price'],
+                'user_id' => $input['user_id'],
+            ]);
+            
             // Add To Gallery If any
-                $lastid = $data->id;
+                
+                $prod = Product::latest('id')->first();
+                $lastid = $prod->id;
                 if ($files = $request->file('gallery')){
                     foreach($files as $file){
-                        // if(in_array($key, $request->galval))
-                        // {
-                            $gallery = new Gallery;
-                            $name = time().str_replace(' ', '', $file->getClientOriginalName());
-                            $img = Image::make($file->getRealPath())->resize(800, null, function ($constraint) {
-                                $constraint->aspectRatio();
-                            });
-                            $thumbnail = time().str_random(8).'.jpg';
-                            $img->save(public_path().'/assets/images/galleries/'.$name);
-                            $gallery['photo'] = $name;
-                            $gallery['product_id'] = $lastid;
-                            $gallery->save();
-                        // }
+                        
+                        $gallery = new Gallery;
+                        
+                        $name = time().str_replace(' ', '', $file->getClientOriginalName());
+                       $file->move('assets/images/galleries', $name);           
+                        $gallery['photo'] = $name;
+                        $gallery['product_id'] = $lastid;
+                        $gallery->save();
                     }
                 }
         //logic Section Ends

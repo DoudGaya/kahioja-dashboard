@@ -31,7 +31,7 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg6">
                                         <div class="left">
-                                            <h5 class="title">{{ $langg->lang470 }}</h5>
+                                            <h5 class="title">Total Earnings!</h5>
                                             <span class="number">{{ App\Models\Product::vendorConvertPrice( App\Models\VendorOrder::where('user_id','=',$user->id)->where('status','!=','pending')->where('status','!=','processing')->where('status','!=','declined')->sum('price') ) }}</span>
                                         </div>
                                         <!--<div class="right d-flex align-self-center">-->
@@ -46,9 +46,9 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg1">
                                         <div class="left">
-                                            <h5 class="title">{{ $langg->lang465 }} </h5>
+                                            <h5 class="title">Orders Pending! </h5>
                                             <span class="number">{{ count($pending) }}</span>
-                                            <a href="{{route('vendor-order-index')}}" class="link">{{ $langg->lang471 }}</a>
+                                            <a href="{{route('vendor-order-index')}}" class="link">View All</a>
                                         </div>
                                         <!--<div class="right d-flex align-self-center">-->
                                         <!--    <div class="icon">-->
@@ -61,9 +61,9 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg2">
                                         <div class="left">
-                                            <h5 class="title">{{ $langg->lang466 }}</h5>
+                                            <h5 class="title">Orders Procsessing!</h5>
                                             <span class="number">{{ count($processing) }}</span>
-                                            <a href="{{route('vendor-order-index')}}" class="link">{{ $langg->lang471 }}</a>
+                                            <a href="{{route('vendor-order-index')}}" class="link">View All</a>
                                         </div>
                                         <div class="right d-flex align-self-center">
                                             <div class="icon">
@@ -76,9 +76,9 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg3">
                                         <div class="left">
-                                            <h5 class="title">{{ $langg->lang467 }}</h5>
+                                            <h5 class="title">Orders Completed!</h5>
                                             <span class="number">{{ count($completed) }}</span>
-                                            <a href="{{route('vendor-order-index')}}" class="link">{{ $langg->lang471 }}</a>
+                                            <a href="{{route('vendor-order-index')}}" class="link">View All</a>
                                         </div>
                                         <div class="right d-flex align-self-center">
                                             <div class="icon">
@@ -91,9 +91,9 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg4">
                                         <div class="left">
-                                            <h5 class="title">{{ $langg->lang468 }}</h5>
+                                            <h5 class="title">Total Products!</h5>
                                             <span class="number">{{ count($user->products) }}</span>
-                                            <a href="{{route('vendor-prod-index')}}" class="link">{{ $langg->lang471 }}</a>
+                                            <a href="{{route('vendor-prod-index')}}" class="link">View All</a>
                                         </div>
                                         <div class="right d-flex align-self-center">
                                             <div class="icon">
@@ -107,7 +107,7 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg5">
                                         <div class="left">
-                                            <h5 class="title">{{ $langg->lang469 }}</h5>
+                                            <h5 class="title">Total Item Sold!</h5>
                                             <span class="number">{{ App\Models\VendorOrder::where('user_id','=',$user->id)->where('status','=','completed')->sum('qty') }}</span>
                                         </div>
                                         <div class="right d-flex align-self-center">

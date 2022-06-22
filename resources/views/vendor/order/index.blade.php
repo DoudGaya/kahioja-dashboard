@@ -48,17 +48,6 @@
                                                 @endphp
                     @foreach($orderr as $order)
 
-
-@php 
-
-  if($user->shipping_cost != 0){
-      $price +=  round($user->shipping_cost * $order->order->currency_value , 2);
-    }
-  if(App\Models\Order::where('order_number','=',$order->order->order_number)->first()->tax != 0){
-      $price  += ($price / 100) * App\Models\Order::where('order_number','=',$order->order->order_number)->first()->tax;
-    }    
-
-@endphp
                                                         <tr>
                                                     <td> <a href="{{route('vendor-order-invoice',$order->order_number)}}">{{ $order->order->order_number}}</a></td>
                                           <td>{{$qty}}</td>

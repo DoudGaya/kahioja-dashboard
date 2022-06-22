@@ -32,9 +32,9 @@ class VendorController extends Controller
             }
             else
             {
-                $data = DB::table('languages')->where('is_default','=',1)->first();
-                $data_results = file_get_contents(public_path().'/assets/languages/'.$data->file);
-                $this->lang = json_decode($data_results);
+                // $data = DB::table('languages')->where('is_default','=',1)->first();
+                // $data_results = file_get_contents(public_path().'/assets/languages/'.$data->file);
+                // $this->lang = json_decode($data_results);
                 
             } 
     }

@@ -183,7 +183,7 @@
 
       	$(function() {
         $(".btn-area").append('<div class="col-sm-4 table-contents">'+
-        	'<a class="add-btn" href="{{route('vendor-prod-types')}}">'+
+        	'<a class="add-btn" href="{{route('vendor-prod-physical-create')}}">'+
           '<i class="fas fa-plus"></i> <span class="remove-mobile">{{ $langg->lang623 }}<span>'+
           '</a>'+
           '</div>');

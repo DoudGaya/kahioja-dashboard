@@ -27,21 +27,11 @@
     	<link rel="stylesheet" href="{{ asset('assets/vendor/css/bootstrap-coloroicker.css') }}">
 		<!-- Main Css -->
 
-	@if($langg->rtl == "1")
+		<link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet"/>
+		<link href="{{asset('assets/admin/css/custom.css')}}" rel="stylesheet"/>
+		<link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet" />
+		<link href="{{asset('assets/admin/css/common.css')}}" rel="stylesheet" />
 
-	<link href="{{asset('assets/admin/css/rtl/style.css')}}" rel="stylesheet"/>
-	<link href="{{asset('assets/admin/css/rtl/custom.css')}}" rel="stylesheet"/>
-	<link href="{{asset('assets/admin/css/rtl/responsive.css')}}" rel="stylesheet" />
-	<link href="{{asset('assets/admin/css/common.css')}}" rel="stylesheet" />
-
-	@else
-
-	<link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet"/>
-	<link href="{{asset('assets/admin/css/custom.css')}}" rel="stylesheet"/>
-	<link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet" />
-	<link href="{{asset('assets/admin/css/common.css')}}" rel="stylesheet" />
-
-	@endif
 
 		@yield('styles')
 
@@ -93,21 +83,13 @@
 										<div class="dropdown-menu">
 											<div class="dropdownmenu-wrapper">
 													<ul>
-														<h5>{{ $langg->lang431 }}</h5>
+														<h5>Welcome</h5>
 
 															<li>
-																<a target="_blank" href="{{ route('front.vendor',str_replace(' ', '-', Auth::user()->shop_name)) }}"><i class="fas fa-eye"></i> {{ $langg->lang432 }}</a>
-															</li>
-
-															<li>
-																<a href="{{ route('user-dashboard') }}"><i class="fas fa-sign-in-alt"></i> {{ $langg->lang433 }}</a>
-															</li>
-
-															<li>
-																<a href="{{ route('vendor-profile') }}"><i class="fas fa-user"></i> {{ $langg->lang434 }}</a>
+																<a href="{{ route('vendor-profile') }}"><i class="fas fa-user"></i> Edit Profile</a>
 															</li>
 															<li>
-																<a href="{{ route('user-logout') }}"><i class="fas fa-power-off"></i> {{ $langg->lang435 }}</a>
+																<a href="{{ route('vendor.logout') }}"><i class="fas fa-power-off"></i> Logout</a>
 															</li>
 
 														</ul>
@@ -126,17 +108,13 @@
 						<ul class="list-unstyled components" id="accordion">
 
 							<li>
-								<a target="_blank" href="{{ route('front.vendor',str_replace(' ', '-', Auth::user()->shop_name)) }}" class="wave-effect"><i class="fas fa-eye mr-2"></i> {{ $langg->lang440 }}</a>
-							</li>
-
-							<li>
-								<a href="{{ route('vendor-dashboard') }}" class="wave-effect "><i class="fa fa-home mr-2"></i>{{ $langg->lang441 }}</a>
+								<a href="{{ route('vendor-dashboard') }}" class="wave-effect "><i class="fa fa-home mr-2"></i>Dashboard</a>
 							</li>
 							<li>
-								<a href="#order" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false"><i class="fas fa-hand-holding-usd"></i>{{ $langg->lang442 }}</a>
+								<a href="#order" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false"><i class="fas fa-hand-holding-usd"></i>Orders</a>
 								<ul class="collapse list-unstyled" id="order" data-parent="#accordion" >
                                    	<li>
-                                    	<a href="{{route('vendor-order-index')}}"> {{ $langg->lang443 }}</a>
+                                    	<a href="{{route('vendor-order-index')}}">All Orders</a>
                                 	</li>
 									<li>
         								<a href="{{route('pick-up-for-packaging-index')}}">{{ __('Delivery Accepted') }}</a>
@@ -152,63 +130,31 @@
 
 							<li>
 								<a href="#menu2" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
-									<i class="icofont-cart"></i>{{ $langg->lang444 }}
+									<i class="icofont-cart"></i>Products
 								</a>
 								<ul class="collapse list-unstyled" id="menu2" data-parent="#accordion">
 									<li>
-										<a href="{{ route('vendor-prod-types') }}"><span>{{ $langg->lang445 }}</span></a>
+										<a href="{{ route('vendor-prod-physical-create') }}"><span>Add New Products</span></a>
 									</li>
 									<li>
-										<a href="{{ route('vendor-prod-index') }}"><span>{{ $langg->lang446 }}</span></a>
+										<a href="{{ route('vendor-prod-index') }}"><span>All Products</span></a>
 									</li>
 									<li>
-										<a href="{{ route('admin-vendor-catalog-index') }}"><span>{{ $langg->lang785 }}</span></a>
+										<a href="{{ route('admin-vendor-catalog-index') }}"><span>Products Catalog</span></a>
 									</li>
 								</ul>
 							</li>
 
 							<li>
-								<a href="#affiliateprod" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
-									<i class="icofont-cart"></i>{{ $langg->lang447 }}
-								</a>
-								<ul class="collapse list-unstyled" id="affiliateprod" data-parent="#accordion">
-									<li>
-										<a href="{{ route('vendor-import-create') }}"><span>{{ $langg->lang448 }}</span></a>
-									</li>
-									<li>
-										<a href="{{ route('vendor-import-index') }}"><span>{{ $langg->lang449 }}</span></a>
-									</li>
-								</ul>
-							</li>
-							<!-- <li>
-								<a href="{{-- route('vendor-prod-import') --}}"><i class="fas fa-upload"></i>{{ $langg->lang450 }}</a>
-							</li> -->
-							<li>
-								<a href="{{ route('vendor-wt-index') }}" class=" wave-effect"><i class="fas fa-list"></i>{{ $langg->lang451 }}</a>
+								<a href="{{ route('vendor-wt-index') }}" class=" wave-effect"><i class="fas fa-list"></i>Withdraws</a>
 							</li>
 							<li>
 								<a href="#general" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
-									<i class="fas fa-cogs"></i>{{ $langg->lang452 }}
+									<i class="fas fa-cogs"></i>Settings
 								</a>
 								<ul class="collapse list-unstyled" id="general" data-parent="#accordion">
                                     <li>
-                                    	<a href="{{ route('vendor-service-index') }}"><span>{{ $langg->lang453 }}</span></a>
-                                    </li>
-                                    <li>
-                                    	<a href="{{ route('vendor-banner') }}"><span>{{ $langg->lang454 }}</span></a>
-                                    </li>
-                                    @if($gs->vendor_ship_info == 1)
-	                                    <li>
-	                                    	<a href="{{ route('vendor-shipping-index') }}"><span>{{ $langg->lang719 }}</span></a>
-	                                    </li>
-	                                @endif
-	                                @if($gs->multiple_packaging == 1)
-	                                    <li>
-	                                    	<a href="{{ route('vendor-package-index') }}"><span>{{ $langg->lang721 }}</span></a>
-	                                    </li>
-	                                @endif
-                                    <li>
-                                    	<a href="{{ route('vendor-social-index') }}"><span>{{ $langg->lang456 }}</span></a>
+                                    	<a href="{{ route('vendor-social-index') }}"><span>Social Links</span></a>
                                     </li>
 								</ul>
 							</li>
@@ -228,10 +174,9 @@
 
 		<script type="text/javascript">
 
-		  var mainurl = "{{url('/')}}";
-		  var admin_loader = {{ $gs->is_admin_loader }};
-		  var whole_sell = {{ $gs->wholesell }};
-		  var langg    = {!! json_encode($langg) !!};
+		  	var mainurl = "{{url('/')}}";
+		  	var admin_loader = {{ $gs->is_admin_loader }};
+		  	var whole_sell = {{ $gs->wholesell }};
 			var getattrUrl = '{{ route('vendor-prod-getattributes') }}';
 			var curr = {!! json_encode($curr) !!};
 

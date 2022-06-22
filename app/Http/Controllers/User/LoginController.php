@@ -55,17 +55,25 @@ class LoginController extends Controller
             return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));   
           }
 
+          // Login Via Modal
+          if(!empty($request->modal))
+          {
+             // Login as Vendor
+            if(!empty($request->vendor))
+            {
+              if(Auth::guard('web')->user()->is_vendor == 2)
+              {
+                return response()->json(route('vendor-dashboard'));
+              }
+              else {
+                return response()->json(route('user-package'));
+                }
+            }
           // Login as User
-          if(Auth::guard('web')->user()->is_vendor == 2){
-            $user = Auth::user();
-            $pending = VendorOrder::where('user_id','=',$user->id)->where('status','=','pending')->get(); 
-            $processing = VendorOrder::where('user_id','=',$user->id)->where('status','=','processing')->get(); 
-            $completed = VendorOrder::where('user_id','=',$user->id)->where('status','=','completed')->get(); 
-            return view('vendor.index',compact('user','pending','processing','completed'));
-          }else{
-            return redirect('https://kahioja.com');
+          return response()->json(1);          
           }
-          // return response()->json(route('user-dashboard'));
+          // Login as User
+          return response()->json(route('user-dashboard'));
       }
 
       // if unsuccessful, then redirect back to the login with the form data

@@ -39,7 +39,7 @@
 						<h2>Vendor</h2>
 					</div>
 					<div class="my-2">
-						<a target="_blank" href="/user/login/" class="btn btn-primary w-75">LOGIN</a>
+						<a target="_blank" href="/vendor/login/" class="btn btn-primary w-75">LOGIN</a>
 					</div>
 				</div>
 				<div class="col-sm-6 bg-primary p-5 text-white">

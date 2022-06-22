@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Order;
+use App\Models\Bag;
 use DB;
 use App\Models\LogisticsDelivery;
 use App\Models\VendorOrder;
@@ -28,7 +29,8 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $order = Order::where('order_number','=',$slug)->first();
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        $cart = Bag::where('order_no','=',$slug)->get();
+        // dd($cart);
         return view('vendor.order.details',compact('user','order','cart'));
     }
 
