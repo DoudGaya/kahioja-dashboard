@@ -7,6 +7,7 @@ use App\Models\Logistic;
 use App\Models\Order;
 use App\Models\LogisticsDelivery;
 use App\Models\User;
+use App\Models\Bag;
 use App\Models\VendorOrder;
 use DB;
 use Auth;
@@ -34,10 +35,10 @@ class ReadyfordeliveryController extends Controller
     public function show($slug)
     {
         $order = Order::where('order_number','=',$slug)->first();
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        $cart = Bag::where('order_no','=',$slug)->get();
         
         $datas = DB::select("SELECT DISTINCT vendor_orders.order_number, vendor_orders.user_id, users.owner_name, users.shop_name, users.shop_address, users.shop_number FROM vendor_orders, users WHERE vendor_orders.order_number='$slug' AND vendor_orders.status='completed' AND vendor_orders.user_id = users.id ORDER BY users.id");
-
+        // dd($datas);
         return view('logistics.order.delivery',compact('order','cart','datas'));
     }
 

@@ -51,7 +51,7 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $order = Order::where('order_number','=',$slug)->first();
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        $cart = Bag::where('order_no','=',$slug)->get();
         return view('vendor.order.invoice',compact('user','order','cart'));
     }
 
@@ -59,7 +59,7 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $order = Order::where('order_number','=',$slug)->first();
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        $cart = Bag::where('order_no','=',$slug)->get();
         return view('vendor.order.print',compact('user','order','cart'));
     }
 

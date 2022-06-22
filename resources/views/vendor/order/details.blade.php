@@ -277,7 +277,6 @@
                                                             <tr>
                                                                 <tr>
                                                                     <th>{{ $langg->lang567 }}</th>
-                                                                    <th>{{ $langg->lang568 }}</th>
                                                                     <th>{{ $langg->lang569 }}</th>
                                                                     <th>{{ $langg->lang570 }}</th>
                                                                     <th>{{ $langg->lang539 }}</th>
@@ -287,42 +286,36 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach($cart as $product)
-                                                                <tr>
-                                                                    <td><input type="hidden" value="{{$product->product_id}}">{{ $product->product_id }}</td>
-                                                                    <td>
-                                                                        @if($product->user_id != 0)
-                                                                        @php
+                                                                @if($product->user_id != 0)
+                                                                    @php
                                                                         $user_id = App\Models\Product::where('id', $product->product_id)->pluck('user_id')->first();
-                                                                        $user = App\Models\User::find($user_id);
-                                                                        @endphp
-                                                                            @if(isset($user))
-                                                                                <a target="_blank" href="{{route('admin-vendor-show',$user->id)}}">{{$user->shop_name}}</a>
-                                                                            @else
-                                                                            {{ $langg->lang575 }}
-                                                                            @endif
-                                                                        @endif
-                                                                    </td>
-                                                                    <td>
-                                                                        @if($product->user_id != 0)
-                                                                            {{ $product->paid }}
-                                                                        @endif
-                                                                    </td>
-                                                                    <td>
-                                                                        @php
-                                                                            $name = App\Models\Product::select('name')->where('id','=',$product->product_id)->pluck('name')->first();
-                                                                            echo $name;
-                                                                        @endphp
-                                                                    </td>
-                                                                    <td>
-                                                                        <p>
-                                                                            <strong>{{ $langg->lang754 }} :</strong> {{$product->amount }}
-                                                                        </p>
-                                                                        <p>
-                                                                            <strong>{{ $langg->lang311 }} :</strong> {{$product->quantity }}
-                                                                        </p>
-                                                                    </td>
-                                                                    <td>{{$order->currency_sign}}{{ ($product->quantity * $product->amount) }}</td>
-                                                                </tr>
+                                                                    @endphp
+                                                                    @if($user_id == Auth::user()->id)
+                                                                        <tr>
+                                                                            <td><input type="hidden" value="{{$product->product_id}}">{{ $product->product_id }}</td>
+                                                                            <td>
+                                                                                @if($product->user_id != 0)
+                                                                                    {{ $product->paid }}
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>
+                                                                                @php
+                                                                                    $name = App\Models\Product::select('name')->where('id','=',$product->product_id)->pluck('name')->first();
+                                                                                    echo $name;
+                                                                                @endphp
+                                                                            </td>
+                                                                            <td>
+                                                                                <p>
+                                                                                    <strong>{{ $langg->lang754 }} :</strong> {{$product->amount }}
+                                                                                </p>
+                                                                                <p>
+                                                                                    <strong>{{ $langg->lang311 }} :</strong> {{$product->quantity }}
+                                                                                </p>
+                                                                            </td>
+                                                                            <td>{{$order->currency_sign}}{{ ($product->quantity * $product->amount) }}</td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endif
                                                             @endforeach
                                                         </tbody>
                                                     </table>

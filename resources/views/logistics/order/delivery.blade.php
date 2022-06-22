@@ -148,69 +148,36 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($cart->items as $key => $product)
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" value="{{ $product['license'] }}">
-
-                                                        @if($product['item']['user_id'] == $data->user_id)
-                                                            @php
-                                                            $user = App\Models\User::find($product['item']['user_id']);
-                                                            @endphp
-                                                            @if(isset($user))
-                                                                <a target="_blank" href="{{ route('front.product', $product['item']['slug']) }}">{{mb_strlen($product['item']['name'],'utf-8') > 30 ? mb_substr($product['item']['name'],0,30,'utf-8').'...' : $product['item']['name']}}</a>
-                                                            @else
-                                                                <a target="_blank" href="{{ route('front.product', $product['item']['slug']) }}">{{mb_strlen($product['item']['name'],'utf-8') > 30 ? mb_substr($product['item']['name'],0,30,'utf-8').'...' : $product['item']['name']}}</a>
-                                                            @endif
-                                                        @endif
-
-                                                        @if($product['license'] != '')
-                                                            <a href="javascript:;" data-toggle="modal" data-target="#confirm-delete" class="btn btn-info product-btn" id="license" style="padding: 5px 12px;"><i class="fa fa-eye"></i> {{ __('View License') }}</a>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($product['item']['user_id'] == $data->user_id)
-                                                            @if($product['size'])
-                                                            <p>
-                                                                <strong>{{ __('Size') }} :</strong> {{str_replace('-',' ',$product['size'])}}
-                                                            </p>
-                                                            @endif
-                                                            @if($product['color'])
+                                                @foreach($cart as $product)
+                                                    @php
+                                                        $vendor_id = App\Models\Product::where('id', $product->product_id)->pluck('user_id')->first();
+                                                    @endphp
+                                                    @if($vendor_id == $data->user_id)
+                                                        <tr>
+                                                            <td>
+                                                                @php
+                                                                    $name = App\Models\Product::select('name')->where('id','=',$product->product_id)->pluck('name')->first();
+                                                                @endphp
+                                                                {{mb_strlen($name,'utf-8') > 30 ? mb_substr($name,0,30,'utf-8').'...' : $name}}
+                                                            </td>
+                                                            <td>
                                                                 <p>
-                                                                        <strong>{{ __('color') }} :</strong> <span
-                                                                        style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;  background: #{{$product['color']}};"></span>
+                                                                    <strong>{{ $langg->lang754 }} :</strong> {{$order->currency_sign}}{{$product->amount }}
                                                                 </p>
+                                                                <p>
+                                                                    <strong>{{ $langg->lang311 }} :</strong> {{$product->quantity }}
+                                                                </p>
+                                                            </td>
+                                                            <td>{{$order->currency_sign}}{{ ($product->quantity * $product->amount) }}</td>
+                                                            <td>
+                                                                @if($product->ship_fee != 0)
+                                                                    {{$order->currency_sign}}{{ $product->ship_fee }}
+                                                                @else
+                                                                    Free Delivery
                                                                 @endif
-                                                                <p>
-                                                                        <strong>{{ __('Price') }} :</strong> {{$order->currency_sign}}{{ round($product['item_price'] * $order->currency_value , 2) }}
-                                                                </p>
-                                                            <p>
-                                                                <strong>{{ __('Qty') }} :</strong> {{$product['qty']}} {{ $product['item']['measure'] }}
-                                                            </p>
-                                                            @if(!empty($product['keys']))
-                                                                @foreach( array_combine(explode(',', $product['keys']), explode(',', $product['values']))  as $key => $value)
-                                                                <p>
-                                                                    <b>{{ ucwords(str_replace('_', ' ', $key))  }} : </b> {{ $value }} 
-                                                                </p>
-                                                                @endforeach
-                                                            @endif    
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($product['item']['user_id'] == $data->user_id)
-                                                            {{$order->currency_sign}}{{ round($product['price'] * $order->currency_value , 2) }}
-                                                        @endif    
-                                                    </td>
-                                                    <td>
-                                                        @if($product['item']['user_id'] == $data->user_id)
-                                                            @if($product['item']['ship_fee'] != 0)
-                                                                {{$order->currency_sign}}{{ round($product['item']['ship_fee'] * $order->currency_value , 2) }}
-                                                            @else
-                                                                Free Delivery
-                                                            @endif
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>

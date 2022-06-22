@@ -101,82 +101,44 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                        $subtotal = 0;
-                                        $data = 0;
-                                        $tax = 0;
-
+                                            $subtotal = 0;
+                                            $data = 0;
+                                            $tax = 0;
                                         @endphp
-                                        @foreach($cart->items as $product)
-                                @if($product['item']['user_id'] != 0)
-                                    @if($product['item']['user_id'] == $user->id)
-
-                                        <tr>
-                                            <td width="50%">
-                                                @if($product['item']['user_id'] != 0)
+                                        @foreach($cart as $product)
+                                            @if($product->user_id != 0)
                                                 @php
-                                                $user = App\Models\User::find($product['item']['user_id']);
+                                                    $user_id = App\Models\Product::where('id', $product->product_id)->pluck('user_id')->first();
                                                 @endphp
-                                                @if(isset($user))
-                                                <a target="_blank"
-                                                    href="{{ route('front.product', $product['item']['slug']) }}">{{ $product['item']['name']}}</a>
-                                                @else
-                                                <a href="javascript:;">{{$product['item']['name']}}</a>
+                                                @if($user_id == Auth::user()->id)
+                                                    <tr>
+                                                        <td width="50%">
+                                                            @php
+                                                                $name = App\Models\Product::select('name')->where('id','=',$product->product_id)->pluck('name')->first();
+                                                                echo $name;
+                                                            @endphp
+                                                        </td>
+                                                        <td>
+                                                            <p>
+                                                                <strong>{{ $langg->lang754 }} :</strong> {{$product->amount }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>{{ $langg->lang311 }} :</strong> {{$product->quantity }}
+                                                            </p>
+                                                        </td>
+                                                        <td>{{$order->currency_sign}}{{ ($product->quantity * $product->amount) }}</td>
+                                                        @php
+                                                            $subtotal += $product->quantity * $product->amount;
+                                                        @endphp
+                                                    </tr>
                                                 @endif
-
-                                                @else
-                                                <a href="javascript:;">{{ $product['item']['name']}}</a>
-
-                                                @endif
-                                            </td>
-
-
-                                            <td>
-                                                @if($product['size'])
-                                               <p>
-                                                    <strong>{{ $langg->lang312 }} :</strong> {{str_replace('-',' ',$product['size'])}}
-                                               </p>
-                                               @endif
-                                               @if($product['color'])
-                                                <p>
-                                                        <strong>{{ $langg->lang313 }} :</strong> <span
-                                                        style="width: 40px; height: 20px; display: block; background: #{{$product['color']}};"></span>
-                                                </p>
-                                                @endif
-                                                <p>
-                                                        <strong>{{ $langg->lang754 }} :</strong> {{$order->currency_sign}}{{ round($product['item_price'] * $order->currency_value , 2) }}
-                                                </p>
-                                               <p>
-                                                    <strong>{{ $langg->lang595 }} :</strong> {{$product['qty']}} {{ $product['item']['measure'] }}
-                                               </p>
-                                                    @if(!empty($product['keys']))
-
-                                                    @foreach( array_combine(explode(',', $product['keys']), explode(',', $product['values']))  as $key => $value)
-                                                    <p>
-
-                                                        <b>{{ ucwords(str_replace('_', ' ', $key))  }} : </b> {{ $value }} 
-
-                                                    </p>
-                                                    @endforeach
-
-                                                    @endif
-
-                                            </td>
-
-                                      
-                                            <td>{{$order->currency_sign}}{{ round($product['price'] * $order->currency_value , 2) }}</td>
-                                            @php
-                                            $subtotal += round($product['price'] * $order->currency_value, 2);
-                                            @endphp
-
-                                        </tr>
-
-                                    @endif
-                                @endif
+                                            @endif    
+                                            
                                         @endforeach
                                     </tbody>
 
                                     <tfoot>
-                                        <tr>
+                                    <tr>
                                             <td colspan="2">{{ $langg->lang597 }}</td>
                                             <td>{{$order->currency_sign}}{{ round($subtotal, 2) }}</td>
                                         </tr>
