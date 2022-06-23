@@ -65,7 +65,8 @@ class ReadyfordeliveryController extends Controller
         $logisticsDelivery->save();
         
         $updateVendorOrderStatus = VendorOrder::where('order_number','=',$order_number)->where('user_id','=',$vendor_id)->update(['status' => 'accept delivery']);
-        
+        $bag = Bag::where('order_no','=',$order_number)->where('vendor_id','=',$vendor_id)->update(['status' => 'accept delivery','logistics_id'=>$logistics_id]);
+
         $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->get();
         
         if(count($checkVendorOrderCount) == 0){
@@ -105,7 +106,8 @@ class ReadyfordeliveryController extends Controller
         $deleteOrderStatus = LogisticsDelivery::where('order_number','=',$order_number)->where('logistics_id','=',$logistics_id)->where('vendor_id','=',$vendor_id)->delete();
 
         $updateVendorOrderStatus = VendorOrder::where('order_number','=',$order_number)->where('user_id','=',$vendor_id)->update(['status' => 'completed']);
-        
+        $bag = Bag::where('order_no','=',$order_number)->where('vendor_id','=',$vendor_id)->update(['status' => 'completed']);
+
         $updateOrderStatus = Order::where('order_number','=',$order_number)->update(['status' => 'ready for delivery']);
         
         return redirect()->route('logistics-pick-up-for-delivery-index');
@@ -135,6 +137,8 @@ class ReadyfordeliveryController extends Controller
         $order_number = $id;
         
         $updateOrderStatus = Order::where('order_number','=',$order_number)->update(['status' => 'delivered']);
+        $bag = Bag::where('order_no','=',$order_number)->where('vendor_id','=',$vendor_id)->update(['status' => 'delivered']);
+
         $updateDeleiveryStatus = LogisticsDelivery::where('order_number','=',$order_number)->update(['delivery_status' => 3]);
         
         return redirect()->route('logistics-pick-up-for-delivery-index');

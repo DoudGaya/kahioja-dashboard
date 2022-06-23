@@ -73,6 +73,7 @@ class OrderController extends Controller
         }else{
             $user = Auth::user();
             $order = VendorOrder::where('order_number','=',$slug)->where('user_id','=',$user->id)->update(['status' => $status]);
+            $bag = Bag::where('order_no','=',$slug)->where('vendor_id','=',$user->id)->update(['status' => $status]);
             
             if($status == "pending"){
                 $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'pending']);
@@ -104,6 +105,8 @@ class OrderController extends Controller
         $updatePickUpStatus = LogisticsDelivery::where('order_number','=',$order_number)->where('vendor_id','=',$user->id)->update(['delivery_status' => 2]);
 
         $updateVendorOrderStatus = VendorOrder::where('order_number','=',$order_number)->where('user_id','=',$user->id)->update(['status' => 'picked up for delivery']);
+        
+        $bag = Bag::where('order_no','=',$order_number)->where('vendor_id','=',$user->id)->update(['status' => 'picked up for delivery']);
 
         $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->orwhere('status','=','accept delivery')->get();
         
