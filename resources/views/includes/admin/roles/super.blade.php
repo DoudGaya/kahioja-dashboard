@@ -235,39 +235,33 @@
             <li>
                 <a href="{{ route('admin-gs-load') }}"><span>{{ __('Loader') }}</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('admin-shipping-index') }}"><span>{{ __('Shipping Methods') }}</span></a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-package-index') }}"><span>{{ __('Packagings') }}</span></a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-pick-index') }}"><span>{{ __('Pickup Locations') }}</span></a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
             <a href="{{ route('admin-gs-contents') }}"><span>{{ __('Website Contents') }}</span></a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-gs-footer') }}"><span>{{ __('Footer') }}</span></a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-gs-affilate') }}"><span>{{__('Affiliate Information')}}</span></a>
-            </li>
-
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-gs-popup') }}"><span>{{ __('Popup Banner') }}</span></a>
-            </li>
-
-
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-gs-error-banner') }}"><span>{{ __('Error Banner') }}</span></a>
-            </li>
-
-
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="{{ route('admin-gs-maintenance') }}"><span>{{ __('Website Maintenance') }}</span></a>
-            </li>
-
+            </li> -->
         </ul>
     </li>
     <!-- Home Page Settings -->

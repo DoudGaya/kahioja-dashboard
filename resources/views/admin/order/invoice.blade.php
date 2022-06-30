@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="invoice__logo text-left">
-                           <img src="{{ asset('assets/images/'.$gs->invoice_logo) }}" alt="woo commerce logo">
+                           <img src="{{ asset('assets/images/'.$gs->invoice_logo) }}" alt="Kahioja">
                         </div>
                     </div>
                     <div class="col-lg-6 text-right">
@@ -104,68 +104,37 @@
                                         $subtotal = 0;
                                         $tax = 0;
                                         @endphp
-                                        @foreach($cart->items as $product)
+                                        @foreach($cart as $product)
                                         <tr>
                                             <td width="50%">
-                                                @if($product['item']['user_id'] != 0)
+                                                @if($product->user_id != 0)
                                                 @php
-                                                $user = App\Models\User::find($product['item']['user_id']);
+                                                $user = App\Models\User::find($product->user_id);
                                                 @endphp
                                                 @if(isset($user))
                                                 <a target="_blank"
-                                                    href="{{ route('front.product', $product['item']['slug']) }}">{{ $product['item']['name']}}</a>
+                                                    href="#">{{ $product->name }}</a>
                                                 @else
-                                                <a href="javascript:;">{{$product['item']['name']}}</a>
+                                                <a href="javascript:;">{{$product->name}}</a>
                                                 @endif
 
                                                 @else
-                                                <a href="javascript:;">{{ $product['item']['name']}}</a>
+                                                <a href="javascript:;">{{ $product->name}}</a>
 
                                                 @endif
                                             </td>
-
-
                                             <td>
-                                                @if($product['size'])
-                                               <p>
-                                                    <strong>{{ __('Size') }} :</strong> {{str_replace('-',' ',$product['size'])}}
-                                               </p>
-                                               @endif
-                                               @if($product['color'])
                                                 <p>
-                                                        <strong>{{ __('color') }} :</strong> <span
-                                                        style="width: 40px; height: 20px; display: block; background: #{{$product['color']}};"></span>
+                                                    <strong>{{ $langg->lang754 }} :</strong> {{$product->amount }}
                                                 </p>
-                                                @endif
                                                 <p>
-                                                    <strong>{{ __('Price') }} :</strong> {{$order->currency_sign}}{{ round($product['item_price'] * $order->currency_value , 2) }}
+                                                    <strong>{{ $langg->lang311 }} :</strong> {{$product->quantity }}
                                                 </p>
-                                               <p>
-                                                    <strong>{{ __('Qty') }} :</strong> {{$product['qty']}} {{ $product['item']['measure'] }}
-                                               </p>
-
-                                                    @if(!empty($product['keys']))
-
-                                                    @foreach( array_combine(explode(',', $product['keys']), explode(',', $product['values']))  as $key => $value)
-                                                    <p>
-
-                                                        <b>{{ ucwords(str_replace('_', ' ', $key))  }} : </b> {{ $value }} 
-
-                                                    </p>
-                                                    @endforeach
-
-                                                    @endif
-                                               
                                             </td>
-
-
-
-
-                                      
-                                            <td>{{$order->currency_sign}}{{ round($product['price'] * $order->currency_value , 2) }}
+                                            <td>{{$order->currency_sign}}{{ round($product->amount * $order->currency_value , 2) }}
                                             </td>
                                             @php
-                                            $subtotal += round($product['price'] * $order->currency_value, 2);
+                                            $subtotal += round($product->amount * $order->currency_value, 2);
                                             @endphp
 
                                         </tr>
@@ -178,39 +147,6 @@
                                             <td colspan="2">{{ __('Subtotal') }}</td>
                                             <td>{{$order->currency_sign}}{{ round($subtotal, 2) }}</td>
                                         </tr>
-                                        @if($order->shipping_cost != 0)
-                                        @php 
-                                        $price = round(($order->shipping_cost / $order->currency_value),2);
-                                        @endphp
-                                            @if(DB::table('shippings')->where('price','=',$price)->count() > 0)
-                                            <tr>
-                                                <td colspan="2">{{ DB::table('shippings')->where('price','=',$price)->first()->title }}({{$order->currency_sign}})</td>
-                                                <td>{{ round($order->shipping_cost , 2) }}</td>
-                                            </tr>
-                                            @endif
-                                        @endif
-
-                                        @if($order->packing_cost != 0)
-                                        @php 
-                                        $pprice = round(($order->packing_cost / $order->currency_value),2);
-                                        @endphp
-                                        @if(DB::table('packages')->where('price','=',$pprice)->count() > 0)
-                                        <tr>
-                                            <td colspan="2">{{ DB::table('packages')->where('price','=',$pprice)->first()->title }}({{$order->currency_sign}})</td>
-                                            <td>{{ round($order->packing_cost , 2) }}</td>
-                                        </tr>
-                                        @endif
-                                        @endif
-
-                                        @if($order->tax != 0)
-                                        <tr>
-                                            <td colspan="2">{{ __('TAX') }}({{$order->currency_sign}})</td>
-                                            @php
-                                            $tax = ($subtotal / 100) * $order->tax;
-                                            @endphp
-                                            <td>{{round($tax, 2)}}</td>
-                                        </tr>
-                                        @endif
                                         @if($order->coupon_discount != null)
                                         <tr>
                                             <td colspan="2">{{ __('Coupon Discount') }}({{$order->currency_sign}})</td>
@@ -220,7 +156,7 @@
                                         <tr>
                                             <td colspan="1"></td>
                                             <td>{{ __('Total') }}</td>
-                                            <td>{{$order->currency_sign}}{{ round($order->pay_amount * $order->currency_value , 2) }}
+                                            <td>{{$order->currency_sign}}{{ round($subtotal * $order->currency_value , 2) }}
                                             </td>
                                         </tr>
                                     </tfoot>

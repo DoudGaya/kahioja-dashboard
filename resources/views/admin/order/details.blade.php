@@ -293,14 +293,13 @@
                                                     <table id="example2" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                                         <thead>
                                                             <tr>
-                                <tr>
-                                    <th width="10%">{{ __('Product ID#') }}</th>
-                                    <th>{{ __('Shop Name') }}</th>
-                                    <th>{{ __('Vendor Status') }}</th>
-                                    <th>{{ __('Product Title') }}</th>
-                                    <th width="20%">{{ __('Details') }}</th>
-                                    <th width="10%">{{ __('Total Price') }}</th>
-                                </tr>
+                                                                <tr>
+                                                                    <th>{{ $langg->lang567 }}</th>
+                                                                    <th>Shop</th>
+                                                                    <th>{{ $langg->lang570 }}</th>
+                                                                    <th>{{ $langg->lang539 }}</th>
+                                                                    <th>{{ $langg->lang574 }}</th>
+                                                                </tr>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -308,7 +307,6 @@
                                     <tr>
                                         
                                             <td><input type="hidden" value="{{$product->id}}">{{ $product->id }}</td>
-
                                             <td>
                                                 @if($product->user_id != 0)
                                                 @php
@@ -323,32 +321,6 @@
                                                 <a  href="javascript:;">{{ App\Models\Admin::find(1)->shop_name }}</a>
                                                 @endif
 
-                                            </td>
-                                            <td>
-                                                @if($product->user_id != 0)
-                                                @php
-                                                $user = App\Models\VendorOrder::where('order_id','=',$order->id)->where('user_id','=',$product->user_id)->first();
-                                                @endphp
-
-                                                    @if($order->dp == 1 && $order->payment_status == 'Completed')
-
-                                                    <span class="badge badge-success">{{ __('Completed') }}</span>
-
-                                                    @else
-                                                        @if($user->status == 'pending')
-                                                        <span class="badge badge-warning">{{ucwords($user->status)}}</span>
-                                                        @elseif($user->status == 'processing')
-                                                        <span class="badge badge-info">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'on delivery')
-                                                        <span class="badge badge-primary">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'completed')
-                                                        <span class="badge badge-success">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'declined')
-                                                        <span class="badge badge-danger">{{ucwords($user->status)}}</span>
-                                                       @endif
-                                                    @endif
-
-                                            @endif
                                             </td>
                                             <td>
                                                 <input type="hidden" value="{{ $product->license }}">

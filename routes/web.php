@@ -1187,7 +1187,6 @@ Route::post('/verify', 'Vendor\VendorController@verifysubmit')->name('vendor-ver
 
 // ************************************ FRONT SECTION **********************************************
   Route::get('/', 'Front\FrontendController@index')->name('front.index');
-  Route::get('/', 'Front\FrontendController@index')->name('login');
   Route::get('/currency/{id}', 'Front\FrontendController@currency')->name('front.currency');
   Route::get('/language/{id}', 'Front\FrontendController@language')->name('front.language');
   Route::get('/price/{id}', 'Front\FrontendController@price')->name('front.price');

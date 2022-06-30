@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Bag;
 use App\Models\Product;
 use App\Models\VendorOrder;
+use App\Models\LogisticsDelivery;;
 use Datatables;
 use PDF;
 use Illuminate\Http\Request;
@@ -78,9 +79,10 @@ class OrderController extends Controller
         $data = Order::findOrFail($id);
                
         $input = $request->all();
-        if($data->status == "completed"){
+
+        if($data->status == "delivered"){
             // Then Save Without Changing it.
-                $input['status'] = "completed";
+                $input['status'] = "delivered";
                 $data->update($input);
                 //--- Logic Section Ends
         
@@ -89,14 +91,24 @@ class OrderController extends Controller
             return response()->json($msg);    
             //--- Redirect Section Ends     
         }else{
-            if($input['status'] == "completed"){
+            if($input['status'] == "delivered"){
                 // The Admin would not be completing the transaction!!!
-                // foreach($data->vendororders as $vorder)
-                // {
-                //     $uprice = User::findOrFail($vorder->user_id);
-                //     $uprice->current_balance = $uprice->current_balance + $vorder->price;
-                //     $uprice->update();
-                // }
+                foreach($data->vendororders as $vorder)
+                {
+                    $uprice = User::findOrFail($vorder->user_id);
+                    $uprice->current_balance = $uprice->current_balance + $vorder->price;
+                    $uprice->update();
+
+                    $updateDeliveryStatus = LogisticsDelivery::where('order_number','=',$data)->where('vendor_id','=',$vorder->user_id)->update(['delivery_status' => 3]);
+                    
+                    // Logistic get his money
+                    $company = VendorOrder::where('logistics_id','=',$vorder->logistics_id)->where('order_number','=',$data)->first();
+                    if($company != null){
+                        $total_sell = VendorOrder::where('logistics_id','=',$vorder->logistics_id)->where('user_id','=',$vorder->user_id)->where('order_number','=',$data)->sum('ship_fee');    
+                        $company->current_balance = $company->current_balance + $total_sell;
+                        $company->update();
+                    }
+                }
     
                 // if( User::where('id', $data->affilate_user)->exists() ){
                 //     $auser = User::where('id', $data->affilate_user)->first();
@@ -261,7 +273,7 @@ class OrderController extends Controller
     public function invoice($id)
     {
         $order = Order::findOrFail($id);
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        $cart = Bag::where('order_no','=',$order->order_number)->get();
         return view('admin.order.invoice',compact('order','cart'));
     }
     public function emailsub(Request $request)
@@ -298,7 +310,7 @@ class OrderController extends Controller
     public function printpage($id)
     {
         $order = Order::findOrFail($id);
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        $cart = Bag::where('order_no','=',$order->order_number)->get();
         return view('admin.order.print',compact('order','cart'));
     }
 
