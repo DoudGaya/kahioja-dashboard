@@ -674,6 +674,7 @@ class ProductController extends Controller
                 'size_price' => $input['size_price'],
                 'color' => $input['color'],
                 'measure' => $input['measure'],
+                'details' => $input['details'],
                 'meta_tag' => $input['meta_tag'],
                 'meta_description' => $input['meta_description'],
                 'features' => $input['features'],
@@ -785,122 +786,122 @@ class ProductController extends Controller
             }            
         $input['photo'] = $name;
         } 
-            //Check Types
-            if($request->type_check == 1)
+        //Check Types
+        if($request->type_check == 1)
+        {
+            $input['link'] = null;
+        }
+        else
+        {
+            if($data->file!=null){
+                    if (file_exists(public_path().'/assets/files/'.$data->file)) {
+                    unlink(public_path().'/assets/files/'.$data->file);
+                }
+            }
+            $input['file'] = null;
+        }
+
+
+        // Check Physical
+        if($data->type == "Physical")
+        {
+
+                //--- Validation Section
+                $rules = ['sku' => 'min:8|unique:products,sku,'.$id];
+
+                $validator = Validator::make($request->all(), $rules);
+
+                if ($validator->fails()) {
+                    return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+                }
+                //--- Validation Section Ends
+
+                    // Check Condition
+                    if ($request->product_condition_check == ""){
+                        $input['product_condition'] = 0;
+                    }
+
+                    // Check Shipping Time
+                    if ($request->shipping_time_check == ""){
+                        $input['ship'] = null;
+                    }
+
+                    // Check Size
+
+                    if(empty($request->size_check ))
+                    {
+                        $input['size'] = null;
+                        $input['size_qty'] = null;
+                        $input['size_price'] = null;
+                    }
+                    else{
+                            if(in_array(null, $request->size) || in_array(null, $request->size_qty) || in_array(null, $request->size_price))
+                            {
+                                $input['size'] = null;
+                                $input['size_qty'] = null;
+                                $input['size_price'] = null;
+                            }
+                            else
+                            {
+
+                                if(in_array(0,$input['size_qty'])){
+                                    return response()->json(array('errors' => [0 => 'Size Qty can not be 0.']));
+                                }
+
+
+                                $input['size'] = implode(',', $request->size);
+                                $input['size_qty'] = implode(',', $request->size_qty);
+                                $size_prices = $request->size_price;
+                                $s_price = array();
+                                foreach($size_prices as $key => $sPrice){
+                                    $s_price[$key] = $sPrice / $sign->value;
+                                }
+                                
+                                $input['size_price'] = implode(',', $s_price);
+                            }
+                    }
+
+                    // Check Whole Sale
+        if(empty($request->whole_check ))
+        {
+            $input['whole_sell_qty'] = null;
+            $input['whole_sell_discount'] = null;
+        }
+        else{
+            if(in_array(null, $request->whole_sell_qty) || in_array(null, $request->whole_sell_discount))
             {
-                $input['link'] = null;
+            $input['whole_sell_qty'] = null;
+            $input['whole_sell_discount'] = null;
             }
             else
             {
-                if($data->file!=null){
-                        if (file_exists(public_path().'/assets/files/'.$data->file)) {
-                        unlink(public_path().'/assets/files/'.$data->file);
+                $input['whole_sell_qty'] = implode(',', $request->whole_sell_qty);
+                $input['whole_sell_discount'] = implode(',', $request->whole_sell_discount);
+            }
+        }
+
+                    // Check Color
+                    if(empty($request->color_check ))
+                    {
+                        $input['color'] = null;
                     }
-                }
-                $input['file'] = null;
-            }
-
-
-            // Check Physical
-            if($data->type == "Physical")
-            {
-
-                    //--- Validation Section
-                    $rules = ['sku' => 'min:8|unique:products,sku,'.$id];
-
-                    $validator = Validator::make($request->all(), $rules);
-
-                    if ($validator->fails()) {
-                        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-                    }
-                    //--- Validation Section Ends
-
-                        // Check Condition
-                        if ($request->product_condition_check == ""){
-                            $input['product_condition'] = 0;
-                        }
-
-                        // Check Shipping Time
-                        if ($request->shipping_time_check == ""){
-                            $input['ship'] = null;
-                        }
-
-                        // Check Size
-
-                        if(empty($request->size_check ))
-                        {
-                            $input['size'] = null;
-                            $input['size_qty'] = null;
-                            $input['size_price'] = null;
-                        }
-                        else{
-                                if(in_array(null, $request->size) || in_array(null, $request->size_qty) || in_array(null, $request->size_price))
-                                {
-                                    $input['size'] = null;
-                                    $input['size_qty'] = null;
-                                    $input['size_price'] = null;
-                                }
-                                else
-                                {
-
-                                    if(in_array(0,$input['size_qty'])){
-                                        return response()->json(array('errors' => [0 => 'Size Qty can not be 0.']));
-                                    }
-
-
-                                    $input['size'] = implode(',', $request->size);
-                                    $input['size_qty'] = implode(',', $request->size_qty);
-                                    $size_prices = $request->size_price;
-                                    $s_price = array();
-                                    foreach($size_prices as $key => $sPrice){
-                                        $s_price[$key] = $sPrice / $sign->value;
-                                    }
-                                    
-                                    $input['size_price'] = implode(',', $s_price);
-                                }
-                        }
-
-                        // Check Whole Sale
-            if(empty($request->whole_check ))
-            {
-                $input['whole_sell_qty'] = null;
-                $input['whole_sell_discount'] = null;
-            }
-            else{
-                if(in_array(null, $request->whole_sell_qty) || in_array(null, $request->whole_sell_discount))
-                {
-                $input['whole_sell_qty'] = null;
-                $input['whole_sell_discount'] = null;
-                }
-                else
-                {
-                    $input['whole_sell_qty'] = implode(',', $request->whole_sell_qty);
-                    $input['whole_sell_discount'] = implode(',', $request->whole_sell_discount);
-                }
-            }
-
-                        // Check Color
-                        if(empty($request->color_check ))
-                        {
+                    else{
+                        if (!empty($request->color))
+                         {
+                            $input['color'] = implode(',', $request->color);
+                         }
+                        if (empty($request->color))
+                         {
                             $input['color'] = null;
-                        }
-                        else{
-                            if (!empty($request->color))
-                             {
-                                $input['color'] = implode(',', $request->color);
-                             }
-                            if (empty($request->color))
-                             {
-                                $input['color'] = null;
-                             }
-                        }
+                         }
+                    }
 
-                        // Check Measure
-                    if ($request->measure_check == "")
-                     {
-                        $input['measure'] = null;
-                     }
-            }
+                    // Check Measure
+                if ($request->measure_check == "")
+                 {
+                    $input['measure'] = null;
+                 }
+        }
 
 
             // Check Seo
@@ -942,27 +943,27 @@ class ProductController extends Controller
         }
 
         }
-            // Check Features
-            if(!in_array(null, $request->features) && !in_array(null, $request->colors))
+        // Check Features
+        if(!in_array(null, $request->features) && !in_array(null, $request->colors))
+        {
+                $input['features'] = implode(',', str_replace(',',' ',$request->features));
+                $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
+        }
+        else
+        {
+            if(in_array(null, $request->features) || in_array(null, $request->colors))
             {
-                    $input['features'] = implode(',', str_replace(',',' ',$request->features));
-                    $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
+                $input['features'] = null;
+                $input['colors'] = null;
             }
             else
             {
-                if(in_array(null, $request->features) || in_array(null, $request->colors))
-                {
-                    $input['features'] = null;
-                    $input['colors'] = null;
-                }
-                else
-                {
-                    $features = explode(',', $data->features);
-                    $colors = explode(',', $data->colors);
-                    $input['features'] = implode(',', $features);
-                    $input['colors'] = implode(',', $colors);
-                }
+                $features = explode(',', $data->features);
+                $colors = explode(',', $data->colors);
+                $input['features'] = implode(',', $features);
+                $input['colors'] = implode(',', $colors);
             }
+        }
 
         //Product Tags
         if (!empty($request->tags))
@@ -1050,30 +1051,30 @@ class ProductController extends Controller
         $prod->slug = str_slug($data->name,'-').'-'.strtolower($data->sku);
 
                 // Set Photo
-                $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(800, null, function ($c) {
-                    $c->aspectRatio();
-                });
-                $photo = time().str_random(8).'.jpg';
-                $resizedImage->save(public_path().'/assets/images/products/'.$photo);
+                // $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(800, null, function ($c) {
+                //     $c->aspectRatio();
+                // });
+                // $photo = time().str_random(8).'.jpg';
+                // $resizedImage->save(public_path().'/assets/images/products/'.$photo);
 
                 
 
                 // Set Thumbnail
 
-                $background = Image::canvas(300, 300);
-                $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(300, 300, function ($c) {
-                    $c->aspectRatio();
-                    $c->upsize();
-                });
-                // insert resized image centered into background
-                $background->insert($resizedImage, 'center');
-                // save or do whatever you like
-                $thumbnail = time().str_random(8).'.jpg';
-                $background->save(public_path().'/assets/images/thumbnails/'.$thumbnail);
+                // $background = Image::canvas(300, 300);
+                // $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(300, 300, function ($c) {
+                //     $c->aspectRatio();
+                //     $c->upsize();
+                // });
+                // // insert resized image centered into background
+                // $background->insert($resizedImage, 'center');
+                // // save or do whatever you like
+                // $thumbnail = time().str_random(8).'.jpg';
+                // $background->save(public_path().'/assets/images/thumbnails/'.$thumbnail);
 
 
-                $prod->thumbnail  = $thumbnail;
-                $prod->photo  = $photo;
+                // $prod->thumbnail  = $thumbnail;
+                // $prod->photo  = $photo;
                 $prod->update();
 
 
