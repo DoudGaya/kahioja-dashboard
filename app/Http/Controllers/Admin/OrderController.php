@@ -30,13 +30,28 @@ class OrderController extends Controller
         if($status == 'pending'){
             $datas = Order::where('status','=','pending')->get();
         }
-        elseif($status == 'processing') {
+        else if($status == 'processing') {
             $datas = Order::where('status','=','processing')->get();
         }
-        elseif($status == 'completed') {
+        else if($status == 'completed') {
             $datas = Order::where('status','=','completed')->orderby('id','desc')->get();
         }
-        elseif($status == 'declined') {
+        else if($status == 'ready for delivery') {
+            $datas = Order::where('status','=','ready for delivery')->orderby('id','desc')->get();
+        }
+        else if($status == 'accept delivery') {
+            $datas = Order::where('status','=','accept delivery')->orderby('id','desc')->get();
+        }
+        else if($status == 'pick up for delivery') {
+            $datas = Order::where('status','=','pick up for delivery')->orderby('id','desc')->get();
+        }
+        else if($status == 'on delivery') {
+            $datas = Order::where('status','=','on delivery')->orderby('id','desc')->get();
+        }
+        else if($status == 'delivered') {
+            $datas = Order::where('status','=','delivered')->orderby('id','desc')->get();
+        }
+        else if($status == 'declined') {
             $datas = Order::where('status','=','declined')->get();
         }
         else{
@@ -243,6 +258,26 @@ class OrderController extends Controller
     public function completed()
     {
         return view('admin.order.completed');
+    }
+    public function readyfordelivery()
+    {
+        return view('admin.order.readyfordelivery');
+    }
+    public function acceptdelivery()
+    {
+        return view('admin.order.acceptdelivery');
+    }
+    public function pickedupfordelivery()
+    {
+        return view('admin.order.pickedupfordelivery');
+    }
+    public function ondelivery()
+    {
+        return view('admin.order.ondelivery');
+    }
+    public function delivered()
+    {
+        return view('admin.order.delivered');
     }
     public function declined()
     {

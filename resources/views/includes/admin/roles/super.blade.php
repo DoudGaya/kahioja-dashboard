@@ -15,6 +15,21 @@
                 <a href="{{route('admin-order-completed')}}"> {{ __('Completed Orders') }}</a>
             </li>
             <li>
+                <a href="{{route('admin-order-readyfordelivery')}}"> {{ __('Ready for Delivery Orders') }}</a>
+            </li>
+            <li>
+                <a href="{{route('admin-order-acceptdelivery')}}"> {{ __('Accept Delivery Orders') }}</a>
+            </li>
+            <li>
+                <a href="{{route('admin-order-pickedupfordelivery')}}"> {{ __('Picked Up for Delivery Orders') }}</a>
+            </li>
+            <li>
+                <a href="{{route('admin-order-ondelivery')}}"> {{ __('On Delivery Orders') }}</a>
+            </li>
+            <li>
+                <a href="{{route('admin-order-delivered')}}"> {{ __('Delivered Orders') }}</a>
+            </li>
+            <li>
                 <a href="{{route('admin-order-declined')}}"> {{ __('Declined Orders') }}</a>
             </li>
 
