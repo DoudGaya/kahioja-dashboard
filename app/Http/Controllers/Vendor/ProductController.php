@@ -567,20 +567,6 @@ class ProductController extends Controller
                 }
 
             }
-            
-
-             // Check Features
-            if(in_array(null, $request->features) || in_array(null, $request->colors))
-            {
-                $input['features'] = null;
-                $input['colors'] = null;
-            }
-            else
-            {
-                $input['features'] = implode(',', str_replace(',',' ',$request->features));
-                $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
-            }
-            
 
             //tags
             if (!empty($request->tags))
@@ -667,18 +653,10 @@ class ProductController extends Controller
                 'sku' => $input['sku'],
                 'slug' => $slug,
                 'photo' => $name,
-                'product_condition' => $input['product_condition'],
-                'ship' => $input['ship'],
-                'size' => $input['size'],
-                'size_qty' => $input['size_qty'],
-                'size_price' => $input['size_price'],
-                'color' => $input['color'],
-                'measure' => $input['measure'],
+                'ship_fee' => $input['ship_fee'],
                 'details' => $input['details'],
                 'meta_tag' => $input['meta_tag'],
                 'meta_description' => $input['meta_description'],
-                'features' => $input['features'],
-                'colors' => $input['colors'],
                 'price' => $input['price'],
                 'previous_price' => $input['previous_price'],
                 'user_id' => $input['user_id'],
@@ -943,27 +921,6 @@ class ProductController extends Controller
         }
 
         }
-        // Check Features
-        if(!in_array(null, $request->features) && !in_array(null, $request->colors))
-        {
-                $input['features'] = implode(',', str_replace(',',' ',$request->features));
-                $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
-        }
-        else
-        {
-            if(in_array(null, $request->features) || in_array(null, $request->colors))
-            {
-                $input['features'] = null;
-                $input['colors'] = null;
-            }
-            else
-            {
-                $features = explode(',', $data->features);
-                $colors = explode(',', $data->colors);
-                $input['features'] = implode(',', $features);
-                $input['colors'] = implode(',', $colors);
-            }
-        }
 
         //Product Tags
         if (!empty($request->tags))
@@ -1076,10 +1033,6 @@ class ProductController extends Controller
                 // $prod->thumbnail  = $thumbnail;
                 // $prod->photo  = $photo;
                 $prod->update();
-
-
-
-
 
         //--- Redirect Section
         $msg = 'Product Updated Successfully.<a href="'.route('vendor-prod-index').'">View Product Lists.</a>';

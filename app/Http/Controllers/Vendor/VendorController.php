@@ -53,8 +53,8 @@ class VendorController extends Controller
     {
         //--- Validation Section
         $rules = [
-               'shop_image'  => 'mimes:jpeg,jpg,png,svg',
-                ];
+            'photo' => 'mimes:jpeg,jpg,png,svg',
+        ];
 
         $validator = Validator::make($request->all(), $rules);
         
@@ -66,12 +66,18 @@ class VendorController extends Controller
         $input = $request->all();  
         $data = Auth::user();    
 
-        if ($file = $request->file('shop_image')) 
-         {      
-            $name = time().str_replace(' ', '', $file->getClientOriginalName());
-            $file->move('assets/images/vendorbanner',$name);           
-            $input['shop_image'] = $name;
-        }
+        if ($file = $request->file('photo'))
+            {
+                $name = time().str_replace(' ', '', $file->getClientOriginalName());
+                $file->move('assets/images/users/',$name);
+                if($data->photo != null)
+                {
+                    if (file_exists(public_path().'/assets/images/users/'.$data->photo)) {
+                        unlink(public_path().'/assets/images/users/'.$data->photo);
+                    }
+                }
+            $input['photo'] = $name;
+            }
 
         $data->update($input);
         $msg = 'Successfully updated your profile';

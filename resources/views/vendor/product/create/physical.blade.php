@@ -78,33 +78,7 @@
 												name="sku" required=""
 												value="{{ str_random(3).substr(time(), 6,8).str_random(3) }}">
 		
-											<div class="checkbox-wrapper">
-												<input type="checkbox" name="product_condition_check" class="checkclick"
-													id="conditionCheck" value="1">
-												<label for="conditionCheck">{{ $langg->lang633 }}</label>
-											</div>
-		
 										</div>
-									</div>
-		
-									<div class="showbox">
-		
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ $langg->lang634 }}*</h4>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<select name="product_condition">
-													<option value="2">{{ $langg->lang635 }}</option>
-													<option value="1">{{ $langg->lang636 }}</option>
-												</select>
-											</div>
-		
-										</div>
-		
-		
 									</div>
 		
 									<div class="row">
@@ -140,7 +114,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
-												<h4 class="heading">{{ $langg->lang640 }}*</h4>
+												<h4 class="heading">{{ $langg->lang640 }}</h4>
 											</div>
 										</div>
 										<div class="col-lg-12">
@@ -150,272 +124,17 @@
 										</div>
 									</div>
 		
-		
 									<div id="catAttributes"></div>
 									<div id="subcatAttributes"></div>
 									<div id="childcatAttributes"></div>
 		
-					
 		
-					
-		
-		
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-		
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input class="checkclick1" name="shipping_time_check" type="checkbox"
-														id="check1" value="1">
-													<label for="check1">{{ $langg->lang646 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-		
-		
-		
-									<div class="showbox">
-		
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ $langg->lang647 }}* </h4>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<input type="text" class="input-field" placeholder="{{ $langg->lang647 }}"
-													name="ship">
-											</div>
-										</div>
-		
-		
-									</div>
-		
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-		
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input name="size_check" type="checkbox" id="size-check" value="1">
-													<label for="size-check">{{ $langg->lang648 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="showbox" id="size-display">
-										<div class="row">
-											<div class="col-lg-12">
-											</div>
-											<div class="col-lg-12">
-												<div class="product-size-details" id="size-section">
-													<div class="size-area">
-														<span class="remove size-remove"><i class="fas fa-times"></i></span>
-														<div class="row">
-															<div class="col-md-4 col-sm-6">
-																<label>
-																	{{ $langg->lang649 }} :
-																	<span>
-																		{{ $langg->lang650 }}
-																	</span>
-																</label>
-																<input type="text" name="size[]" class="input-field"
-																	placeholder="{{ $langg->lang649 }}">
-															</div>
-															<div class="col-md-4 col-sm-6">
-																<label>
-																	{{ $langg->lang651 }} :
-																	<span>
-																		{{ $langg->lang652 }}
-																	</span>
-																</label>
-																<input type="number" name="size_qty[]" class="input-field"
-																	placeholder="Size Qty" value="1" min="1">
-															</div>
-															<div class="col-md-4 col-sm-6">
-																<label>
-																	{{ $langg->lang653 }} :
-																	<span>
-																		{{ $langg->lang654 }}
-																	</span>
-																</label>
-																<input type="number" name="size_price[]" class="input-field"
-																	placeholder="Size Price" value="0" min="0">
-															</div>
-														</div>
-													</div>
-												</div>
-		
-												<a href="javascript:;" id="size-btn" class="add-more"><i
-														class="fas fa-plus"></i>{{ $langg->lang655 }} </a>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-		
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input class="checkclick1" name="color_check" type="checkbox" id="check3"
-														value="1">
-													<label for="check3">{{ $langg->lang656 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-		
-		
-		
-									<div class="showbox">
-		
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">
-														{{ $langg->lang657 }}*
-													</h4>
-													<p class="sub-heading">
-														{{ $langg->lang658 }}
-													</p>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<div class="select-input-color" id="color-section">
-													<div class="color-area">
-														<span class="remove color-remove"><i class="fas fa-times"></i></span>
-														<div class="input-group colorpicker-component cp">
-															<input type="text" name="color[]" value="#000000"
-																class="input-field cp" />
-															<span class="input-group-addon"><i></i></span>
-														</div>
-													</div>
-												</div>
-												<a href="javascript:;" id="color-btn" class="add-more mt-4 mb-3"><i
-														class="fas fa-plus"></i>{{ $langg->lang659 }} </a>
-											</div>
-										</div>
-		
-									</div>
-		
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-		
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input class="checkclick1" name="whole_check" type="checkbox"
-														id="whole_check" value="1">
-													<label for="whole_check">{{ $langg->lang660 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-		
-									<div class="showbox">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-		
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<div class="featured-keyword-area">
-													<div class="feature-tag-top-filds" id="whole-section">
-														<div class="feature-area">
-															<span class="remove whole-remove"><i
-																	class="fas fa-times"></i></span>
-															<div class="row">
-																<div class="col-lg-6">
-																	<input type="number" name="whole_sell_qty[]"
-																		class="input-field" placeholder="{{ $langg->lang661 }}"
-																		min="0">
-																</div>
-		
-																<div class="col-lg-6">
-																	<input type="number" name="whole_sell_discount[]"
-																		class="input-field" placeholder="{{ $langg->lang662 }}"
-																		min="0" />
-																</div>
-															</div>
-														</div>
-													</div>
-		
-													<a href="javascript:;" id="whole-btn" class="add-fild-btn"><i
-															class="icofont-plus"></i> {{ $langg->lang663 }}</a>
-												</div>
-											</div>
-										</div>
-									</div>
-		
-						
-		
-									<div class="row" id="stckprod">
-										<div class="col-lg-12">
-											<div class="left-area">
-												<h4 class="heading">{{ $langg->lang669 }}*</h4>
-												<p class="sub-heading">{{ $langg->lang670 }}</p>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<input name="stock" type="text" class="input-field"
-												placeholder="{{ $langg->lang666 }}">
-											<div class="checkbox-wrapper">
-												<input type="checkbox" name="measure_check" class="checkclick"
-													id="allowProductMeasurement" value="1">
-												<label for="allowProductMeasurement">{{ $langg->lang671 }}</label>
-											</div>
-										</div>
-									</div>
-		
-		
-		
-									<div class="showbox">
-		
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ $langg->lang672 }}*</h4>
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<select id="product_measure">
-													<option value="">{{ $langg->lang673 }}</option>
-													<option value="Gram">{{ $langg->lang674 }}</option>
-													<option value="Kilogram">{{ $langg->lang675 }}</option>
-													<option value="Litre">{{ $langg->lang676 }}</option>
-													<option value="Pound">{{ $langg->lang677 }}</option>
-													<option value="Custom">{{ $langg->lang678 }}</option>
-												</select>
-											</div>
-											<div class="col-lg-6 hidden" id="measure">
-												<input name="measure" type="text" id="measurement" class="input-field"
-													placeholder="{{ $langg->lang679 }}">
-											</div>
-										</div>
-		
-									</div>
-		
-		
+									
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
 												<h4 class="heading">
-													{{ $langg->lang680 }}*
+													{{ $langg->lang680 }}
 												</h4>
 											</div>
 										</div>
@@ -426,13 +145,11 @@
 										</div>
 									</div>
 		
-		
-		
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
 												<h4 class="heading">
-													{{ $langg->lang681 }}*
+													{{ $langg->lang681 }}
 												</h4>
 											</div>
 										</div>
@@ -460,7 +177,7 @@
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
-													<h4 class="heading">{{ $langg->lang684 }} *</h4>
+													<h4 class="heading">{{ $langg->lang684 }}</h4>
 												</div>
 											</div>
 											<div class="col-lg-12">
@@ -473,7 +190,7 @@
 											<div class="col-lg-12">
 												<div class="left-area">
 													<h4 class="heading">
-														{{ $langg->lang685 }} *
+														{{ $langg->lang685 }}
 													</h4>
 												</div>
 											</div>
@@ -537,7 +254,7 @@
 										<div class="col-lg-12">
 											<div class="left-area">
 												<h4 class="heading">
-													{{ $langg->lang644 }} *
+													{{ $langg->lang644 }}
 												</h4>
 											</div>
 										</div>
@@ -570,7 +287,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
-												<h4 class="heading">{{ $langg->lang667 }}*</h4>
+												<h4 class="heading">{{ $langg->lang667 }}</h4>
 												<p class="sub-heading">{{ $langg->lang668 }}</p>
 											</div>
 										</div>
@@ -583,7 +300,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
-												<h4 class="heading">{{ __('Shipping Fee') }}*</h4>
+												<h4 class="heading">{{ __('Shipping Fee') }}</h4>
 												<p class="sub-heading">{{ __('(Leave Empty will Show Free Delivery)') }}</p>
 											</div>
 										</div>
@@ -593,53 +310,6 @@
 										</div>
 									</div>
 		
-		
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="featured-keyword-area">
-												<div class="left-area">
-													<h4 class="heading">{{ $langg->lang686 }}</h4>
-												</div>
-		
-												<div class="feature-tag-top-filds" id="feature-section">
-													<div class="feature-area">
-														<span class="remove feature-remove"><i class="fas fa-times"></i></span>
-														<div class="row">
-															<div class="col-lg-6">
-																<input type="text" name="features[]" class="input-field"
-																	placeholder="{{ $langg->lang687 }}">
-															</div>
-		
-															<div class="col-lg-6">
-																<div class="input-group colorpicker-component cp">
-																	<input type="text" name="colors[]" value="#000000"
-																		class="input-field cp" />
-																	<span class="input-group-addon"><i></i></span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-		
-												<a href="javascript:;" id="feature-btn" class="add-fild-btn"><i
-														class="icofont-plus"></i> {{ $langg->lang688 }}</a>
-											</div>
-										</div>
-									</div>
-		
-		
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-												<h4 class="heading">{{ $langg->lang689 }} *</h4>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul id="tags" class="myTags">
-											</ul>
-										</div>
-									</div>
-									<input type="hidden" name="type" value="Physical">
 							</div>
 						</div>
 					</div>

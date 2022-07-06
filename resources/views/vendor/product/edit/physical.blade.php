@@ -68,34 +68,7 @@
 										<div class="col-lg-12">
 											<input type="text" class="input-field" placeholder="{{ $langg->lang794 }}" name="sku" required="" value="{{ $data->sku }}">
 
-											<div class="checkbox-wrapper">
-											  <input type="checkbox" name="product_condition_check" class="checkclick" id="conditionCheck" value="1" {{ $data->product_condition != 0 ? "checked":"" }}>
-											  <label for="conditionCheck">{{ $langg->lang633 }}</label>
-											</div>
-
 										</div>
-									</div>
-
-									<div class="{{ $data->product_condition == 0 ? "showbox":"" }}">
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-													<h4 class="heading">{{ $langg->lang634 }}*</h4>
-											</div>
-										</div>
-										<div class="col-lg-12">
-												<select name="product_condition">
-													  <option value="2" {{$data->product_condition == 2
-										? "selected":""}}>{{ $langg->lang635 }}</option>
-													  <option value="1" {{$data->product_condition == 1
-										? "selected":""}}>{{ $langg->lang636 }}</option>
-												</select>
-										</div>
-
-									</div>
-
-
 									</div>
 
 									<div class="row">
@@ -142,7 +115,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
-													<h4 class="heading">{{ $langg->lang640 }}*</h4>
+													<h4 class="heading">{{ $langg->lang640 }}</h4>
 											</div>
 										</div>
 										<div class="col-lg-12">
@@ -162,550 +135,28 @@
 												</select>
 										</div>
 									</div>
+									
 
-
-									@php
-										$selectedAttrs = json_decode($data->attributes, true);
-										// dd($selectedAttrs);
-									@endphp
-
-
-									{{-- Attributes of category starts --}}
-									<div id="catAttributes">
-										@php
-											$catAttributes = !empty($data->category->attributes) ? $data->category->attributes : '';
-										@endphp
-										@if (!empty($catAttributes))
-											@foreach ($catAttributes as $catAttribute)
-												<div class="row">
-													 <div class="col-lg-12">
-															<div class="left-area">
-																 <h4 class="heading">{{ $catAttribute->name }} *</h4>
-															</div>
-													 </div>
-													 <div class="col-lg-12">
-														 @php
-															 $i = 0;
-														 @endphp
-														 @foreach ($catAttribute->attribute_options as $optionKey => $option)
-															 @php
-																$inName = $catAttribute->input_name;
-																$checked = 0;
-															 @endphp
-
-
-															 <div class="row">
-																 <div class="col-lg-5">
-																	 <div class="custom-control custom-checkbox">
-																		  <input type="checkbox" id="{{ $catAttribute->input_name }}{{$option->id}}" name="{{ $catAttribute->input_name }}[]" value="{{$option->name}}" class="custom-control-input attr-checkbox"
-																		  @if (is_array($selectedAttrs) && array_key_exists($catAttribute->input_name,$selectedAttrs))
-																			  @if (is_array($selectedAttrs["$inName"]["values"]) && in_array($option->name, $selectedAttrs["$inName"]["values"]))
-																				  checked
-																				 @php
-																					 $checked = 1;
-																				 @endphp
-																			  @endif
-																		  @endif
-																		  >
-																		  <label class="custom-control-label" for="{{ $catAttribute->input_name }}{{$option->id}}">{{ $option->name }}</label>
-																	 </div>
-																 </div>
-
-																 <div class="col-lg-7 {{ $catAttribute->price_status == 0 ? 'd-none' : '' }}">
-																		<div class="row">
-																			 <div class="col-2">
-																					+
-																			 </div>
-																			 <div class="col-10">
-																					<div class="price-container">
-																						 <span class="price-curr">{{ $sign->sign }}</span>
-																						 <input type="text" class="input-field price-input" id="{{ $catAttribute->input_name }}{{$option->id}}_price" data-name="{{ $catAttribute->input_name }}_price[]" placeholder="0.00 (Additional Price)" value="{{ !empty($selectedAttrs["$inName"]['prices'][$i]) && $checked == 1 ? $selectedAttrs["$inName"]['prices'][$i] : '' }}">
-																					</div>
-																			 </div>
-																		</div>
-																 </div>
-															 </div>
-
-
-															 @php
-																 if ($checked == 1) {
-																	 $i++;
-																 }
-															 @endphp
-															@endforeach
-													 </div>
-
-												</div>
-											@endforeach
-										@endif
-									</div>
-									{{-- Attributes of category ends --}}
-
-
-									{{-- Attributes of subcategory starts --}}
-									<div id="subcatAttributes">
-										@php
-											$subAttributes = !empty($data->subcategory->attributes) ? $data->subcategory->attributes : '';
-										@endphp
-										@if (!empty($subAttributes))
-											@foreach ($subAttributes as $subAttribute)
-												<div class="row">
-													 <div class="col-lg-12">
-															<div class="left-area">
-																 <h4 class="heading">{{ $subAttribute->name }} *</h4>
-															</div>
-													 </div>
-													 <div class="col-lg-12">
-															 @php
-																 $i = 0;
-															 @endphp
-															 @foreach ($subAttribute->attribute_options as $option)
-																 @php
-																	$inName = $subAttribute->input_name;
-																	$checked = 0;
-																 @endphp
-
-																 <div class="row">
-																	<div class="col-lg-5">
-																	   <div class="custom-control custom-checkbox">
-																		  <input type="checkbox" id="{{ $subAttribute->input_name }}{{$option->id}}" name="{{ $subAttribute->input_name }}[]" value="{{$option->name}}" class="custom-control-input attr-checkbox"
-																		  @if (is_array($selectedAttrs) && array_key_exists($subAttribute->input_name,$selectedAttrs))
-																		  @php
-																		  $inName = $subAttribute->input_name;
-																		  @endphp
-																		  @if (is_array($selectedAttrs["$inName"]["values"]) && in_array($option->name, $selectedAttrs["$inName"]["values"]))
-																		  checked
-																		  @php
-																			 $checked = 1;
-																		  @endphp
-																		  @endif
-																		  @endif
-																		  >
-																		  <label class="custom-control-label" for="{{ $subAttribute->input_name }}{{$option->id}}">{{ $option->name }}</label>
-																	   </div>
-																	</div>
-																	<div class="col-lg-7 {{ $subAttribute->price_status == 0 ? 'd-none' : '' }}">
-																	   <div class="row">
-																		  <div class="col-2">
-																			 +
-																		  </div>
-																		  <div class="col-10">
-																			 <div class="price-container">
-																				<span class="price-curr">{{ $sign->sign }}</span>
-																				<input type="text" class="input-field price-input" id="{{ $subAttribute->input_name }}{{$option->id}}_price" data-name="{{ $subAttribute->input_name }}_price[]" placeholder="0.00 (Additional Price)" value="{{ !empty($selectedAttrs["$inName"]['prices'][$i]) && $checked == 1 ? $selectedAttrs["$inName"]['prices'][$i] : '' }}">
-																			 </div>
-																		  </div>
-																	   </div>
-																	</div>
-																 </div>
-																 @php
-																	 if ($checked == 1) {
-																		 $i++;
-																	 }
-																 @endphp
-																@endforeach
-
-													 </div>
-												</div>
-											@endforeach
-										@endif
-									</div>
-									{{-- Attributes of subcategory ends --}}
-
-
-									{{-- Attributes of child category starts --}}
-									<div id="childcatAttributes">
-										@php
-											$childAttributes = !empty($data->childcategory->attributes) ? $data->childcategory->attributes : '';
-										@endphp
-										@if (!empty($childAttributes))
-											@foreach ($childAttributes as $childAttribute)
-												<div class="row">
-													 <div class="col-lg-12">
-															<div class="left-area">
-																 <h4 class="heading">{{ $childAttribute->name }} *</h4>
-															</div>
-													 </div>
-													 <div class="col-lg-12">
-														 @php
-															 $i = 0;
-														 @endphp
-														 @foreach ($childAttribute->attribute_options as $optionKey => $option)
-															 @php
-																$inName = $childAttribute->input_name;
-																$checked = 0;
-															 @endphp
-															 <div class="row">
-																	 <div class="col-lg-5">
-																		 <div class="custom-control custom-checkbox">
-																			  <input type="checkbox" id="{{ $childAttribute->input_name }}{{$option->id}}" name="{{ $childAttribute->input_name }}[]" value="{{$option->name}}" class="custom-control-input attr-checkbox"
-																			  @if (is_array($selectedAttrs) && array_key_exists($childAttribute->input_name,$selectedAttrs))
-																				  @php
-																					 $inName = $childAttribute->input_name;
-																				  @endphp
-																				  @if (is_array($selectedAttrs["$inName"]["values"]) && in_array($option->name, $selectedAttrs["$inName"]["values"]))
-																					  checked
-																					 @php
-																						 $checked = 1;
-																					 @endphp
-																				  @endif
-																			  @endif
-																			  >
-																			  <label class="custom-control-label" for="{{ $childAttribute->input_name }}{{$option->id}}">{{ $option->name }}</label>
-																		 </div>
-																  </div>
-
-
-																	<div class="col-lg-7 {{ $childAttribute->price_status == 0 ? 'd-none' : '' }}">
-																		 <div class="row">
-																				<div class="col-2">
-																					 +
-																				</div>
-																				<div class="col-10">
-																					 <div class="price-container">
-																							<span class="price-curr">{{ $sign->sign }}</span>
-																							<input type="text" class="input-field price-input" id="{{ $childAttribute->input_name }}{{$option->id}}_price" data-name="{{ $childAttribute->input_name }}_price[]" placeholder="0.00 (Additional Price)" value="{{ !empty($selectedAttrs["$inName"]['prices'][$i]) && $checked == 1 ? $selectedAttrs["$inName"]['prices'][$i] : '' }}">
-																					 </div>
-																				</div>
-																		 </div>
-																	</div>
-															 </div>
-															 @php
-																 if ($checked == 1) {
-																	 $i++;
-																 }
-															 @endphp
-															@endforeach
-													 </div>
-
-												</div>
-											@endforeach
-										@endif
-									</div>
-									{{-- Attributes of child category ends --}}
-
-		
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input class="checkclick1" name="shipping_time_check" type="checkbox" id="check1" value="1" {{$data->ship != null ? "checked":""}}>
-													<label for="check1">{{ $langg->lang646 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-
-
-
-									<div class="{{ $data->ship != null ? "":"showbox" }}">
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-													<h4 class="heading">{{ $langg->lang647 }}* </h4>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<input type="text" class="input-field" placeholder="{{ $langg->lang647 }}" name="ship" value="{{ $data->ship == null ? "" : $data->ship }}">
-										</div>
-									</div>
-
-
-									</div>
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input name="size_check" type="checkbox" id="size-check" value="1" {{ !empty($data->size) ? "checked":"" }}>
-													<label for="size-check">{{ $langg->lang648 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-										<div class="{{ !empty($data->size) ? "":"showbox" }}" id="size-display">
-										<div class="row">
-												<div  class="col-lg-12">
-												</div>
-												<div  class="col-lg-12">
-													<div class="product-size-details" id="size-section">
-														@if(!empty($data->size))
-														 @foreach($data->size as $key => $data1)
-															<div class="size-area">
-															<span class="remove size-remove"><i class="fas fa-times"></i></span>
-															<div  class="row">
-																	<div class="col-md-4 col-sm-6">
-																		<label>
-																			{{ $langg->lang649 }} :
-																			<span>
-																				{{ $langg->lang650 }}
-																			</span>
-																		</label>
-																		<input type="text" name="size[]" class="input-field" placeholder="{{ $langg->lang649 }}" value="{{ $data->size[$key] }}">
-																	</div>
-																	<div class="col-md-4 col-sm-6">
-																			<label>
-																				{{ $langg->lang651 }} :
-																				<span>
-																					{{ $langg->lang652 }}
-																				</span>
-																			</label>
-																		<input type="number" name="size_qty[]" class="input-field" placeholder="{{ $langg->lang651 }}" min="1" value="{{ $data->size_qty[$key] }}">
-																	</div>
-																	<div class="col-md-4 col-sm-6">
-																			<label>
-																				{{ $langg->lang653 }} :
-																				<span>
-																					{{ $langg->lang654 }}
-																				</span>
-																			</label>
-																		<input type="number" name="size_price[]" class="input-field" placeholder="{{ $langg->lang653 }}" min="0" value="{{round($data->size_price[$key] * $sign->value , 2)}}">
-																	</div>
-																</div>
-															</div>
-														 @endforeach
-														@else
-															<div class="size-area">
-															<span class="remove size-remove"><i class="fas fa-times"></i></span>
-															<div  class="row">
-																	<div class="col-md-4 col-sm-6">
-																		<label>
-																			{{ $langg->lang649 }} :
-																			<span>
-																				{{ $langg->lang650 }}
-																			</span>
-																		</label>
-																		<input type="text" name="size[]" class="input-field" placeholder="{{ $langg->lang649 }}">
-																	</div>
-																	<div class="col-md-4 col-sm-6">
-																			<label>
-																				{{ $langg->lang651 }} :
-																				<span>
-																					{{ $langg->lang652 }}
-																				</span>
-																			</label>
-																		<input type="number" name="size_qty[]" class="input-field" placeholder="{{ $langg->lang651 }}" value="1" min="1">
-																	</div>
-																	<div class="col-md-4 col-sm-6">
-																			<label>
-																				{{ $langg->lang653 }} :
-																				<span>
-																					{{ $langg->lang654 }}
-																				</span>
-																			</label>
-																		<input type="number" name="size_price[]" class="input-field" placeholder="{{ $langg->lang653 }}" value="0" min="0">
-																	</div>
-																</div>
-															</div>
-														@endif
-													</div>
-
-													<a href="javascript:;" id="size-btn" class="add-more"><i class="fas fa-plus"></i>{{ $langg->lang655 }} </a>
-												</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input class="checkclick1" name="color_check" type="checkbox" id="check3" value="1" {{ !empty($data->color) ? "checked":"" }}>
-													<label for="check3">{{ $langg->lang656 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-
-
-
-									<div class="{{ !empty($data->color) ? "":"showbox" }}">
-
-										<div class="row">
-											@if(!empty($data->color))
-												<div  class="col-lg-12">
-													<div class="left-area">
-														<h4 class="heading">
-															{{ $langg->lang657 }}*
-														</h4>
-														<p class="sub-heading">
-															{{ $langg->lang658 }}
-														</p>
-													</div>
-												</div>
-												<div  class="col-lg-12">
-														<div class="select-input-color" id="color-section">
-															@foreach($data->color as $key => $data1)
-															<div class="color-area">
-																<span class="remove color-remove"><i class="fas fa-times"></i></span>
-																<div class="input-group colorpicker-component cp">
-																  <input type="text" name="color[]" value="{{ $data->color[$key] }}"  class="input-field cp"/>
-																  <span class="input-group-addon"><i></i></span>
-																</div>
-															 </div>
-															 @endforeach
-														 </div>
-														<a href="javascript:;" id="color-btn" class="add-more mt-4 mb-3"><i class="fas fa-plus"></i>{{ $langg->lang659 }} </a>
-												</div>
-											@else
-												<div  class="col-lg-12">
-													<div class="left-area">
-														<h4 class="heading">
-															{{ $langg->lang657 }}*
-														</h4>
-														<p class="sub-heading">
-															{{ $langg->lang658 }}
-														</p>
-													</div>
-												</div>
-												<div  class="col-lg-12">
-														<div class="select-input-color" id="color-section">
-															<div class="color-area">
-																<span class="remove color-remove"><i class="fas fa-times"></i></span>
-																<div class="input-group colorpicker-component cp">
-																  <input type="text" name="color[]" value="#000000"  class="input-field cp"/>
-																  <span class="input-group-addon"><i></i></span>
-																</div>
-															 </div>
-														 </div>
-														<a href="javascript:;" id="color-btn" class="add-more mt-4 mb-3"><i class="fas fa-plus"></i>{{ $langg->lang659 }} </a>
-												</div>
-
-
-											@endif
-										</div>
-
-									</div>
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<ul class="list">
-												<li>
-													<input class="checkclick1" name="whole_check" type="checkbox" id="whole_check" value="1" {{ !empty($data->whole_sell_qty) ? "checked":"" }}>
-													<label for="whole_check">{{ $langg->lang660 }}</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-
-								<div class="{{ !empty($data->whole_sell_qty) ? "":"showbox" }}">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="featured-keyword-area">
-												<div class="feature-tag-top-filds" id="whole-section">
-													@if(!empty($data->whole_sell_qty))
-
-														 @foreach($data->whole_sell_qty as $key => $data1)
-
-													<div class="feature-area">
-														<span class="remove whole-remove"><i class="fas fa-times"></i></span>
-														<div class="row">
-															<div class="col-lg-6">
-															<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" min="0" value="{{ $data->whole_sell_qty[$key] }}" required="">
-															</div>
-
-															<div class="col-lg-6">
-															<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}" min="0" value="{{ $data->whole_sell_discount[$key] }}" required="">
-															</div>
-														</div>
-													</div>
-
-
-															@endforeach
-													@else
-
-
-													<div class="feature-area">
-														<span class="remove whole-remove"><i class="fas fa-times"></i></span>
-														<div class="row">
-															<div class="col-lg-6">
-															<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" min="0">
-															</div>
-
-															<div class="col-lg-6">
-															<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}" min="0" />
-															</div>
-														</div>
-													</div>
-
-													@endif
-												</div>
-
-												<a href="javascript:;" id="whole-btn" class="add-fild-btn"><i class="icofont-plus"></i> {{ $langg->lang663 }}</a>
-											</div>
-										</div>
-									</div>
-								</div>
+									
+								
 
 
 									<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
-													<h4 class="heading">{{ $langg->lang669 }}*</h4>
+													<h4 class="heading">{{ $langg->lang669 }}</h4>
 													<p class="sub-heading">{{ $langg->lang670 }}</p>
 											</div>
 										</div>
 										<div class="col-lg-12">
 											<input name="stock" type="text" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{ $data->stock }}">
-											<div class="checkbox-wrapper">
-												<input type="checkbox" name="measure_check" class="checkclick1" id="allowProductMeasurement" value="1" {{ $data->measure == null ? '' : 'checked' }}>
-												<label for="allowProductMeasurement">{{ $langg->lang671 }}</label>
-											</div>
 										</div>
 									</div>
 
 									</div>
 
 								<div class="{{ $data->measure == null ? 'showbox' : '' }}">
-
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-													<h4 class="heading">{{ $langg->lang672 }}*</h4>
-											</div>
-										</div>
-										<div class="col-lg-12">
-												<select id="product_measure">
-												  <option value="" {{$data->measure == null ? 'selected':''}}>{{ $langg->lang673 }}</option>
-												  <option value="Gram" {{$data->measure == 'Gram' ? 'selected':''}}>{{ $langg->lang674 }}</option>
-												  <option value="Kilogram" {{$data->measure == 'Kilogram' ? 'selected':''}}>{{ $langg->lang675 }}</option>
-												  <option value="Litre" {{$data->measure == 'Litre' ? 'selected':''}}>{{ $langg->lang676 }}</option>
-												  <option value="Pound" {{$data->measure == 'Pound' ? 'selected':''}}>{{ $langg->lang677 }}</option>
-												  <option value="Custom" {{ in_array($data->measure,explode(',', 'Gram,Kilogram,Litre,Pound')) ? '' : 'selected' }}>{{ $langg->lang678 }}</option>
-												 </select>
-										</div>
-										<div class="col-lg-1"></div>
-										<div class="col-lg-3 {{ in_array($data->measure,explode(',', 'Gram,Kilogram,Litre,Pound')) ? 'hidden' : '' }}" id="measure">
-											<input name="measure" type="text" id="measurement" class="input-field" placeholder="{{ $langg->lang679 }}" value="{{$data->measure}}">
-										</div>
-									</div>
 
 								</div>
 
@@ -714,7 +165,7 @@
 										<div class="col-lg-12">
 											<div class="left-area">
 												<h4 class="heading">
-														{{ $langg->lang680 }}*
+														{{ $langg->lang680 }}
 												</h4>
 											</div>
 										</div>
@@ -731,7 +182,7 @@
 										<div class="col-lg-12">
 											<div class="left-area">
 												<h4 class="heading">
-														{{ $langg->lang681 }}*
+														{{ $langg->lang681 }}
 												</h4>
 											</div>
 										</div>
@@ -758,7 +209,7 @@
 									  <div class="row">
 										<div class="col-lg-12">
 										  <div class="left-area">
-											  <h4 class="heading">{{ $langg->lang684 }} *</h4>
+											  <h4 class="heading">{{ $langg->lang684 }}</h4>
 										  </div>
 										</div>
 										<div class="col-lg-12">
@@ -776,7 +227,7 @@
 										<div class="col-lg-12">
 										  <div class="left-area">
 											<h4 class="heading">
-												{{ $langg->lang685 }} *
+												{{ $langg->lang685 }}
 											</h4>
 										  </div>
 										</div>
@@ -832,7 +283,7 @@
 													<div class="col-lg-12">
 														<div class="left-area">
 																<h4 class="heading">
-																	{{ $langg->lang644 }} *
+																	{{ $langg->lang644 }}
 																</h4>
 														</div>
 													</div>
@@ -864,7 +315,7 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="left-area">
-																<h4 class="heading">{{ $langg->lang667 }}*</h4>
+																<h4 class="heading">{{ $langg->lang667 }}</h4>
 																<p class="sub-heading">{{ $langg->lang668 }}</p>
 														</div>
 													</div>
@@ -876,7 +327,7 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="left-area">
-															<h4 class="heading">{{ __('Shipping Fee') }}*</h4>
+															<h4 class="heading">{{ __('Shipping Fee') }}</h4>
 															<p class="sub-heading">{{ __('(Leave Empty will Show Free Delivery)') }}</p>
 														</div>
 													</div>
@@ -884,100 +335,6 @@
 														<input name="ship_fee" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->ship_fee * $sign->value , 2)}}" min="0">
 													</div>
 												</div>
-											
-
-
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="left-area">
-																<h4 class="heading">{{ $langg->lang682 }}*</h4>
-																<p class="sub-heading">{{ $langg->lang668 }}</p>
-														</div>
-													</div>
-													<div class="col-lg-12">
-														<input  name="youtube" type="text" class="input-field" placeholder="{{ $langg->lang682 }}" value="{{$data->youtube}}">
-													</div>
-												</div>
-
-
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="left-area">
-
-														</div>
-													</div>
-													<div class="col-lg-12">
-														<div class="featured-keyword-area">
-															<div class="left-area">
-																<h4 class="heading">{{ $langg->lang686 }}</h4>
-															</div>
-
-															<div class="feature-tag-top-filds" id="feature-section">
-																@if(!empty($data->features))
-
-																	 @foreach($data->features as $key => $data1)
-
-																<div class="feature-area">
-																	<span class="remove feature-remove"><i class="fas fa-times"></i></span>
-																	<div class="row">
-																		<div class="col-lg-6">
-																		<input type="text" name="features[]" class="input-field" placeholder="{{ $langg->lang687 }}" value="{{ $data->features[$key] }}">
-																		</div>
-
-																		<div class="col-lg-6">
-											                                <div class="input-group colorpicker-component cp">
-											                                  <input type="text" name="colors[]" value="{{ $data->colors[$key] }}" class="input-field cp"/>
-											                                  <span class="input-group-addon"><i></i></span>
-											                                </div>
-																		</div>
-																	</div>
-																</div>
-
-
-																		@endforeach
-																@else
-
-																<div class="feature-area">
-																	<span class="remove feature-remove"><i class="fas fa-times"></i></span>
-																	<div class="row">
-																		<div class="col-lg-6">
-																		<input type="text" name="features[]" class="input-field" placeholder="{{ $langg->lang687 }}">
-																		</div>
-
-																		<div class="col-lg-6">
-											                                <div class="input-group colorpicker-component cp">
-											                                  <input type="text" name="colors[]" value="#000000" class="input-field cp"/>
-											                                  <span class="input-group-addon"><i></i></span>
-											                                </div>
-																		</div>
-																	</div>
-																</div>
-
-																@endif
-															</div>
-
-															<a href="javascript:;" id="feature-btn" class="add-fild-btn"><i class="icofont-plus"></i> {{ $langg->lang688 }}</a>
-														</div>
-													</div>
-												</div>
-
-
-						                        <div class="row">
-						                          <div class="col-lg-12">
-						                            <div class="left-area">
-						                                <h4 class="heading">{{ $langg->lang689 }} *</h4>
-						                            </div>
-						                          </div>
-						                          <div class="col-lg-12">
-						                            <ul id="tags" class="myTags">
-						                            	@if(!empty($data->tags))
-							                                @foreach ($data->tags as $element)
-							                                  <li>{{  $element }}</li>
-							                                @endforeach
-						                                @endif
-						                            </ul>
-						                          </div>
-						                        </div>
 											
 											</div>
 										</div>

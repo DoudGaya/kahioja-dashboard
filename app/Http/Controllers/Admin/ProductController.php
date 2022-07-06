@@ -314,7 +314,7 @@ class ProductController extends Controller
         $path = 'assets/images/products/'.$image_name;
         file_put_contents($path, $image);
         $input['photo'] = $image_name;
-
+        $name = $image_name;
 
         // Check Physical
         if($request->type == "Physical")
@@ -532,38 +532,43 @@ class ProductController extends Controller
           $input['attributes'] = $jsonAttr;
         }
 
-        // Save Data
-        $data->fill($input)->save();
-
-        // Set SLug
-        $prod = Product::find($data->id);
-        if($prod->type != 'Physical'){
-            $prod->slug = str_slug($data->name,'-').'-'.strtolower(str_random(3).$data->id.str_random(3));
-        }
-        else {
-            $prod->slug = str_slug($data->name,'-').'-'.strtolower($data->sku);
-        }
-
-        // Set Thumbnail
-        $img = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(285, 285);
-        $thumbnail = time().str_random(8).'.jpg';
-        $img->save(public_path().'/assets/images/thumbnails/'.$thumbnail);
-        $prod->thumbnail  = $thumbnail;
-        $prod->update();
-
+        
+        $slug = str_slug($input['name'],'-').'-'.strtolower($input['sku']);
+            
+        Product::create([
+            'name' => $input['name'],
+            'sku' => $input['sku'],
+            'slug' => $slug,
+            'photo' => $name,
+            'product_condition' => $input['product_condition'],
+            'ship_fee' => $input['ship_fee'],
+            'size' => $input['size'],
+            'size_qty' => $input['size_qty'],
+            'size_price' => $input['size_price'],
+            'color' => $input['color'],
+            'measure' => $input['measure'],
+            'details' => $input['details'],
+            'meta_tag' => $input['meta_tag'],
+            'meta_description' => $input['meta_description'],
+            'price' => $input['price'],
+            'previous_price' => $input['previous_price'],
+            'user_id' => 0,
+        ]);
+        
         // Add To Gallery If any
-        $lastid = $data->id;
+            
+        $prod = Product::latest('id')->first();
+        $lastid = $prod->id;
         if ($files = $request->file('gallery')){
-            foreach ($files as  $key => $file){
-                if(in_array($key, $request->galval))
-                {
-                    $gallery = new Gallery;
-                    $name = time().str_replace(' ', '', $file->getClientOriginalName());
-                    $file->move('assets/images/galleries',$name);
-                    $gallery['photo'] = $name;
-                    $gallery['product_id'] = $lastid;
-                    $gallery->save();
-                }
+            foreach($files as $file){
+                
+                $gallery = new Gallery;
+                
+                $name = time().str_replace(' ', '', $file->getClientOriginalName());
+                $file->move('assets/images/galleries', $name);           
+                $gallery['photo'] = $name;
+                $gallery['product_id'] = $lastid;
+                $gallery->save();
             }
         }
         //logic Section Ends
@@ -941,27 +946,6 @@ class ProductController extends Controller
         }
 
         }
-            // Check Features
-            if(!in_array(null, $request->features) && !in_array(null, $request->colors))
-            {
-                    $input['features'] = implode(',', str_replace(',',' ',$request->features));
-                    $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
-            }
-            else
-            {
-                if(in_array(null, $request->features) || in_array(null, $request->colors))
-                {
-                    $input['features'] = null;
-                    $input['colors'] = null;
-                }
-                else
-                {
-                    $features = explode(',', $data->features);
-                    $colors = explode(',', $data->colors);
-                    $input['features'] = implode(',', $features);
-                    $input['colors'] = implode(',', $colors);
-                }
-            }
 
         //Product Tags
         if (!empty($request->tags))

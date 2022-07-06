@@ -29,6 +29,22 @@
 
                       						 @include('includes.vendor.form-both')  
 
+											   <div class="row">
+						                          <div class="col-lg-4">
+						                            <div class="left-area">
+						                                <h4 class="heading">{{ __('Store Icon') }} *</h4>
+						                            </div>
+						                          </div>
+						                          <div class="col-lg-7">
+						                            <div class="img-upload">
+						                                <div id="image-preview" class="img-preview" style="background: url({{ $data->photo ? asset('assets/images/users/'.$data->photo):asset('assets/images/noimage.png') }});">
+						                                    <label for="image-upload" class="img-label" id="image-label"><i class="icofont-upload-alt"></i>{{ __('Upload Image') }}</label>
+						                                    <input type="file" name="photo" class="img-upload" id="image-upload">
+						                                  </div>
+						                            </div>
+						                          </div>
+						                        </div>
+
 												<div class="row">
 													<div class="col-lg-4">
 														<div class="left-area">
@@ -78,18 +94,6 @@
 													</div>
 													<div class="col-lg-7">
 														<input type="text" class="input-field" name="shop_address" placeholder="{{ $langg->lang460 }}" required="" value="{{$data->shop_address}}">
-													</div>
-												</div>
-
-												<div class="row">
-													<div class="col-lg-4">
-														<div class="left-area">
-																<h4 class="heading">{{ $langg->lang461 }}</h4>
-																<p class="sub-heading">{{ $langg->lang462 }}</p>
-														</div>
-													</div>
-													<div class="col-lg-7">
-														<input type="text" class="input-field" name="reg_number" placeholder="{{ $langg->lang461 }}" required="" value="{{$data->reg_number}}">
 													</div>
 												</div>
 

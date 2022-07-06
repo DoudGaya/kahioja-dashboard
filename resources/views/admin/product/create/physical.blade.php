@@ -39,7 +39,7 @@
 	<form id="geniusform" action="{{route('admin-prod-store')}}" method="POST" enctype="multipart/form-data">
 		{{csrf_field()}}
 		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-lg-8">
 				<div class="add-product-content">
 					<div class="row">
 						<div class="col-lg-12">
@@ -49,18 +49,20 @@
 									<div class="gocover"
 										style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
 									</div>
+								
 			
-										@include('includes.admin.form-both')
+										@include('includes.vendor.form-both')
+			
 			
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
-													<h4 class="heading">{{ __('Product Name') }}* </h4>
-													<p class="sub-heading">{{ __('(In Any Language)') }}</p>
+													<h4 class="heading">{{ $langg->lang632 }}* </h4>
+													<p class="sub-heading">{{ $langg->lang517 }}</p>
 												</div>
 											</div>
 											<div class="col-lg-12">
-												<input type="text" class="input-field" placeholder="{{ __('Enter Product Name') }}"
+												<input type="text" class="input-field" placeholder="{{ $langg->lang632 }}"
 													name="name" required="">
 											</div>
 										</div>
@@ -68,89 +70,91 @@
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
-													<h4 class="heading">{{ __('Product Sku') }}* </h4>
+													<h4 class="heading">{{ $langg->lang793 }}* </h4>
 												</div>
 											</div>
 											<div class="col-lg-12">
-												<input type="text" class="input-field" placeholder="{{ __('Enter Product Sku') }}"
+												<input type="text" class="input-field" placeholder="{{ $langg->lang794 }}"
 													name="sku" required=""
 													value="{{ str_random(3).substr(time(), 6,8).str_random(3) }}">
 			
-												<!--<div class="checkbox-wrapper">
+												<!-- <div class="checkbox-wrapper">
 													<input type="checkbox" name="product_condition_check" class="checkclick"
 														id="conditionCheck" value="1">
-													<label for="conditionCheck">{{ __('Allow Product Condition') }}</label>
-												</div>-->
+													<label for="conditionCheck">{{ $langg->lang633 }}</label>
+												</div> -->
 			
 											</div>
 										</div>
-
-										<!-- Product Condition  -->
-										<!--<div class="showbox">
+			
+										<div class="showbox">
+			
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="left-area">
-														<h4 class="heading">{{ __('Product Condition') }}*</h4>
+														<h4 class="heading">{{ $langg->lang634 }}*</h4>
 													</div>
 												</div>
 												<div class="col-lg-12">
 													<select name="product_condition">
-														<option value="2">{{ __('New') }}</option>
-														<option value="1">{{ __('Used') }}</option>
+														<option value="2">{{ $langg->lang635 }}</option>
+														<option value="1">{{ $langg->lang636 }}</option>
 													</select>
 												</div>
-											</div>
-										</div>-->
 			
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ __('Category') }}*</h4>
-												</div>
 											</div>
-											<div class="col-lg-12">
-												<select id="cat" name="category_id" required="">
-													<option value="">{{ __('Select Category') }}</option>
-													@foreach($cats as $cat)
-													<option data-href="{{ route('admin-subcat-load',$cat->id) }}"
-														value="{{ $cat->id }}">{{$cat->name}}</option>
-													@endforeach
-												</select>
-											</div>
+			
+			
 										</div>
 			
 										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ __('Sub Category') }}*</h4>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<select id="subcat" name="subcategory_id" disabled="">
-													<option value="">{{ __('Select Sub Category') }}</option>
-												</select>
+										<div class="col-lg-12">
+											<div class="left-area">
+												<h4 class="heading">{{ __('Category') }}*</h4>
 											</div>
 										</div>
-			
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ __('Child Category') }}</h4>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<select id="childcat" name="childcategory_id" disabled="">
-													<option value="">{{ __('Select Child Category') }}</option>
-												</select>
+										<div class="col-lg-12">
+											<select id="cat" name="category_id" required="">
+												<option value="">{{ __('Select Category') }}</option>
+												@foreach($cats as $cat)
+												<option data-href="{{ route('admin-subcat-load',$cat->id) }}"
+													value="{{ $cat->id }}">{{$cat->name}}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+		
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="left-area">
+												<h4 class="heading">{{ __('Sub Category') }}*</h4>
 											</div>
 										</div>
+										<div class="col-lg-12">
+											<select id="subcat" name="subcategory_id" disabled="">
+												<option value="">{{ __('Select Sub Category') }}</option>
+											</select>
+										</div>
+									</div>
+		
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="left-area">
+												<h4 class="heading">{{ __('Child Category') }}</h4>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<select id="childcat" name="childcategory_id" disabled="">
+												<option value="">{{ __('Select Child Category') }}</option>
+											</select>
+										</div>
+									</div>
+		
+		
+									<div id="catAttributes"></div>
+									<div id="subcatAttributes"></div>
+									<div id="childcatAttributes"></div>			
 			
-			
-										<div id="catAttributes"></div>
-										<div id="subcatAttributes"></div>
-										<div id="childcatAttributes"></div>
-			
-										<!-- Estimated Shipping Time 		 -->
 										<!-- <div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
@@ -162,31 +166,30 @@
 													<li>
 														<input class="checkclick1" name="shipping_time_check" type="checkbox"
 															id="check1" value="1">
-														<label for="check1">{{ __('Allow Estimated Shipping Time') }}</label>
+														<label for="check1">{{ $langg->lang646 }}</label>
 													</li>
 												</ul>
 											</div>
 										</div> -->
-
-										<!-- Estimated Shipping Time  -->
-										<!-- <div class="showbox">
+			
+<!-- 			
+										<div class="showbox">
 			
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="left-area">
-														<h4 class="heading">{{ __('Product Estimated Shipping Time') }}* </h4>
+														<h4 class="heading">{{ $langg->lang647 }}* </h4>
 													</div>
 												</div>
 												<div class="col-lg-12">
-													<input type="text" class="input-field"
-														placeholder="{{ __('Estimated Shipping Time') }}" name="ship">
+													<input type="text" class="input-field" placeholder="{{ $langg->lang647 }}"
+														name="ship">
 												</div>
 											</div>
 			
 			
 										</div> -->
 			
-										<!-- Allow Product Sizes  -->
 										<!-- <div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
@@ -197,7 +200,7 @@
 												<ul class="list">
 													<li>
 														<input name="size_check" type="checkbox" id="size-check" value="1">
-														<label for="size-check">{{ __('Allow Product Sizes') }}</label>
+														<label for="size-check">{{ $langg->lang648 }}</label>
 													</li>
 												</ul>
 											</div>
@@ -213,45 +216,43 @@
 															<div class="row">
 																<div class="col-md-4 col-sm-6">
 																	<label>
-																		{{ __('Size Name') }} :
+																		{{ $langg->lang649 }} :
 																		<span>
-																			{{ __('(eg. S,M,L,XL,XXL,3XL,4XL)') }}
+																			{{ $langg->lang650 }}
 																		</span>
 																	</label>
 																	<input type="text" name="size[]" class="input-field"
-																		placeholder="{{ __('Size Name') }}">
+																		placeholder="{{ $langg->lang649 }}">
 																</div>
 																<div class="col-md-4 col-sm-6">
 																	<label>
-																		{{ __('Size Qty') }} :
+																		{{ $langg->lang651 }} :
 																		<span>
-																			{{ __('(Number of quantity of this size)') }}
+																			{{ $langg->lang652 }}
 																		</span>
 																	</label>
 																	<input type="number" name="size_qty[]" class="input-field"
-																		placeholder="{{ __('Size Qty') }}" value="1" min="1">
+																		placeholder="Size Qty" value="1" min="1">
 																</div>
 																<div class="col-md-4 col-sm-6">
 																	<label>
-																		{{ __('Size Price') }} :
+																		{{ $langg->lang653 }} :
 																		<span>
-																			{{ __('(This price will be added with base price)') }}
+																			{{ $langg->lang654 }}
 																		</span>
 																	</label>
 																	<input type="number" name="size_price[]" class="input-field"
-																		placeholder="{{ __('Size Price') }}" value="0" min="0">
+																		placeholder="Size Price" value="0" min="0">
 																</div>
 															</div>
 														</div>
 													</div>
 			
 													<a href="javascript:;" id="size-btn" class="add-more"><i
-															class="fas fa-plus"></i>{{ __('Add More Size') }} </a>
+															class="fas fa-plus"></i>{{ $langg->lang655 }} </a>
 												</div>
 											</div>
 										</div> -->
-
-										<!-- Product Colors  -->
 										<!-- <div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
@@ -263,22 +264,24 @@
 													<li>
 														<input class="checkclick1" name="color_check" type="checkbox" id="check3"
 															value="1">
-														<label for="check3">{{ __('Allow Product Colors') }}</label>
+														<label for="check3">{{ $langg->lang656 }}</label>
 													</li>
 												</ul>
 											</div>
-										</div>
+										</div> -->
 			
-										<div class="showbox">
+			
+			
+										<!-- <div class="showbox">
 			
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="left-area">
 														<h4 class="heading">
-															{{ __('Product Colors') }}*
+															{{ $langg->lang657 }}*
 														</h4>
 														<p class="sub-heading">
-															{{ __('(Choose Your Favorite Colors)') }}
+															{{ $langg->lang658 }}
 														</p>
 													</div>
 												</div>
@@ -294,14 +297,13 @@
 														</div>
 													</div>
 													<a href="javascript:;" id="color-btn" class="add-more mt-4 mb-3"><i
-															class="fas fa-plus"></i>{{ __('Add More Color') }} </a>
+															class="fas fa-plus"></i>{{ $langg->lang659 }} </a>
 												</div>
 											</div>
 			
-										</div>
+										</div> -->
 			
-										Product Whole Sell
-										<div class="row">
+										<!-- <div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
 			
@@ -312,13 +314,13 @@
 													<li>
 														<input class="checkclick1" name="whole_check" type="checkbox"
 															id="whole_check" value="1">
-														<label for="whole_check">{{ __('Allow Product Whole Sell') }}</label>
+														<label for="whole_check">{{ $langg->lang660 }}</label>
 													</li>
 												</ul>
 											</div>
-										</div>
+										</div> -->
 			
-										<div class="showbox">
+										<!-- <div class="showbox">
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="left-area">
@@ -334,14 +336,13 @@
 																<div class="row">
 																	<div class="col-lg-6">
 																		<input type="number" name="whole_sell_qty[]"
-																			class="input-field"
-																			placeholder="{{ __('Enter Quantity') }}" min="0">
+																			class="input-field" placeholder="{{ $langg->lang661 }}"
+																			min="0">
 																	</div>
 			
 																	<div class="col-lg-6">
 																		<input type="number" name="whole_sell_discount[]"
-																			class="input-field"
-																			placeholder="{{ __('Enter Discount Percentage') }}"
+																			class="input-field" placeholder="{{ $langg->lang662 }}"
 																			min="0" />
 																	</div>
 																</div>
@@ -349,53 +350,66 @@
 														</div>
 			
 														<a href="javascript:;" id="whole-btn" class="add-fild-btn"><i
-																class="icofont-plus"></i> {{ __('Add More Field') }}</a>
+																class="icofont-plus"></i> {{ $langg->lang663 }}</a>
 													</div>
 												</div>
 											</div>
 										</div> -->
 			
+							
+<!-- 			
 										<div class="row" id="stckprod">
 											<div class="col-lg-12">
 												<div class="left-area">
-													<h4 class="heading">{{ __('Product Stock') }}</h4>
-													<p class="sub-heading">{{ __('(Leave Empty will Show Always Available)') }}</p>
+													<h4 class="heading">{{ $langg->lang669 }}*</h4>
+													<p class="sub-heading">{{ $langg->lang670 }}</p>
 												</div>
 											</div>
 											<div class="col-lg-12">
 												<input name="stock" type="text" class="input-field"
-													placeholder="{{ __('e.g 20') }}">
-												<!-- <div class="checkbox-wrapper">
+													placeholder="{{ $langg->lang666 }}">
+												<div class="checkbox-wrapper">
 													<input type="checkbox" name="measure_check" class="checkclick"
 														id="allowProductMeasurement" value="1">
-													<label
-														for="allowProductMeasurement">{{ __('Allow Product Measurement') }}</label>
-												</div> -->
+													<label for="allowProductMeasurement">{{ $langg->lang671 }}</label>
+												</div>
 											</div>
-										</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="add-product-content">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="product-description">
-								<div class="body-area">
+										</div> -->
 			
-									<div class="gocover"
-										style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
-									</div>
-					
+			
+			
+										<!-- <div class="showbox">
+			
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="left-area">
+														<h4 class="heading">{{ $langg->lang672 }}*</h4>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<select id="product_measure">
+														<option value="">{{ $langg->lang673 }}</option>
+														<option value="Gram">{{ $langg->lang674 }}</option>
+														<option value="Kilogram">{{ $langg->lang675 }}</option>
+														<option value="Litre">{{ $langg->lang676 }}</option>
+														<option value="Pound">{{ $langg->lang677 }}</option>
+														<option value="Custom">{{ $langg->lang678 }}</option>
+													</select>
+												</div>
+												<div class="col-lg-6 hidden" id="measure">
+													<input name="measure" type="text" id="measurement" class="input-field"
+														placeholder="{{ $langg->lang679 }}">
+												</div>
+											</div>
+			
+										</div> -->
+			
+			
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
 													<h4 class="heading">
-														{{ __('Product Description') }}
+														{{ $langg->lang680 }}*
 													</h4>
 												</div>
 											</div>
@@ -406,11 +420,13 @@
 											</div>
 										</div>
 			
+			
+			
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
 													<h4 class="heading">
-														{{ __('Product Buy/Return Policy') }}
+														{{ $langg->lang681 }}*
 													</h4>
 												</div>
 											</div>
@@ -421,22 +437,24 @@
 											</div>
 										</div>
 			
-										<!-- <div class="row">
+			
+										<div class="row">
 											<div class="col-lg-12">
 												<div class="checkbox-wrapper">
 													<input type="checkbox" name="seo_check" value="1" class="checkclick"
 														id="allowProductSEO" value="1">
-													<label for="allowProductSEO">{{ __('Allow Product SEO') }}</label>
+													<label for="allowProductSEO">{{ $langg->lang683 }}</label>
 												</div>
 											</div>
-										</div> -->
+										</div>
 			
-										<!-- product SEO  -->
-										<!-- <div class="showbox">
+			
+			
+										<div class="showbox">
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="left-area">
-														<h4 class="heading">{{ __('Meta Tags') }} *</h4>
+														<h4 class="heading">{{ $langg->lang684 }} *</h4>
 													</div>
 												</div>
 												<div class="col-lg-12">
@@ -449,18 +467,25 @@
 												<div class="col-lg-12">
 													<div class="left-area">
 														<h4 class="heading">
-															{{ __('Meta Description') }} *
+															{{ $langg->lang685 }} *
 														</h4>
 													</div>
 												</div>
 												<div class="col-lg-12">
 													<div class="text-editor">
 														<textarea name="meta_description" class="input-field"
-															placeholder="{{ __('Meta Description') }}"></textarea>
+															placeholder="{{ $langg->lang685 }}"></textarea>
 													</div>
 												</div>
 											</div>
-										</div> -->
+										</div>
+			
+										<div class="row">
+											<div class="col-lg-12 text-center">
+												<button class="addProductSubmit-btn" type="submit">{{ $langg->lang690 }}</button>
+											</div>
+										</div>
+									
 								</div>
 							</div>
 						</div>
@@ -473,6 +498,8 @@
 						<div class="col-lg-12">
 							<div class="product-description">
 								<div class="body-area">
+			
+									
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
@@ -493,57 +520,84 @@
 			
 										<input type="hidden" id="feature_photo" name="photo" value="">
 			
+			
 										<input type="file" name="gallery[]" class="hidden" id="uploadgallery" accept="image/*"
 											multiple>
-
-										<div class="row mb-4">
-											<div class="col-lg-12 mb-2">
+										<div class="row">
+											<div class="col-lg-12">
 												<div class="left-area">
 													<h4 class="heading">
-														{{ __('Product Gallery Images') }} *
+														{{ $langg->lang644 }} *
 													</h4>
 												</div>
 											</div>
 											<div class="col-lg-12">
 												<a href="#" class="set-gallery" data-toggle="modal" data-target="#setgallery">
-													<i class="icofont-plus"></i> {{ __('Set Gallery') }}
+													<i class="icofont-plus"></i> {{ $langg->lang645 }}
 												</a>
 											</div>
 										</div>
-
-										<!-- Youtube Link  -->
-										<!-- <div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ __('Youtube Video URL') }}*</h4>
-													<p class="sub-heading">{{ __('(Optional)') }}</p>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<input name="youtube" type="text" class="input-field"
-													placeholder="{{ __('Enter Youtube Video URL') }}">
-											</div>
-										</div> -->
-
-										<!-- Feature Tag  -->
-										<!-- <div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
 			
+			
+			
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="left-area">
+													<h4 class="heading">
+														{{ $langg->lang664 }}*
+													</h4>
+													<p class="sub-heading">
+														({{ $langg->lang665 }} {{$sign->name}})
+													</p>
 												</div>
 											</div>
+											<div class="col-lg-12">
+												<input name="price" step="0.1" type="number" class="input-field"
+													placeholder="{{ $langg->lang666 }}" required="" min="0">
+											</div>
+										</div>
+			
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="left-area">
+													<h4 class="heading">{{ $langg->lang667 }}*</h4>
+													<p class="sub-heading">{{ $langg->lang668 }}</p>
+												</div>
+											</div>
+											<div class="col-lg-12">
+												<input name="previous_price" step="0.1" type="number" class="input-field"
+													placeholder="{{ $langg->lang666 }}" min="0">
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="left-area">
+													<h4 class="heading">{{ __('Shipping Fee') }}*</h4>
+													<p class="sub-heading">{{ __('(Leave Empty will Show Free Delivery)') }}</p>
+												</div>
+											</div>
+											<div class="col-lg-12">
+												<input name="ship_fee" step="0.01" type="number" class="input-field"
+													placeholder="{{ __('e.g 200') }}" min="0">
+											</div>
+										</div>
+			
+			
+										<!-- <div class="row">
 											<div class="col-lg-12">
 												<div class="featured-keyword-area">
 													<div class="left-area">
-														<h4 class="heading">{{ __('Feature Tags') }}</h4>
+														<h4 class="heading">{{ $langg->lang686 }}</h4>
 													</div>
+			
 													<div class="feature-tag-top-filds" id="feature-section">
 														<div class="feature-area">
 															<span class="remove feature-remove"><i class="fas fa-times"></i></span>
 															<div class="row">
 																<div class="col-lg-6">
 																	<input type="text" name="features[]" class="input-field"
-																		placeholder="{{ __('Enter Your Keyword') }}">
+																		placeholder="{{ $langg->lang687 }}">
 																</div>
 			
 																<div class="col-lg-6">
@@ -558,16 +612,16 @@
 													</div>
 			
 													<a href="javascript:;" id="feature-btn" class="add-fild-btn"><i
-															class="icofont-plus"></i> {{ __('Add More Field') }}</a>
+															class="icofont-plus"></i> {{ $langg->lang688 }}</a>
 												</div>
 											</div>
 										</div> -->
 			
-										<!-- Tags  -->
+			
 										<!-- <div class="row">
 											<div class="col-lg-12">
 												<div class="left-area">
-													<h4 class="heading">{{ __('Tags') }} *</h4>
+													<h4 class="heading">{{ $langg->lang689 }} *</h4>
 												</div>
 											</div>
 											<div class="col-lg-12">
@@ -575,64 +629,8 @@
 												</ul>
 											</div>
 										</div> -->
-										<!-- <input type="hidden" name="type" value="Physical"> -->
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">
-														{{ __('Product Current Price') }}*
-													</h4>
-													<p class="sub-heading">
-														({{ __('In') }} {{$sign->name}})
-													</p>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<input name="price" type="number" class="input-field"
-													placeholder="{{ __('e.g 20') }}" step="0.01" required="" min="0">
-											</div>
-										</div>
-			
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ __('Product Previous Price') }}</h4>
-													<p class="sub-heading">{{ __('(Optional)') }}</p>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<input name="previous_price" step="0.01" type="number" class="input-field"
-													placeholder="{{ __('e.g 20') }}" min="0">
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="left-area">
-													<h4 class="heading">{{ __('Delivery Fee') }}</h4>
-													<p class="sub-heading">{{ __('(Leave Empty will Show Free Delivery)') }}</p>
-												</div>
-											</div>
-											<div class="col-lg-12">
-												<input name="ship_fee" step="0.01" type="number" class="input-field"
-													placeholder="{{ __('e.g 200') }}" min="0">
-											</div>
-										</div>
+										<input type="hidden" name="type" value="Physical">
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Add Button  -->
-		<div class="row">
-			<div class="col-lg-12 my-3">
-				<div class="add-product-content mx-auto">
-					<div class="product-description">
-						<div class="body-area">
-							<div class="col-lg-12 text-center">
-								<button class="addProductSubmit-btn mx-auto" type="submit">{{ __('Create Product') }}</button>
 							</div>
 						</div>
 					</div>

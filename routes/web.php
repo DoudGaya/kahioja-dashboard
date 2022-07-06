@@ -2,6 +2,8 @@
 
 // ************************************ ADMIN SECTION **********************************************
 
+Route::get('/login',  'Front\FrontendController@index')->name('login');
+
 Route::prefix('admin')->group(function() {
 
   //------------ ADMIN LOGIN SECTION ------------
