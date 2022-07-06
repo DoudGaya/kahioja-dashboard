@@ -262,9 +262,9 @@
             <!-- <li>
             <a href="{{ route('admin-gs-contents') }}"><span>{{ __('Website Contents') }}</span></a>
             </li> -->
-            <!-- <li>
+            <li>
                 <a href="{{ route('admin-gs-footer') }}"><span>{{ __('Footer') }}</span></a>
-            </li> -->
+            </li>
             <!-- <li>
                 <a href="{{ route('admin-gs-affilate') }}"><span>{{__('Affiliate Information')}}</span></a>
             </li> -->
