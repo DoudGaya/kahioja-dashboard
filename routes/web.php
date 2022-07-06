@@ -1017,7 +1017,7 @@ Route::prefix('logistics')->group(function() {
 Route::prefix('vendor')->group(function() {
 
   //Vendor LOGIN
-  Route::get('/login', 'Vendor\LoginController@showLoginForm')->name('vendor.login');
+  Route::get('/login', 'Vendor\LoginController@showLoginForm')->name('user.login');
   Route::post('/login', 'Vendor\LoginController@login')->name('vendor.login.submit');
   Route::get('/logout', 'Vendor\LoginController@logout')->name('vendor.logout');
   //END OF Vendor

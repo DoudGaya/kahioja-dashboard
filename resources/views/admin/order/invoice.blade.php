@@ -107,21 +107,10 @@
                                         @foreach($cart as $product)
                                         <tr>
                                             <td width="50%">
-                                                @if($product->user_id != 0)
                                                 @php
-                                                $user = App\Models\User::find($product->user_id);
+                                                    $name = App\Models\Product::select('name')->where('id','=',$product->product_id)->pluck('name')->first();
+                                                    echo $name;
                                                 @endphp
-                                                @if(isset($user))
-                                                <a target="_blank"
-                                                    href="#">{{ $product->name }}</a>
-                                                @else
-                                                <a href="javascript:;">{{$product->name}}</a>
-                                                @endif
-
-                                                @else
-                                                <a href="javascript:;">{{ $product->name}}</a>
-
-                                                @endif
                                             </td>
                                             <td>
                                                 <p>
