@@ -46,7 +46,8 @@ class VendorController extends Controller
         $pending = VendorOrder::where('user_id','=',$user->id)->where('status','=','pending')->get(); 
         $processing = VendorOrder::where('user_id','=',$user->id)->where('status','=','processing')->get(); 
         $completed = VendorOrder::where('user_id','=',$user->id)->where('status','=','completed')->get(); 
-        return view('vendor.index',compact('user','pending','processing','completed'));
+        $delivered = VendorOrder::where('user_id','=',$user->id)->where('status','=','delivered')->get(); 
+        return view('vendor.index',compact('user','pending','processing','completed','delivered'));
     }
 
     public function profileupdate(Request $request)
@@ -116,7 +117,8 @@ class VendorController extends Controller
     //*** GET Request
     public function profile()
     {
-        $data = Auth::user();  
+        $data = Auth::user(); 
+        // dd($data); 
         return view('vendor.profile',compact('data'));
     }
 

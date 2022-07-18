@@ -76,13 +76,28 @@
                                 <div class="col-md-12 col-lg-6 col-xl-4">
                                     <div class="mycard bg3">
                                         <div class="left">
-                                            <h5 class="title">Orders Completed!</h5>
+                                            <h5 class="title">Ready for Delivery!</h5>
                                             <span class="number">{{ count($completed) }}</span>
                                             <a href="{{route('vendor-order-index')}}" class="link">View All</a>
                                         </div>
                                         <div class="right d-flex align-self-center">
                                             <div class="icon">
-                                                <i class="icofont-check-circled"></i>
+                                                <i class="icofont-truck-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-6 col-xl-4">
+                                    <div class="mycard bg6">
+                                        <div class="left">
+                                            <h5 class="title">Orders Delivered!</h5>
+                                            <span class="number">{{ count($delivered) }}</span>
+                                            <a href="{{route('vendor-order-index')}}" class="link">View All</a>
+                                        </div>
+                                        <div class="right d-flex align-self-center">
+                                            <div class="icon">
+                                                <i class="icofont-truck-alt"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +123,7 @@
                                     <div class="mycard bg5">
                                         <div class="left">
                                             <h5 class="title">Total Item Sold!</h5>
-                                            <span class="number">{{ App\Models\VendorOrder::where('user_id','=',$user->id)->where('status','=','completed')->sum('qty') }}</span>
+                                            <span class="number">{{ App\Models\VendorOrder::where('user_id','=',$user->id)->where('status','!=','pending')->where('status','!=','declined')->sum('qty') }}</span>
                                         </div>
                                         <div class="right d-flex align-self-center">
                                             <div class="icon">
