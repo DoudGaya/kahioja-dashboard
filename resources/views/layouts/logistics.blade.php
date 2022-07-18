@@ -121,10 +121,10 @@
 								<a href="{{ route('logistics-ready-for-delivery-index') }}"><i class="fas fa-truck"></i> {{ __('Ready for Delivery') }}</a>
 							</li>
 							<li>
-								<a href="{{ route('logistics-pick-up-for-delivery-index') }}"><i class="fas fa-truck"></i> {{ __('Delivery Accepted') }}</a>
+								<a href="{{ route('logistics-pick-up-for-delivery-index') }}"><i class="fas fa-truck"></i> {{ __('Dispatch') }}</a>
 							</li>
 							<li>
-								<a href="{{ route('logistics-on-delivery') }}"><i class="fas fa-truck"></i> {{ __('On Delivery') }}</a>
+								<a href="{{ route('logistics-on-delivery') }}"><i class="fas fa-truck"></i> {{ __('Enroute') }}</a>
 							</li>
 							<li>
 								<a href="{{ route('logistics-completed-delivery-index') }}"><i class="fas fa-truck"></i> {{ __('Total Delivery') }}</a>

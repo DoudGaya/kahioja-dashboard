@@ -110,8 +110,10 @@ html {
                                     <thead style="border-top:1px solid rgba(0, 0, 0, 0.1) !important;">
                                         <tr>
                                             <th>{{ __('Product') }}</th>
+                                            <th>{{ __('Shop') }}</th>
                                             <th>{{ __('Details') }}</th>
                                             <th>{{ __('Total') }}</th>
+                                            <th>{{ __('Delivery Status') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -121,13 +123,10 @@ html {
                                         @endphp
                                         @foreach($cart as $product)
                                         <tr>
-                                            <td width="50%">
-                                                @php
-                                                    $name = App\Models\Product::select('name')->where('id','=',$product->product_id)->pluck('name')->first();
-                                                    echo $name;
-                                                @endphp
+                                            <td width="25%">
+                                                {{$product->product_name }}
                                             </td>
-
+                                            <td>{{ $product->shop_name }}</td>
                                             <td>
                                                 <p>
                                                     <strong>{{ $langg->lang754 }} :</strong> {{$product->amount }}
@@ -139,6 +138,22 @@ html {
 
                                             <td>{{$order->currency_sign}}{{ round($product->amount * $order->currency_value , 2) }}
                                             </td>
+                                            <td>
+                                                @if($product->order_status == 'pending')
+                                                    Pending
+                                                @elseif($product->order_status == 'completed')
+                                                    Ready for Delivery
+                                                @elseif($product->order_status == 'accept delivery')
+                                                    Dispatch
+                                                @elseif($product->order_status == 'picked up for delivery')
+                                                    Enroute
+                                                @elseif($product->order_status == 'delivered')
+                                                    Delivered
+                                                @else
+                                                    {{$product->order_status }}
+                                                @endif
+                                            </td>
+                                            
                                             @php
                                             $subtotal += round($product->amount * $order->currency_value, 2);
                                             @endphp
@@ -148,15 +163,19 @@ html {
                                         @endforeach
 
                                         <tr class="semi-border">
-                                            <td colspan="1"></td>
+                                            <td colspan="3"></td>
                                             <td><strong>{{ __('Subtotal') }}</strong></td>
                                             <td>{{$order->currency_sign}}{{ round($subtotal, 2) }}</td>
-
+                                        </tr>
+                                        <tr class="semi-border">
+                                            <td colspan="3"></td>
+                                            <td><strong>{{ __('Service Fee') }}</strong></td>
+                                            <td>{{$order->currency_sign}}{{ ($product->total_cost - (round($subtotal, 2)) ) }}</td>
                                         </tr>
                                         <tr class="final-border">
-                                            <td colspan="1"></td>
+                                            <td colspan="3"></td>
                                             <td><strong>{{ __('Total') }}</strong></td>
-                                            <td>{{$order->currency_sign}}{{ round($order->pay_amount * $order->currency_value , 2) }}
+                                            <td>{{$order->currency_sign}}{{ $product->total_cost }}
                                             </td>
                                         </tr>
 

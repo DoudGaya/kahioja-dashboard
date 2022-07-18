@@ -91,7 +91,7 @@ class OrderController extends Controller
         $company->current_balance = $company->current_balance + $total_sell;
         $company->update();
 
-        $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','picked up for delivery')->get();
+        $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->orwhere('status','=','pending')->orwhere('status','=','accept delivery')->orwhere('status','=','picked up for delivery')->get();
         
         if(count($checkVendorOrderCount) == 0){
             $updateOrderStatus = Order::where('order_number','=',$order_number)->update(['status' => 'delivered']);

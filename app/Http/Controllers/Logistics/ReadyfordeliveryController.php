@@ -27,8 +27,7 @@ class ReadyfordeliveryController extends Controller
     //*** GET Request
   	public function index()
   	{
-        $datas = DB::select("SELECT DISTINCT order_number FROM orders WHERE status='ready for delivery' ORDER BY id");
-        
+        $datas = DB::select("SELECT DISTINCT order_number FROM vendor_orders WHERE status='completed' ORDER BY id");
         return view('logistics.ready-for-delivery.index',compact('datas'));
     }
     
@@ -38,7 +37,6 @@ class ReadyfordeliveryController extends Controller
         $cart = Bag::where('order_no','=',$slug)->get();
         
         $datas = DB::select("SELECT DISTINCT vendor_orders.order_number, vendor_orders.user_id, users.owner_name, users.shop_name, users.shop_address, users.shop_number FROM vendor_orders, users WHERE vendor_orders.order_number='$slug' AND vendor_orders.status='completed' AND vendor_orders.user_id = users.id ORDER BY users.id");
-        // dd($datas);
         return view('logistics.order.delivery',compact('order','cart','datas'));
     }
 
@@ -67,8 +65,10 @@ class ReadyfordeliveryController extends Controller
         $updateVendorOrderStatus = VendorOrder::where('order_number','=',$order_number)->where('user_id','=',$vendor_id)->update(['status' => 'accept delivery']);
         $bag = Bag::where('order_no','=',$order_number)->where('vendor_id','=',$vendor_id)->update(['status' => 'accept delivery','logistics_id'=>$logistics_id]);
 
-        $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->get();
+        $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->orwhere('status', 'pending')->get();
         
+        // $order_count = Bag::where('order_no', $slug)->where('status', '!=', $status)->get();
+
         if(count($checkVendorOrderCount) == 0){
             $updateOrderStatus = Order::where('order_number','=',$order_number)->update(['status' => 'accept delivery']);
         }

@@ -299,6 +299,7 @@
                                                                     <th>{{ $langg->lang570 }}</th>
                                                                     <th>{{ $langg->lang539 }}</th>
                                                                     <th>{{ $langg->lang574 }}</th>
+                                                                    <th>Delivery Status</th>
                                                                 </tr>
                                                             </tr>
                                                         </thead>
@@ -306,80 +307,34 @@
                                 @foreach($bags as $product)
                                     <tr>
                                         
-                                            <td><input type="hidden" value="{{$product->id}}">{{ $product->id }}</td>
+                                            <td><input type="hidden" value="{{$product->product_id}}">{{ $product->product_id }}</td>
+                                            <td>{{ $product->shop_name }}</td>
+                                            <td>{{ $product->paid }}</td>
                                             <td>
-                                                @if($product->user_id != 0)
-                                                @php
-                                                $user = App\Models\User::find($product->user_id);
-                                                @endphp
-                                                @if(isset($user))
-                                                <a target="_blank" href="{{route('admin-vendor-show',$user->id)}}">{{$user->shop_name}}</a>
-                                                @else
-                                                {{ __('Vendor Removed') }}
-                                                @endif
-                                                @else 
-                                                <a  href="javascript:;">{{ App\Models\Admin::find(1)->shop_name }}</a>
-                                                @endif
-
-                                            </td>
-                                            <td>
-                                                <input type="hidden" value="{{ $product->license }}">
-
-                                                @if($product->user_id != 0)
-                                                @php
-                                                $user = App\Models\User::find($product->user_id);
-                                                @endphp
-                                                @if(isset($user))
-                                                    <a target="_blank" href="{{ route('front.product', $product->slug) }}">{{mb_strlen($product->name,'utf-8') > 30 ? mb_substr($product->name,0,30,'utf-8').'...' : $product->name}}</a>
-                                                @else
-                                                    <a target="_blank" href="{{ route('front.product', $product->slug) }}">{{mb_strlen($product->name,'utf-8') > 30 ? mb_substr($product->name,0,30,'utf-8').'...' : $product->name}}</a>
-                                                @endif
-                                                @else 
-                                                    <a target="_blank" href="{{ route('front.product', $product->slug) }}">{{mb_strlen($product->name,'utf-8') > 30 ? mb_substr($product->name,0,30,'utf-8').'...' : $product->name}}</a>
-                                                @endif
-
-
-                                                @if($product->license != '')
-                                                    <a href="javascript:;" data-toggle="modal" data-target="#confirm-delete" class="btn btn-info product-btn" id="license" style="padding: 5px 12px;"><i class="fa fa-eye"></i> {{ __('View License') }}</a>
-                                                @endif
-
-                                            </td>
-                                            <td>
-                                                @if($product->size)
-                                               <p>
-                                                    <strong>{{ __('Size') }} :</strong> {{str_replace('-',' ',$product->size)}}
-                                               </p>
-                                               @endif
-                                               @if($product->color)
                                                 <p>
-                                                        <strong>{{ __('color') }} :</strong> <span
-                                                        style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;  background: #{{$product->color}};"></span>
+                                                    <strong>{{ __('Price') }} :</strong> {{$product->amount}}
                                                 </p>
-                                                @endif
                                                 <p>
-                                                        <strong>{{ __('Price') }} :</strong> {{$product->price}}
-                                                </p>
-                                               <p>
                                                     <strong>{{ __('Qty') }} :</strong> {{$product->quantity}}
-                                               </p>
-                                                    @if(!empty($product->keys))
-
-                                                    @foreach( array_combine(explode(',', $product->keys), explode(',', $product->values))  as $key => $value)
-                                                    <p>
-
-                                                        <b>{{ ucwords(str_replace('_', ' ', $key))  }} : </b> {{ $value }} 
-
-                                                    </p>
-                                                    @endforeach
-
-                                                    @endif
-
-
-
-
+                                                </p>
                                             </td>
 
-                                            <td>{{$order->currency_sign}}{{ round($product->price * $order->currency_value , 2) }}</td>
+                                            <td>{{$order->currency_sign}}{{ round($product->amount * $order->currency_value , 2) }}</td>
+                                            <td>
+                                                @if($product->order_status == 'pending')
+                                                    Pending
+                                                @elseif($product->order_status == 'completed')
+                                                    Ready for Delivery
+                                                @elseif($product->order_status == 'accept delivery')
+                                                    Dispatch
+                                                @elseif($product->order_status == 'picked up for delivery')
+                                                    Enroute
+                                                @elseif($product->order_status == 'delivered')
+                                                    Delivered
+                                                @else
+                                                    {{$product->order_status }}
+                                                @endif
+                                            </td>
 
                                     </tr>
                                 @endforeach

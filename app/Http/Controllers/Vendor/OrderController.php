@@ -75,13 +75,18 @@ class OrderController extends Controller
             $order = VendorOrder::where('order_number','=',$slug)->where('user_id','=',$user->id)->update(['status' => $status]);
             $bag = Bag::where('order_no','=',$slug)->where('vendor_id','=',$user->id)->update(['status' => $status]);
             
-            if($status == "pending"){
-                $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'pending']);
-            }else if($status == "processing"){
-                $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'processing']);
-            }else if($status == "completed"){
-                $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'ready for delivery']);
+            $order_count = Bag::where('order_no', $slug)->where('status', '!=', $status)->get();
+            
+            if($order_count == null){
+                if($status == "pending"){
+                    $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'pending']);
+                }else if($status == "processing"){
+                    $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'processing']);
+                }else if($status == "completed"){
+                    $updateOrderStatus = Order::where('order_number','=',$slug)->update(['status' => 'ready for delivery']);
+                }
             }
+
             return redirect()->route('vendor-order-index')->with('success','Order Status Updated Successfully');
         }
     }
@@ -108,7 +113,7 @@ class OrderController extends Controller
         
         $bag = Bag::where('order_no','=',$order_number)->where('vendor_id','=',$user->id)->update(['status' => 'picked up for delivery']);
 
-        $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->orwhere('status','=','accept delivery')->get();
+        $checkVendorOrderCount = VendorOrder::where('order_number','=',$order_number)->where('status','=','completed')->orwhere('status','=','pending')->orwhere('status','=','accept delivery')->get();
         
         if(count($checkVendorOrderCount) == 0){
             $updateOrderStatus = Order::where('order_number','=',$order_number)->update(['status' => 'on delivery']);

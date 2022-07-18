@@ -21,10 +21,10 @@
                 <a href="{{route('admin-order-acceptdelivery')}}"> {{ __('Accept Delivery Orders') }}</a>
             </li>
             <li>
-                <a href="{{route('admin-order-pickedupfordelivery')}}"> {{ __('Picked Up for Delivery Orders') }}</a>
+                <a href="{{route('admin-order-pickedupfordelivery')}}"> {{ __('Dispatch') }}</a>
             </li>
             <li>
-                <a href="{{route('admin-order-ondelivery')}}"> {{ __('On Delivery Orders') }}</a>
+                <a href="{{route('admin-order-ondelivery')}}"> {{ __('Enroute') }}</a>
             </li>
             <li>
                 <a href="{{route('admin-order-delivered')}}"> {{ __('Delivered Orders') }}</a>

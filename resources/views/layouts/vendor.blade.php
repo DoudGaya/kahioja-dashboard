@@ -113,10 +113,10 @@
                                     	<a href="{{route('vendor-order-index')}}">All Orders</a>
                                 	</li>
 									<li>
-        								<a href="{{route('pick-up-for-packaging-index')}}">{{ __('Delivery Accepted') }}</a>
+        								<a href="{{route('pick-up-for-packaging-index')}}">{{ __('Dispatch') }}</a>
         							</li>
 									<li>
-        								<a href="{{route('on-delivery')}}">{{ __('On Delivery') }}</a>
+        								<a href="{{route('on-delivery')}}">{{ __('Enroute') }}</a>
         							</li>
 									<li>
         								<a href="{{route('all-delivery')}}">{{ __('Total Delivery') }}</a>

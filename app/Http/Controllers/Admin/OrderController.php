@@ -295,8 +295,13 @@ class OrderController extends Controller
         // $bags = Bag::where('order_no', $order_no)->get();
 
         $bags = DB::table('bags')
-        ->join('users','bags.user_id','=','users.id')
+        ->join('users','bags.vendor_id','=','users.id')
         ->join('products','bags.product_id','=','products.id')
+        ->select(
+            ['products.id AS product_id', 'products.name AS product_name', 'products.photo AS product_photo',
+            'bags.quantity AS quantity', 'bags.amount AS amount', 'bags.ship_fee AS ship_fee', 'bags.status AS order_status', 'bags.paid AS paid', 'bags.order_no AS order_no', 'bags.created_at AS time_ordered', 
+            'users.shop_name AS shop_name', 'users.shop_address AS shop_address', 'users.shop_number AS shop_number',
+        ])
         ->where('bags.order_no','=',$order_no)
         ->orderby('bags.id','desc')
         ->get();
@@ -308,7 +313,21 @@ class OrderController extends Controller
     public function invoice($id)
     {
         $order = Order::findOrFail($id);
-        $cart = Bag::where('order_no','=',$order->order_number)->get();
+        $order_no = $order->order_number;
+        $cart = DB::table('bags')
+        ->join('users','bags.vendor_id','=','users.id')
+        ->join('products','bags.product_id','=','products.id')
+        ->join('orders','bags.order_no','=','orders.order_number')
+        ->select(
+            ['products.id AS product_id', 'products.name AS product_name', 'products.photo AS product_photo',
+            'bags.quantity AS quantity', 'bags.amount AS amount', 'bags.ship_fee AS ship_fee', 'bags.status AS order_status', 'bags.paid AS paid', 'bags.order_no AS order_no', 'bags.created_at AS time_ordered', 
+            'users.shop_name AS shop_name', 'users.shop_address AS shop_address', 'users.shop_number AS shop_number',
+            'orders.pay_amount AS total_cost'
+        ])
+        ->where('bags.order_no','=', $order_no)
+        ->orderby('bags.id','desc')
+        ->get();
+
         return view('admin.order.invoice',compact('order','cart'));
     }
     public function emailsub(Request $request)
@@ -345,7 +364,21 @@ class OrderController extends Controller
     public function printpage($id)
     {
         $order = Order::findOrFail($id);
-        $cart = Bag::where('order_no','=',$order->order_number)->get();
+        $order_no = $order->order_number;
+        $cart = DB::table('bags')
+        ->join('users','bags.vendor_id','=','users.id')
+        ->join('products','bags.product_id','=','products.id')
+        ->join('orders','bags.order_no','=','orders.order_number')
+        ->select(
+            ['products.id AS product_id', 'products.name AS product_name', 'products.photo AS product_photo',
+            'bags.quantity AS quantity', 'bags.amount AS amount', 'bags.ship_fee AS ship_fee', 'bags.status AS order_status', 'bags.paid AS paid', 'bags.order_no AS order_no', 'bags.created_at AS time_ordered', 
+            'users.shop_name AS shop_name', 'users.shop_address AS shop_address', 'users.shop_number AS shop_number',
+            'orders.pay_amount AS total_cost'
+        ])
+        ->where('bags.order_no','=', $order_no)
+        ->orderby('bags.id','desc')
+        ->get();
+        
         return view('admin.order.print',compact('order','cart'));
     }
 
