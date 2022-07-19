@@ -319,9 +319,9 @@ class VendorController extends Controller
                                     return $charge;
                                 })
                                 ->editColumn('bank_details', function(Withdraw $data) {
-                                    $acc_name = $data->acc_name;
-                                    $bank_name = $data->bank_name;
-                                    $acc_no = $data->iban;
+                                    $acc_name = $data->user->account_name;
+                                    $bank_name = $data->user->bank_name;
+                                    $acc_no = $data->user->account_no;
                                     $bank_details = $acc_name.' '.$bank_name.' '.$acc_no;
                                     return $bank_details;
                                 })

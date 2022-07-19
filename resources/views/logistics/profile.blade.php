@@ -91,6 +91,39 @@
 													</div>
 												</div>
 
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+																<h4 class="heading">Bank Name *</h4>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input type="text" class="input-field" name="bank_name" placeholder="Bank Name" required="" value="{{$data->bank_name}}">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+															<h4 class="heading">Account No *</h4>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input type="text" class="input-field" name="account_no" placeholder="Account Number" required="" value="{{$data->account_no}}">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+															<h4 class="heading">Account Name *</h4>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input type="text" class="input-field" name="account_name" placeholder="Account Name" required="" value="{{ $data->account_name }}">
+													</div>
+												</div>
+
 						                        <div class="row">
 						                          <div class="col-lg-4">
 						                            <div class="left-area">
