@@ -85,13 +85,13 @@
 			ordering:false
 		});
 
-      	$(function() {
-        $(".btn-area").append('<div class="col-sm-4 text-right">'+
-        	'<a class="add-btn" href="{{route('logistics-wt-create')}}">'+
-          '<i class="fas fa-plus"></i> Withdraw Now'+
-          '</a>'+
-          '</div>');
-      });												
+      	// $(function() {
+        // $(".btn-area").append('<div class="col-sm-4 text-right">'+
+        // 	'<a class="add-btn" href="{{route('logistics-wt-create')}}">'+
+        //   '<i class="fas fa-plus"></i> Withdraw Now'+
+        //   '</a>'+
+        //   '</div>');
+      	// });												
 									
     </script>
 

@@ -35,7 +35,10 @@ class DashboardController extends Controller
     public function profile()
     {
         $data = Auth::guard('logistics')->user();
-        return view('logistics.profile',compact('data'));
+        $banks = file_get_contents(public_path().'/listofbanks.json');
+        $bank = json_decode($banks, true);
+        $bank = $bank['data'];
+        return view('logistics.profile',compact('data', 'bank'));
     }
 
     public function profileupdate(Request $request)

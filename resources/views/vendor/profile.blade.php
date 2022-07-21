@@ -115,7 +115,12 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input type="text" class="input-field" name="bank_name" placeholder="Bank Name" required="" value="{{$data->bank_name}}">
+														<select class="input-field" name="bank_name" placeholder="Bank Name" required="">
+															<option value="{{$data->bank_name}}">{{$data->bank_name}}</option>
+															@foreach($bank as $name)
+																<option value="{{ $name['name'] }}">{{ $name['name'] }}</option>
+															@endforeach
+														</select>
 													</div>
 												</div>
 
@@ -137,7 +142,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input type="text" class="input-field" name="account_name" placeholder="Account Name" required="" value="{{ $data->account_name }}">
+														<input min="10" type="text" class="input-field" name="account_name" placeholder="Account Name" required="" value="{{ $data->account_name }}">
 													</div>
 												</div>
 

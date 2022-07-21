@@ -85,13 +85,13 @@
 			ordering:false
 		});
 
-      	$(function() {
-        $(".btn-area").append('<div class="col-sm-4 text-right">'+
-        	'<a class="add-btn" href="{{route('vendor-wt-create')}}">'+
-          '<i class="fas fa-plus"></i> {{ $langg->lang473 }}'+
-          '</a>'+
-          '</div>');
-      });												
+      	// $(function() {
+        // $(".btn-area").append('<div class="col-sm-4 text-right">'+
+        // 	'<a class="add-btn" href="{{route('vendor-wt-create')}}">'+
+        //   '<i class="fas fa-plus"></i> {{ $langg->lang473 }}'+
+        //   '</a>'+
+        //   '</div>');
+      	// });												
 									
     </script>
 

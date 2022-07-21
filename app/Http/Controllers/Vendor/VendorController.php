@@ -118,8 +118,10 @@ class VendorController extends Controller
     public function profile()
     {
         $data = Auth::user(); 
-        // dd($data); 
-        return view('vendor.profile',compact('data'));
+        $banks = file_get_contents(public_path().'/listofbanks.json');
+        $bank = json_decode($banks, true);
+        $bank = $bank['data'];
+        return view('vendor.profile',compact('data', 'bank'));
     }
 
     //*** GET Request
