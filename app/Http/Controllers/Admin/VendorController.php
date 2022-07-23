@@ -375,7 +375,7 @@ class VendorController extends Controller
                             "
                             <div style='width: 50%; margin:0px auto; border:2px solid #eee; text-align:left; padding: 2% 4%; line-height: 1.6;'>
                                 <div style='padding-bottom:1%;'>
-                                    <center><img style='width:20%;' src='https://kahioja.com/assets/images/1597338993KAHIOJA.png' alt='Kahioja Image'></center>
+                                    <center><img style='width:20%;' src='https://kahioja.com/images/kahioja.png' alt='Kahioja Image'></center>
                                 </div>
                                 <div style='font-weight:bold; font-size:1.2rem;'>
                                     Withdraw Request Approved from KAHIOJA
@@ -410,7 +410,7 @@ class VendorController extends Controller
                                     Your KAHIOJA Team
                                 </div>
                                 <div style='border-top:2px solid #000; margin-top:1%; padding:2%;'>
-                                    <center><img style='width:15%;' src='https://kahioja.com/assets/images/1597338993KAHIOJA.png' alt='Kahioja Image'></center>
+                                    <center><img style='width:15%;' src='https://kahioja.com/images/kahioja.png' alt='Kahioja Image'></center>
                                 </div>
                                 <div style='text-align:center; font-size:0.8rem; line-height:1.3;'>
                                     A1/A2 Block A Hamisu Abba Sumaila Plaza Tarauni Kano, Nigeria | <a style='color:#df7f1b;'>info@kahioja.com</a><br>
@@ -465,7 +465,7 @@ class VendorController extends Controller
                             "
                             <div style='width: 50%; margin:0px auto; border:2px solid #eee; text-align:left; padding: 2% 4%; line-height: 1.6;'>
                                 <div style='padding-bottom:1%;'>
-                                    <center><img style='width:20%;' src='https://kahioja.com/assets/images/1597338993KAHIOJA.png' alt='Kahioja Image'></center>
+                                    <center><img style='width:20%;' src='https://kahioja.com/images/kahioja.png' alt='Kahioja Image'></center>
                                 </div>
                                 <div style='font-weight:bold; font-size:1.2rem;'>
                                     Withdraw Request Rejected from KAHIOJA
@@ -504,7 +504,7 @@ class VendorController extends Controller
                                     Your KAHIOJA Team
                                 </div>
                                 <div style='border-top:2px solid #000; margin-top:1%; padding:2%;'>
-                                    <center><img style='width:15%;' src='https://kahioja.com/assets/images/1597338993KAHIOJA.png' alt='Kahioja Image'></center>
+                                    <center><img style='width:15%;' src='https://kahioja.com/images/kahioja.png' alt='Kahioja Image'></center>
                                 </div>
                                 <div style='text-align:center; font-size:0.8rem; line-height:1.3;'>
                                     A1/A2 Block A Hamisu Abba Sumaila Plaza Tarauni Kano, Nigeria | <a style='color:#df7f1b;'>info@kahioja.com</a><br>
