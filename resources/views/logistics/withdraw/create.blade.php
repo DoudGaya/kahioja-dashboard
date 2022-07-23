@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
 
-                                <div id="bank">
+                                <!-- <div id="bank">
 
                                     <div class="item form-group">
                                         <label class="control-label col-sm-12" for="name">Account No *
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> -->
 
                                 <div class="item form-group">
                                     <label class="control-label col-sm-12" for="name">Additional Reference (Optional) 

@@ -46,9 +46,9 @@
                             @foreach($withdraws as $withdraw)
                                 <tr>
                                     <td>{{date('d-M-Y',strtotime($withdraw->created_at))}}</td>
-                                    <td>{{$withdraw->bank_name}}</td>
-                                    <td>{{$withdraw->iban}}</td>
-                                    <td>{{$withdraw->acc_name}}</td>
+                                    <td>{{ Auth::guard('web')->user()->bank_name }}</td>
+                                    <td>{{ Auth::guard('web')->user()->account_no }}</td>
+                                    <td>{{ Auth::guard('web')->user()->account_name }}</td>
                                     <!-- @if($withdraw->method != "Bank")
                                         <td>{{--$withdraw->acc_email--}}</td>
                                     @else
@@ -85,13 +85,13 @@
 			ordering:false
 		});
 
-      	// $(function() {
-        // $(".btn-area").append('<div class="col-sm-4 text-right">'+
-        // 	'<a class="add-btn" href="{{route('vendor-wt-create')}}">'+
-        //   '<i class="fas fa-plus"></i> {{ $langg->lang473 }}'+
-        //   '</a>'+
-        //   '</div>');
-      	// });												
+      	$(function() {
+        $(".btn-area").append('<div class="col-sm-4 text-right">'+
+        	'<a class="add-btn" href="{{route('vendor-wt-create')}}">'+
+          '<i class="fas fa-plus"></i> {{ $langg->lang473 }}'+
+          '</a>'+
+          '</div>');
+      	});												
 									
     </script>
 

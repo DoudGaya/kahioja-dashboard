@@ -77,45 +77,45 @@
                                     </div>
 
                                 </div> -->
-                                <div id="bank">
+                                <!-- <div id="bank"> -->
 
-                                    <div class="item form-group">
-                                        <!--<label class="control-label col-sm-12" for="name">{{ $langg->lang489 }} *-->
+                                    <!-- <div class="item form-group">
+                                        <label class="control-label col-sm-12" for="name">{{ $langg->lang489 }} *
                                         <label class="control-label col-sm-12" for="name">Account No *
                                         
                                         </label>
                                         <div class="col-sm-12">
-                                            <!--<input name="iban" value="{{ old('iban') }}" placeholder="{{ $langg->lang489 }}" class="form-control" type="text">-->
+                                            <input name="iban" value="{{ old('iban') }}" placeholder="{{ $langg->lang489 }}" class="form-control" type="text">
                                             <input name="iban" value="{{ old('iban') }}" placeholder="Account No" class="form-control" type="text">
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="item form-group">
+                                    <!-- <div class="item form-group">
                                         <label class="control-label col-sm-12" for="name">Account Name *
 
                                         </label>
                                         <div class="col-sm-12">
                                             <input name="acc_name" value="{{ old('accname') }}" placeholder="Account Name" class="form-control" type="text">
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="item form-group">
+                                    <!-- <div class="item form-group">
                                         <label class="control-label col-sm-12" for="name">Bank Name *
 
                                         </label>
                                         <div class="col-sm-12">
                                             <input name="bank_name" value="{{ old('bank_name') }}" placeholder="Bank Name" class="form-control" type="text">
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="item form-group">
+                                    <!-- <div class="item form-group">
                                         <label class="control-label col-sm-12" for="name">{{ $langg->lang491 }}
 
                                         </label>
                                         <div class="col-sm-12">
                                             <input name="address" value="{{ old('address') }}" placeholder="{{ $langg->lang491 }}" class="form-control" type="text">
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!--<div class="item form-group">
                                         <label class="control-label col-sm-12" for="name">{{ $langg->lang492 }} *
@@ -126,7 +126,7 @@
                                         </div>
                                     </div>-->
 
-                                </div>
+                                <!-- </div> -->
 
                                 <div class="item form-group">
                                     <label class="control-label col-sm-12" for="name">{{ $langg->lang493 }}) *
