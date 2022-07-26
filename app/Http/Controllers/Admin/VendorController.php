@@ -293,7 +293,11 @@ class VendorController extends Controller
                                 // ->addColumn('name', function(Withdraw $data) {
                                 //     $name = $data->user->name;
                                 //     return '<a href="' . route('admin-vendor-show', $data->user->id) . '" target="_blank">'. $name .'</a>';
-                                // }) 
+                                // })
+                                ->addColumn('order_no', function(Withdraw $data) {
+                                    $order_no = $data->order_no;
+                                    return $order_no;
+                                })  
                                 ->addColumn('email', function(Withdraw $data) {
                                     $email = $data->user->email;
                                     return $email;

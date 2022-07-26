@@ -11,11 +11,11 @@
                                     <div class="table-responsive show-table">
                                         <table class="table">
                                             <tr>
-                                                <th>{{ __("User ID#") }}</th>
+                                                <th>{{ __("Vendor ID#") }}</th>
                                                 <td>{{$withdraw->user->id}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("User Name") }}</th>
+                                                <th>{{ __("Vendor Name") }}</th>
                                                 <td>
                                                     <a href="{{route('admin-user-show',$withdraw->user->id)}}" target="_blank">{{$withdraw->user->name}}</a>
                                                 </td>
@@ -44,24 +44,28 @@
                                                 <td>{{ucfirst($withdraw->status)}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("User Email") }}</th>
+                                                <th>{{ __("Vendor Email") }}</th>
                                                 <td>{{$withdraw->user->email}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("User Phone") }}</th>
+                                                <th>{{ __("Vendor Phone") }}</th>
                                                 <td>{{$withdraw->user->phone}}</td>
                                             </tr>
                                             <tr>
                                                 <th>{{ __("Withdraw Method") }}</th>
                                                 <td>{{$withdraw->method}}</td>
                                             </tr>
-                                            @if($withdraw->method != "Bank")
                                             <tr>
+                                                <th>{{ __("Tracking Order") }}</th>
+                                                <td>{{$withdraw->order_no}}</td>
+                                            </tr>
+                                            @if($withdraw->method != "Bank")
+                                            <!-- <tr>
                                                 <th>{{$withdraw->method}} {{ __("Email") }}:</th>
                                                 <td>{{$withdraw->acc_email}}</td>
-                                            </tr>
+                                            </tr> -->
                                             @else 
-                                            <tr>
+                                            <!-- <tr>
                                                 <th>{{$withdraw->method}} {{ __("Account") }}:</th>
                                                 <td>{{$withdraw->iban}}</td>
                                             </tr>
@@ -80,7 +84,7 @@
                                             <tr>
                                                 <th>{{$withdraw->method}} {{__("Swift Code")}}:</th>
                                                 <td>{{$withdraw->swift}}</td>
-                                            </tr>
+                                            </tr> -->
                                             @endif
                                         </table>
                                     </div>
