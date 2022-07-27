@@ -38,24 +38,25 @@ class WithdrawController extends Controller
         $from = User::findOrFail(Auth::guard('web')->user()->id);
         $curr = Currency::where('is_default','=',1)->first(); 
         $withdrawcharge = Generalsetting::findOrFail(1);
-        $charge = $withdrawcharge->withdraw_fee;
+        $charge = 0;
 
         if($request->amount > 0){
 
             $amount = $request->amount;
             //$amount = round(($amount / $curr->value),2);
-            $fee = (($withdrawcharge->withdraw_charge / 100) * $amount) + $charge;
-            $finalamount = $amount + $fee;
-            if ($from->current_balance >= $finalamount){
+            // $fee = (($withdrawcharge->withdraw_charge / 100) * $amount) + $charge;
+            // $finalamount = $amount + $fee;
+            
+            if ($from->current_balance >= $amount){
 
-                $from->current_balance = $from->current_balance - $finalamount;
+                $from->current_balance = $from->current_balance - $amount;
                 $from->update();
 
-                $finalamount = number_format((float)$finalamount,2,'.','');
+                $finalamount = number_format((float)$amount,2,'.','');
             
                 $newwithdraw = new Withdraw();
                 $newwithdraw['user_id'] = Auth::user()->id;
-                $newwithdraw['method'] = $request->methods;
+                $newwithdraw['method'] = 'Requested';
                 $newwithdraw['acc_email'] = $request->acc_email;
                 $newwithdraw['iban'] = $request->iban;
                 $newwithdraw['country'] = $request->acc_country;
@@ -65,7 +66,7 @@ class WithdrawController extends Controller
                 //$newwithdraw['swift'] = $request->swift;
                 $newwithdraw['reference'] = $request->reference;
                 $newwithdraw['amount'] = $finalamount;
-                $newwithdraw['fee'] = $fee;
+                $newwithdraw['fee'] = 0;
                 $newwithdraw['type'] = 'vendor';
                 $newwithdraw->save();
 
