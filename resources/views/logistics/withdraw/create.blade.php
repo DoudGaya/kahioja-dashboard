@@ -102,7 +102,7 @@
                                 <div id="resp" class="col-md-12">
 
                                                                             <span class="help-block">
-                                <strong>Withdraw Fee {{ $sign->sign }}{{ $gs->withdraw_fee }} and {{ $gs->withdraw_charge }}% will deduct from your account</strong>
+                                <strong></strong>
                             </span>
                                                                     </div>
 

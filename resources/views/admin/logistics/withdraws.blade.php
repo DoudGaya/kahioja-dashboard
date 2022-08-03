@@ -30,10 +30,10 @@
                                                 <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                                     <thead>
                                                         <tr>
+                                                            <th>{{ __("Order No") }}</th>
                                                             <th>{{ __("Company") }}</th>
                                                             <th>{{ __("Phone") }}</th>
                                                             <th>{{ __("Amount") }}</th>
-                                                            <th>{{ __("Charges") }}</th>
                                                             <th>{{ __("Bank Details") }}</th>
                                                             <th>{{ __("Withdraw Date") }}</th>
                                                             <th>{{ __("Status") }}</th>
@@ -152,10 +152,10 @@
                serverSide: true,
                ajax: '{{ route('admin-logistics-withdraw-datatables') }}',
                columns: [
+                        { data: 'order_no', name: 'order_no' },
                         { data: 'company', name: 'company' },
                         { data: 'phone', name: 'phone' },
                         { data: 'amount', name: 'amount' },
-                        { data: 'charge', name: 'charge' },
                         { data: 'bank_details', name: 'bank_details' },
                         { data: 'time_requested', name: 'time_requested' },
                         // { data: 'created_at', name: 'created_at' },

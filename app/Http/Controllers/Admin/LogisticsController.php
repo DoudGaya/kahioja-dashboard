@@ -180,6 +180,10 @@ class LogisticsController extends Controller
                             //     $name = $data->user->name;
                             //     return '<a href="' . route('admin-vendor-show', $data->user->id) . '" target="_blank">'. $name .'</a>';
                             // }) 
+                            ->addColumn('order_no', function(Withdraw $data) {
+                                $order_no = $data->order_no;
+                                return $order_no;
+                            })
                             ->addColumn('company', function(Withdraw $data) {
                                 $logistics = Logistic::where('id','=',$data->user_id)->first();
                                 $company = $logistics->company;
@@ -207,9 +211,10 @@ class LogisticsController extends Controller
                                 return $charge;
                             })
                             ->editColumn('bank_details', function(Withdraw $data) {
-                                $acc_name = $data->acc_name;
-                                $bank_name = $data->bank_name;
-                                $acc_no = $data->iban;
+                                $logistics = Logistic::where('id','=',$data->user_id)->first();
+                                $acc_name = $logistics->account_name;
+                                $bank_name = $logistics->bank_name;
+                                $acc_no = $logistics->account_no;
                                 $bank_details = $acc_name.' '.$bank_name.' '.$acc_no;
                                 return $bank_details;
                             })

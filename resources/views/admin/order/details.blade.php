@@ -309,7 +309,7 @@
                                         
                                             <td><input type="hidden" value="{{$product->product_id}}">{{ $product->product_id }}</td>
                                             <td>{{ $product->shop_name }}</td>
-                                            <td>{{ $product->paid }}</td>
+                                            <td>{{ $product->product_name }}</td>
                                             <td>
                                                 <p>
                                                     <strong>{{ __('Price') }} :</strong> {{$product->amount}}

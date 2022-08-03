@@ -29,9 +29,22 @@
         <div class="col-md-12 col-lg-6 col-xl-4">
             <div class="mycard bg1">
                 <div class="left">
-                    <h5 class="title">{{ __('Orders Pending!') }} </h5>
-                    <span class="number">{{count($pending)}}</span>
-                    <a href="{{route('admin-order-pending')}}" class="link">{{ __('View All') }}</a>
+                    <h5 class="title">{{ __('Total Earning') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\Order::sum('pay_amount')),2,'.','') }}</span>
+                    <a href="{{route('admin-order-index')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-dollar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="mycard bg3">
+                <div class="left">
+                    <h5 class="title">{{ __('Profit') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\Order::sum('pay_amount') - (App\Models\VendorOrder::sum('price') + App\Models\VendorOrder::sum('ship_fee'))),2,'.','') }}</span>
                 </div>
                 <div class="right d-flex align-self-center">
                     <div class="icon">
@@ -43,31 +56,58 @@
         <div class="col-md-12 col-lg-6 col-xl-4">
             <div class="mycard bg2">
                 <div class="left">
-                    <h5 class="title">{{ __('Orders Procsessing!') }}</h5>
-                    <span class="number">{{count($processing)}}</span>
-                    <a href="{{route('admin-order-processing')}}" class="link">{{ __('View All') }}</a>
+                    <h5 class="title">{{ __('Vendors Balance') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\User::sum('current_balance') + App\Models\Logistic::sum('current_balance')),2,'.','') }}</span>
                 </div>
                 <div class="right d-flex align-self-center">
                     <div class="icon">
-                        <i class="icofont-truck-alt"></i>
+                        <i class="icofont-dollar"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-12 col-lg-6 col-xl-4">
-            <div class="mycard bg3">
+            <div class="mycard bg2">
                 <div class="left">
-                    <h5 class="title">{{ __('Orders Completed!') }}</h5>
-                    <span class="number">{{count($completed)}}</span>
-                    <a href="{{route('admin-order-completed')}}" class="link">{{ __('View All') }}</a>
+                    <h5 class="title">{{ __('Withdrawal Request') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\Withdraw::where('status', 'pending')->sum('amount')),2,'.','') }}</span>
                 </div>
                 <div class="right d-flex align-self-center">
                     <div class="icon">
-                        <i class="icofont-check-circled"></i>
+                        <i class="icofont-dollar"></i>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="mycard bg2">
+                <div class="left">
+                    <h5 class="title">{{ __('Vendor Request') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\Withdraw::where('status', 'pending')->where('type', 'vendor')->sum('amount')),2,'.','') }}</span>
+                    <a href="{{route('admin-vendor-withdraw-index')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-dollar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="mycard bg5">
+                <div class="left">
+                    <h5 class="title">{{ __('Logistics Request') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\Withdraw::where('status', 'pending')->where('type', 'logistics')->sum('amount')),2,'.','') }}</span>
+                    <a href="{{route('admin-logistics-withdraw-index')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-dollar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="col-md-12 col-lg-6 col-xl-4">
             <div class="mycard bg4">
                 <div class="left">
@@ -82,7 +122,63 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="col-md-12 col-lg-6 col-xl-3">
+            <div class="mycard bg1">
+                <div class="left">
+                    <h5 class="title">{{ __('Orders Pending!') }} </h5>
+                    <span class="number">{{count($pending)}}</span>
+                    <a href="{{route('admin-order-pending')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-truck-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-3">
+            <div class="mycard bg2">
+                <div class="left">
+                    <h5 class="title">{{ __('Orders Processing!') }}</h5>
+                    <span class="number">{{count($processing)}}</span>
+                    <a href="{{route('admin-order-processing')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-truck-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-3">
+            <div class="mycard bg2">
+                <div class="left">
+                    <h5 class="title">{{ __('Orders On Delivery!') }}</h5>
+                    <span class="number">{{count($ondelivery)}}</span>
+                    <a href="{{route('admin-order-ondelivery')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-truck-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-3">
+            <div class="mycard bg3">
+                <div class="left">
+                    <h5 class="title">{{ __('Orders Completed!') }}</h5>
+                    <span class="number">{{count($completed)}}</span>
+                    <a href="{{route('admin-order-delivered')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-check-circled"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-3">
             <div class="mycard bg5">
                 <div class="left">
                     <h5 class="title">{{ __('Total Customers!') }}</h5>
@@ -92,20 +188,6 @@
                 <div class="right d-flex align-self-center">
                     <div class="icon">
                         <i class="icofont-users-alt-5"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-6 col-xl-4">
-            <div class="mycard bg6">
-                <div class="left">
-                    <h5 class="title">{{ __('Total Posts!') }}</h5>
-                    <span class="number">{{count($blogs)}}</span>
-                    <a href="{{ route('admin-blog-index') }}" class="link">{{ __('View All') }}</a>
-                </div>
-                <div class="right d-flex align-self-center">
-                    <div class="icon">
-                        <i class="icofont-newspaper"></i>
                     </div>
                 </div>
             </div>

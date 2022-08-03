@@ -27,13 +27,14 @@ class DashboardController extends Controller
     {
         $pending = Order::where('status','=','pending')->get();
         $processing = Order::where('status','=','processing')->get();
-        $completed = Order::where('status','=','completed')->get();
+        $ondelivery = Order::where('status','=','ready for delivery')->orwhere('status','=','accept delivery')->orwhere('status','=','pick up for delivery')->orwhere('status','=','on delivery')->get();
+        $completed = Order::where('status','=','delivered')->get();
         $days = "";
         $sales = "";
         for($i = 0; $i < 30; $i++) {
             $days .= "'".date("d M", strtotime('-'. $i .' days'))."',";
 
-            $sales .=  "'".Order::where('status','=','completed')->whereDate('created_at', '=', date("Y-m-d", strtotime('-'. $i .' days')))->count()."',";
+            $sales .=  "'".Order::where('status','=','delivered')->whereDate('created_at', '=', date("Y-m-d", strtotime('-'. $i .' days')))->count()."',";
         }
         $users = User::all();
         $products = Product::all();
@@ -54,7 +55,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers'));
+        return view('admin.dashboard',compact('pending','activation_notify','processing', 'ondelivery', 'completed','products','users','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers'));
     }
 
     public function profile()
