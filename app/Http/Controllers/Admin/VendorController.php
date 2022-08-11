@@ -144,17 +144,88 @@ class VendorController extends Controller
         $subject = 'Request for verification';
         // $details = $request->details;
         
-        $msg_template = '<div style="width: 50%; margin:0px auto; border:2px solid #eee; text-align:center; padding: 2% 3%; font-size: 1.5rem; line-height: 1.3;">
-                    	    <div>
-                                <img style="width:50%;" src="https://kahioja.com/assets/images/kahioja_full.jpg" alt="Kahioja Image">
-                    	    </div>
-                    	    <hr>
-                    	    <p>
-                    	        Please verify your Account. <br>
-                    	        Kindly login to your dashboard to verify your Account<br>
-                    	        Thank you!
-                    	    </p>
-                    	</div>';
+        $msg_template = '
+            <html>
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        #container{
+                            width: 80%; margin:0px auto; border:2px solid #eee; text-align:left; padding: 2% 4%; line-height: 1.6; text-align: center;
+                        }
+                        
+                        #card{
+                            width:22%; float: left; margin-left: 2%; font-size: 80%;
+                        }
+                        
+                        #logo{
+                            width:20%;
+                        }
+                        
+                        #footer-img{
+                            width: 15%;
+                        }
+                        
+                        a{
+                            text-decoration: none;
+                        }
+                        
+                        @media only screen and (max-width:768px)
+                        {
+                        
+                            #container{
+                                width: 100%;
+                                border: none;
+                            }
+                            
+                            h1{
+                                font-size: 16px;
+                            }
+                            
+                            #logo{
+                                width: 50%;
+                            }
+                            
+                            #footer-img{
+                                width: 35%;
+                            }
+                            
+                            #card{
+                                width: 100%;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div id="container">
+                        <div style="padding-bottom:1%;">
+                            <center><img id="logo" src="https://kahioja.com/images/kahioja.png" alt="Kahioja Image"></center>
+                        </div>
+                        <hr>
+                        <div style="text-align: left;">
+                            <div>
+                                <h1 style="color:#df7f1b;">Please verify your Account. </h1>
+                            </div>
+                            <div>
+                                Kindly login to your <a href="https://dashboard.kahioja.com/vendor/login">dashboard</a> to verify your Account<br>
+                                Thank you!
+                            </div>
+                            <hr>
+                            
+                        </div>
+                        <div>
+                            Your KAHIOJA Team
+                        </div>
+                        <div style="border-top:2px solid #000; margin-top:1%; padding:2%;">
+                            <center><img id="footer-img" src="https://kahioja.com/images/logo.png" alt="Kahioja Image"></center>
+                        </div>
+                        <div style="text-align:center; font-size:11px; line-height:1.3;">
+                            A1/A2 Block A Hamisu Abba Sumaila Plaza Tarauni Kano, Nigeria | <a style="color:#df7f1b;">info@kahioja.com</a><br>
+                            You"ve received this email because you have an account with KAHIOJA.
+                        </div>
+                    </div>
+                </body>
+            </html>
+        ';
         $msg = $msg_template;
         
         //Sending Email To Customer
@@ -217,15 +288,87 @@ class VendorController extends Controller
         $to = $request->to;
         $subject = $request->subject;
         $message = $request->message;
-        $msg_template = '<div style="width: 50%; margin:0px auto; border:2px solid #eee; text-align:center; padding: 2% 3%; font-size: 1.5rem; line-height: 1.3;">
-                    	    <div>
-                                <img style="width:50%;" src="https://kahioja.com/assets/images/kahioja_full.jpg" alt="Kahioja Image">
-                    	    </div>
-                    	    <hr>
-                    	    <p>
-                    	       '.$message.'
-                    	    </p>
-                    	</div>';
+        $msg_template = '
+            <html>
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        #container{
+                            width: 80%; margin:0px auto; border:2px solid #eee; text-align:left; padding: 2% 4%; line-height: 1.6; text-align: center;
+                        }
+                        
+                        #card{
+                            width:22%; float: left; margin-left: 2%; font-size: 80%;
+                        }
+                        
+                        #logo{
+                            width:20%;
+                        }
+                        
+                        #footer-img{
+                            width: 15%;
+                        }
+                        
+                        a{
+                            text-decoration: none;
+                        }
+                        
+                        @media only screen and (max-width:768px)
+                        {
+                        
+                            #container{
+                                width: 100%;
+                                border: none;
+                            }
+                            
+                            h1{
+                                font-size: 16px;
+                            }
+                            
+                            #logo{
+                                width: 50%;
+                            }
+                            
+                            #footer-img{
+                                width: 35%;
+                            }
+                            
+                            #card{
+                                width: 100%;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div id="container">
+                        <div style="padding-bottom:1%;">
+                            <center><img id="logo" src="https://kahioja.com/images/kahioja.png" alt="Kahioja Image"></center>
+                        </div>
+                        <hr>
+                        <div style="text-align: left;">
+                            <div>
+                                <h1 style="color:#df7f1b;">'.$subject.'</h1>
+                            </div>
+                            <div>
+                                '.$message.'
+                            </div>
+                            <hr>
+                            
+                        </div>
+                        <div>
+                            Your KAHIOJA Team
+                        </div>
+                        <div style="border-top:2px solid #000; margin-top:1%; padding:2%;">
+                            <center><img id="footer-img" src="https://kahioja.com/images/logo.png" alt="Kahioja Image"></center>
+                        </div>
+                        <div style="text-align:center; font-size:11px; line-height:1.3;">
+                            A1/A2 Block A Hamisu Abba Sumaila Plaza Tarauni Kano, Nigeria | <a style="color:#df7f1b;">info@kahioja.com</a><br>
+                            You"ve received this email because you have an account with KAHIOJA.
+                        </div>
+                    </div>
+                </body>
+            </html>
+        ';
         $msg = $msg_template;
         
         //Sending Email To Customer

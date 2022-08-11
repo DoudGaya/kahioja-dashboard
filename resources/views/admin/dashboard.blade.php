@@ -26,7 +26,7 @@
 
 
     <div class="row row-cards-one">
-        <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="col-md-12 col-lg-6 col-xl-6">
             <div class="mycard bg1">
                 <div class="left">
                     <h5 class="title">{{ __('Total Earning') }} </h5>
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="col-md-12 col-lg-6 col-xl-6">
             <div class="mycard bg3">
                 <div class="left">
                     <h5 class="title">{{ __('Profit') }} </h5>
@@ -57,7 +57,20 @@
             <div class="mycard bg2">
                 <div class="left">
                     <h5 class="title">{{ __('Vendors Balance') }} </h5>
-                    <span class="number">₦{{ number_format((float)(App\Models\User::sum('current_balance') + App\Models\Logistic::sum('current_balance')),2,'.','') }}</span>
+                    <span class="number">₦{{ number_format((float)(App\Models\User::sum('current_balance')),2,'.','') }}</span>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-dollar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="mycard bg2">
+                <div class="left">
+                    <h5 class="title">{{ __('Logistics Balance') }} </h5>
+                    <span class="number">₦{{ number_format((float)(App\Models\Logistic::sum('current_balance')),2,'.','') }}</span>
                 </div>
                 <div class="right d-flex align-self-center">
                     <div class="icon">
@@ -79,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="col-md-12 col-lg-6 col-xl-6">
             <div class="mycard bg2">
                 <div class="left">
                     <h5 class="title">{{ __('Vendor Request') }} </h5>
@@ -93,7 +106,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="col-md-12 col-lg-6 col-xl-6">
             <div class="mycard bg5">
                 <div class="left">
                     <h5 class="title">{{ __('Logistics Request') }} </h5>
@@ -103,21 +116,6 @@
                 <div class="right d-flex align-self-center">
                     <div class="icon">
                         <i class="icofont-dollar"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-12 col-lg-6 col-xl-4">
-            <div class="mycard bg4">
-                <div class="left">
-                    <h5 class="title">{{ __('Total Products!') }}</h5>
-                    <span class="number">{{count($products)}}</span>
-                    <a href="{{route('admin-prod-index')}}" class="link">{{ __('View All') }}</a>
-                </div>
-                <div class="right d-flex align-self-center">
-                    <div class="icon">
-                        <i class="icofont-cart-alt"></i>
                     </div>
                 </div>
             </div>
@@ -178,7 +176,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-3">
+        <div class="col-md-12 col-lg-6 col-xl-6">
             <div class="mycard bg5">
                 <div class="left">
                     <h5 class="title">{{ __('Total Customers!') }}</h5>
@@ -192,7 +190,21 @@
                 </div>
             </div>
         </div>
-
+        
+        <div class="col-md-12 col-lg-6 col-xl-6">
+            <div class="mycard bg4">
+                <div class="left">
+                    <h5 class="title">{{ __('Total Products!') }}</h5>
+                    <span class="number">{{count($products)}}</span>
+                    <a href="{{route('admin-prod-index')}}" class="link">{{ __('View All') }}</a>
+                </div>
+                <div class="right d-flex align-self-center">
+                    <div class="icon">
+                        <i class="icofont-cart-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row row-cards-one">
