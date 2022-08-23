@@ -31,7 +31,7 @@
 			</div>
 		</div>
 
-		<form id="geniusform" action="{{route('vendor-prod-update',$data->id)}}" method="POST" enctype="multipart/form-data">
+		<form id="geniusfor" action="{{route('vendor-prod-update',$data->id)}}" method="POST" enctype="multipart/form-data">
 			{{csrf_field()}}
 
 		<div class="row">

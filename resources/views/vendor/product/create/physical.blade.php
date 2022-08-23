@@ -34,7 +34,7 @@
 		</div>
 	</div>
 
-<form id="geniusform" action="{{route('vendor-prod-store')}}" method="POST"
+<form id="geniusfor" action="{{route('vendor-prod-store')}}" method="POST"
 	enctype="multipart/form-data">
 	{{csrf_field()}}
 	<div class="row">
@@ -128,8 +128,19 @@
 									<div id="subcatAttributes"></div>
 									<div id="childcatAttributes"></div>
 		
-		
-									
+									<div class="row" id="stckprod">
+										<div class="col-lg-12">
+											<div class="left-area">
+												<h4 class="heading">{{ $langg->lang669 }}*</h4>
+												<p class="sub-heading">{{ $langg->lang670 }}</p>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<input name="stock" type="text" class="input-field"
+												placeholder="{{ $langg->lang666 }}">
+										</div>
+									</div>
+
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">

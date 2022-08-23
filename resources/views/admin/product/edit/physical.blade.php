@@ -176,6 +176,10 @@
 																	<p class="sub-heading">{{ __('(Leave Empty will Show Always Available)') }}</p>
 															</div>
 														</div>
+														<div class="col-lg-12">
+															<input name="stock" type="text" class="input-field"
+																placeholder="{{ $langg->lang666 }}" value="{{ $data->stock }}">
+														</div>
 													</div>
 
 												</div>

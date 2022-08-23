@@ -33,7 +33,7 @@
 													<thead>
 														<tr>
 									                        <th>{{ $langg->lang608 }}</th>
-									                        <th>{{ $langg->lang609 }}</th>
+									                        <th>Stock</th>
 									                        <th>{{ $langg->lang610 }}</th>
 									                        <th>{{ $langg->lang611 }}</th>
 									                        <th>{{ $langg->lang612 }}</th>
@@ -167,7 +167,7 @@
                ajax: '{{ route('vendor-prod-datatables') }}',
                columns: [
                         { data: 'name', name: 'name' },
-                        { data: 'type', name: 'type' },
+                        { data: 'stock', name: 'stock' },
                         { data: 'price', name: 'price' },
                         { data: 'status', searchable: false, orderable: false},
             			{ data: 'action', searchable: false, orderable: false }

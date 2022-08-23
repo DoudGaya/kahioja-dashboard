@@ -356,8 +356,6 @@
 											</div>
 										</div> -->
 			
-							
-<!-- 			
 										<div class="row" id="stckprod">
 											<div class="col-lg-12">
 												<div class="left-area">
@@ -368,13 +366,8 @@
 											<div class="col-lg-12">
 												<input name="stock" type="text" class="input-field"
 													placeholder="{{ $langg->lang666 }}">
-												<div class="checkbox-wrapper">
-													<input type="checkbox" name="measure_check" class="checkclick"
-														id="allowProductMeasurement" value="1">
-													<label for="allowProductMeasurement">{{ $langg->lang671 }}</label>
-												</div>
 											</div>
-										</div> -->
+										</div>
 			
 			
 			

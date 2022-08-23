@@ -63,6 +63,15 @@ class ProductController extends Controller
                                 $price = $sign->sign.$price ;
                                 return  $price;
                             })
+                            ->editColumn('stock', function(Product $data) {
+                                $stck = (string)$data->stock;
+                                if($stck == "0")
+                                return "Out Of Stock";
+                                elseif($stck == null)
+                                return "Unlimited";
+                                else
+                                return $data->stock;
+                            })
                             ->addColumn('status', function(Product $data) {
                                 $class = $data->status == 1 ? 'drop-success' : 'drop-danger';
                                 $s = $data->status == 1 ? 'selected' : '';
@@ -654,6 +663,7 @@ class ProductController extends Controller
                 'slug' => $slug,
                 'photo' => $name,
                 'ship_fee' => $input['ship_fee'],
+                'stock' => $input['stock'],
                 'details' => $input['details'],
                 'meta_tag' => $input['meta_tag'],
                 'meta_description' => $input['meta_description'],
@@ -681,8 +691,8 @@ class ProductController extends Controller
         //logic Section Ends
 
         //--- Redirect Section
-        $msg = 'New Product Added Successfully.<a href="'.route('vendor-prod-index').'">View Product Lists.</a>';
-        return response()->json($msg);
+        $msg = 'New Product Added Successfully';
+        return redirect()->route('vendor-prod-index')->with('success', $msg);
         //--- Redirect Section Ends
         }
         else
@@ -1035,8 +1045,9 @@ class ProductController extends Controller
                 $prod->update();
 
         //--- Redirect Section
-        $msg = 'Product Updated Successfully.<a href="'.route('vendor-prod-index').'">View Product Lists.</a>';
-        return response()->json($msg);
+        $msg = 'Product Updated Successfully.';
+        // return response()->json($msg);
+        return redirect()->route('vendor-prod-index')->with('success', $msg);
         //--- Redirect Section Ends
     }
 
