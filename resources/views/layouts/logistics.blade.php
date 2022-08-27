@@ -54,7 +54,7 @@
 				<div class="header">
 					<div class="container-fluid">
 						<div class="d-flex justify-content-between">
-							<a class="admin-logo" href="{{ route('logistics.dashboard') }}" target="_blank">
+							<a class="admin-logo" href="{{ route('logistics.dashboard') }}">
 								<img src="{{asset('assets/images/'.$gs->logo)}}" alt="">
 							</a>
 							<div class="menu-toggle-button">
