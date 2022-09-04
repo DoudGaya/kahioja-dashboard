@@ -178,26 +178,27 @@
 
 
 
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-												<h4 class="heading">
-														{{ $langg->lang681 }}
-												</h4>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="text-editor">
-												<textarea name="policy" class="nic-edit-p">{{$data->policy}}</textarea>
-											</div>
-										</div>
-									</div>
+									<!--<div class="row">-->
+									<!--	<div class="col-lg-12">-->
+									<!--		<div class="left-area">-->
+									<!--			<h4 class="heading">-->
+									<!--					{{ $langg->lang681 }}-->
+									<!--			</h4>-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--	<div class="col-lg-12">-->
+									<!--		<div class="text-editor">-->
+									<!--			<textarea name="policy" class="nic-edit-p">{{$data->policy}}</textarea>-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--</div>-->
 
 
 									<div class="row">
 										<div class="col-lg-12">
 										<div class="checkbox-wrapper">
-										  <input type="checkbox" name="seo_check" value="1" class="checkclick" id="allowProductSEO" {{ ($data->meta_tag != null || strip_tags($data->meta_description) != null) ? 'checked':'' }}>
+										  <!--<input type="checkbox" name="seo_check" value="1" class="checkclick" id="allowProductSEO" {{ ($data->meta_tag != null || strip_tags($data->meta_description) != null) ? 'checked':'' }}>-->
+										  <input type="checkbox" class="checkclick" id="allowProductSEO" {{ ($data->meta_tag != null || strip_tags($data->meta_description) != null) ? 'checked':'' }}>
 										  <label for="allowProductSEO">{{ $langg->lang683 }}</label>
 										</div>
 										</div>

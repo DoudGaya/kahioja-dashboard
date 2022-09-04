@@ -660,6 +660,9 @@ class ProductController extends Controller
             Product::create([
                 'name' => $input['name'],
                 'sku' => $input['sku'],
+                'category_id' => $input['category_id'],
+                'subcategory_id' => $input['subcategory_id'],
+                'childcategory_id' => $input['childcategory_id'],
                 'slug' => $slug,
                 'photo' => $name,
                 'ship_fee' => $input['ship_fee'],
@@ -762,6 +765,7 @@ class ProductController extends Controller
         $data = Product::findOrFail($id);
         $sign = Currency::where('is_default','=',1)->first();
         $input = $request->all();
+        
         if ($file = $request->file('photo')) 
         {              
             $name = time().str_replace(' ', '', $file->getClientOriginalName());
@@ -772,8 +776,10 @@ class ProductController extends Controller
                     unlink(public_path().'/assets/images/products/'.$data->photo);
                 }
             }            
-        $input['photo'] = $name;
+            $input['photo'] = $name;
         } 
+        
+        
         //Check Types
         if($request->type_check == 1)
         {
@@ -893,18 +899,19 @@ class ProductController extends Controller
 
 
             // Check Seo
-        if (empty($request->seo_check))
-         {
-            $input['meta_tag'] = null;
-            $input['meta_description'] = null;
-         }
-         else {
-        if (!empty($request->meta_tag))
-         {
-            $input['meta_tag'] = implode(',', $request->meta_tag);
-         }
-         }
+        // if (empty($request->seo_check))
+        //  {
+        //     $input['meta_tag'] = null;
+        //     $input['meta_description'] = null;
+        //  }
+        //  else {
+        // if (!empty($request->meta_tag))
+        //  {
+        //  }
+        //  }
 
+        $input['meta_tag'] = implode(',', $request->meta_tag);
+        
         // Check License
         if($data->type == "License")
         {
@@ -1008,7 +1015,7 @@ class ProductController extends Controller
            $jsonAttr = json_encode($attrArr);
            $input['attributes'] = $jsonAttr;
          }
-
+                        
          $data->update($input);
         //-- Logic Section Ends
 
@@ -1042,7 +1049,25 @@ class ProductController extends Controller
 
                 // $prod->thumbnail  = $thumbnail;
                 // $prod->photo  = $photo;
-                $prod->update();
+        
+        // $update_product = Product::where('id', $data->id)->update([
+        //     'name' => $input['name'],
+        //     'sku' => $input['sku'],
+        //     'category_id' => $input['category_id'],
+        //     'subcategory_id' => $input['subcategory_id'],
+        //     'childcategory_id' => $input['childcategory_id'],
+        //     'slug' => $prod->slug,
+        //     'photo' => $name,
+        //     'ship_fee' => $input['ship_fee'],
+        //     'stock' => $input['stock'],
+        //     'details' => $input['details'],
+        //     'meta_tag' => $input['meta_tag'],
+        //     'meta_description' => $input['meta_description'],
+        //     'price' => $input['price'],
+        //     'previous_price' => $input['previous_price'],
+        //     'user_id' => $input['user_id'],
+        // ]);
+        $prod->update();
 
         //--- Redirect Section
         $msg = 'Product Updated Successfully.';

@@ -156,20 +156,20 @@
 										</div>
 									</div>
 		
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="left-area">
-												<h4 class="heading">
-													{{ $langg->lang681 }}
-												</h4>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="text-editor">
-												<textarea class="nic-edit-p" name="policy"></textarea>
-											</div>
-										</div>
-									</div>
+									<!--<div class="row">-->
+									<!--	<div class="col-lg-12">-->
+									<!--		<div class="left-area">-->
+									<!--			<h4 class="heading">-->
+									<!--				{{ $langg->lang681 }}-->
+									<!--			</h4>-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--	<div class="col-lg-12">-->
+									<!--		<div class="text-editor">-->
+									<!--			<textarea class="nic-edit-p" name="policy"></textarea>-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--</div>-->
 		
 		
 									<div class="row">
