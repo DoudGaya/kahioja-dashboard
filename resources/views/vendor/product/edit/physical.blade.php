@@ -336,6 +336,18 @@
 														<input name="ship_fee" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->ship_fee * $sign->value , 2)}}" min="0">
 													</div>
 												</div>
+
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="left-area">
+															<h4 class="heading">{{ __('Delivery Time') }}</h4>
+															<p class="sub-heading">{{ __('(In Days)') }}</p>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input name="ship" step="1" type="number" class="input-field" placeholder="{{ __('e.g 1') }}" value="{{$data->ship}}" min="1">
+													</div>
+												</div>
 											
 											</div>
 										</div>

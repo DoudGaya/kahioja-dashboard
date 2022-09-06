@@ -542,6 +542,7 @@ class ProductController extends Controller
             'photo' => $name,
             'product_condition' => $input['product_condition'],
             'ship_fee' => $input['ship_fee'],
+            'ship' => $input['ship'],
             'size' => $input['size'],
             'size_qty' => $input['size_qty'],
             'size_price' => $input['size_price'],
@@ -1025,6 +1026,7 @@ class ProductController extends Controller
            $input['attributes'] = $jsonAttr;
          }
 
+         $input['ship'] = $request->ship;
          $data->update($input);
         //-- Logic Section Ends
 

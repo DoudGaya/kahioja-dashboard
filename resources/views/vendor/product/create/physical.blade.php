@@ -320,6 +320,19 @@
 												placeholder="{{ __('e.g 200') }}" min="0">
 										</div>
 									</div>
+
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="left-area">
+												<h4 class="heading">{{ __('Delivery Time') }} *</h4>
+												<p class="sub-heading">{{ __('(In Days)') }}</p>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<input required name="ship" step="1" type="number" class="input-field"
+												placeholder="{{ __('e.g 1') }}" min="1">
+										</div>
+									</div>
 		
 							</div>
 						</div>

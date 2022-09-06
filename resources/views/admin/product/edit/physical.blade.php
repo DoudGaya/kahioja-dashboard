@@ -364,6 +364,18 @@
 													</div>
 												</div>
 
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="left-area">
+															<h4 class="heading">{{ __('Delivery Time') }}</h4>
+															<p class="sub-heading">{{ __('(In Days)') }}</p>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input name="ship" step="1" type="number" class="input-field" placeholder="{{ __('e.g 1') }}" value="{{$data->ship}}" min="1">
+													</div>
+												</div>
+
 											</div>
 										</div>
 									</div>

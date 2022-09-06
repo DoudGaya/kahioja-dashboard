@@ -412,8 +412,8 @@ class ProductController extends Controller
         $package = $user->subscribes()->orderBy('id','desc')->first();
         $prods = $user->products()->orderBy('id','desc')->get()->count();
 
-        if($prods < $package->allowed_products || $package->allowed_products == 0)
-        {
+        // if($prods < $package->allowed_products || $package->allowed_products == 0)
+        // {
 
         //--- Validation Section
         $rules = [
@@ -661,11 +661,12 @@ class ProductController extends Controller
                 'name' => $input['name'],
                 'sku' => $input['sku'],
                 'category_id' => $input['category_id'],
-                'subcategory_id' => $input['subcategory_id'],
-                'childcategory_id' => $input['childcategory_id'],
+                // 'subcategory_id' => $input['subcategory_id'],
+                // 'childcategory_id' => $input['childcategory_id'],
                 'slug' => $slug,
                 'photo' => $name,
                 'ship_fee' => $input['ship_fee'],
+                'ship' => $input['ship'],
                 'stock' => $input['stock'],
                 'details' => $input['details'],
                 'meta_tag' => $input['meta_tag'],
@@ -697,14 +698,14 @@ class ProductController extends Controller
         $msg = 'New Product Added Successfully';
         return redirect()->route('vendor-prod-index')->with('success', $msg);
         //--- Redirect Section Ends
-        }
-        else
-        {
-        //--- Redirect Section
-        return response()->json(array('errors' => [ 0 => 'You Can\'t Add More Product.']));
+        // }
+        // else
+        // {
+        // //--- Redirect Section
+        // return response()->json(array('errors' => [ 0 => 'You Can\'t Add More Product.']));
 
-        //--- Redirect Section Ends
-        }
+        // //--- Redirect Section Ends
+        // }
 
     }
 
@@ -899,18 +900,15 @@ class ProductController extends Controller
 
 
             // Check Seo
-        // if (empty($request->seo_check))
-        //  {
-        //     $input['meta_tag'] = null;
-        //     $input['meta_description'] = null;
-        //  }
-        //  else {
-        // if (!empty($request->meta_tag))
-        //  {
-        //  }
-        //  }
+        if (empty($request->seo_check)){
+            $input['meta_tag'] = null;
+            $input['meta_description'] = null;
+        }else{
+            if(!empty($request->meta_tag)){
+                $input['meta_tag'] = implode(',', $request->meta_tag);
+            }
+        }
 
-        $input['meta_tag'] = implode(',', $request->meta_tag);
         
         // Check License
         if($data->type == "License")
@@ -1015,7 +1013,8 @@ class ProductController extends Controller
            $jsonAttr = json_encode($attrArr);
            $input['attributes'] = $jsonAttr;
          }
-                        
+         $input['ship'] = $request->ship;
+         
          $data->update($input);
         //-- Logic Section Ends
 
