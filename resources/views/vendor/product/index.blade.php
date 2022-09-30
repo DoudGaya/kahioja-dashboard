@@ -34,6 +34,7 @@
 														<tr>
 									                        <th>{{ $langg->lang608 }}</th>
 									                        <th>Stock</th>
+									                        <th>Delivery Fee</th>
 									                        <th>{{ $langg->lang610 }}</th>
 									                        <th>{{ $langg->lang611 }}</th>
 									                        <th>{{ $langg->lang612 }}</th>
@@ -168,6 +169,7 @@
                columns: [
                         { data: 'name', name: 'name' },
                         { data: 'stock', name: 'stock' },
+                        { data: 'ship_fee', name: 'ship_fee' },
                         { data: 'price', name: 'price' },
                         { data: 'status', searchable: false, orderable: false},
             			{ data: 'action', searchable: false, orderable: false }

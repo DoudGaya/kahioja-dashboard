@@ -63,6 +63,12 @@ class ProductController extends Controller
                                 $price = $sign->sign.$price ;
                                 return  $price;
                             })
+                            ->editColumn('ship_fee', function(Product $data) {
+                                $sign = Currency::where('is_default','=',1)->first();
+                                $ship_fee = round($data->ship_fee * $sign->value , 2);
+                                $ship_fee = $sign->sign.$ship_fee;
+                                return  $ship_fee;
+                            })
                             ->editColumn('stock', function(Product $data) {
                                 $stck = (string)$data->stock;
                                 if($stck == "0")
@@ -656,6 +662,7 @@ class ProductController extends Controller
 
             
             $slug = str_slug($input['name'],'-').'-'.strtolower($input['sku']);
+            
             
             Product::create([
                 'name' => $input['name'],

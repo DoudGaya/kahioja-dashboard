@@ -35,6 +35,7 @@
 									                        <th>{{ __("Name") }}</th>
 									                        <th>{{ __("Type") }}</th>
 									                        <th>{{ __("Stock") }}</th>
+									                        <th>{{ __("Delivery Fee") }}</th>
 									                        <th>{{ __("Price") }}</th>
 									                        <th>{{ __("Status") }}</th>
 									                        <th>{{ __("Options") }}</th>
@@ -209,6 +210,7 @@
                         { data: 'name', name: 'name' },
                         { data: 'type', name: 'type' },
                         { data: 'stock', name: 'stock' },
+                        { data: 'ship_fee', name: 'ship_fee' },
                         { data: 'price', name: 'price' },
                         { data: 'status', searchable: false, orderable: false},
             			{ data: 'action', searchable: false, orderable: false }
