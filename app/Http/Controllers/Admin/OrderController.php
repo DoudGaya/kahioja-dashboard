@@ -28,34 +28,34 @@ class OrderController extends Controller
     public function datatables($status)
     {
         if($status == 'pending'){
-            $datas = Order::where('status','=','pending')->get();
+            $datas = Order::where('status','=','pending')->where('payment_status', 'completed')->get();
         }
         else if($status == 'processing') {
-            $datas = Order::where('status','=','processing')->get();
+            $datas = Order::where('status','=','processing')->where('payment_status', 'completed')->get();
         }
         else if($status == 'completed') {
-            $datas = Order::where('status','=','completed')->orderby('id','desc')->get();
+            $datas = Order::where('status','=','completed')->where('payment_status', 'completed')->orderby('id','desc')->get();
         }
         else if($status == 'ready for delivery') {
-            $datas = Order::where('status','=','ready for delivery')->orderby('id','desc')->get();
+            $datas = Order::where('status','=','ready for delivery')->where('payment_status', 'completed')->orderby('id','desc')->get();
         }
         else if($status == 'accept delivery') {
-            $datas = Order::where('status','=','accept delivery')->orderby('id','desc')->get();
+            $datas = Order::where('status','=','accept delivery')->where('payment_status', 'completed')->orderby('id','desc')->get();
         }
         else if($status == 'pick up for delivery') {
-            $datas = Order::where('status','=','pick up for delivery')->orderby('id','desc')->get();
+            $datas = Order::where('status','=','pick up for delivery')->where('payment_status', 'completed')->orderby('id','desc')->get();
         }
         else if($status == 'on delivery') {
-            $datas = Order::where('status','=','on delivery')->orderby('id','desc')->get();
+            $datas = Order::where('status','=','on delivery')->where('payment_status', 'completed')->orderby('id','desc')->get();
         }
         else if($status == 'delivered') {
-            $datas = Order::where('status','=','delivered')->orderby('id','desc')->get();
+            $datas = Order::where('status','=','delivered')->where('payment_status', 'completed')->orderby('id','desc')->get();
         }
         else if($status == 'declined') {
-            $datas = Order::where('status','=','declined')->get();
+            $datas = Order::where('status','=','declined')->where('payment_status', 'completed')->get();
         }
         else{
-          $datas = Order::orderBy('id','desc')->get();  
+          $datas = Order::orderBy('id','desc')->where('payment_status', 'completed')->get();  
         }
          
          //--- Integrating This Collection Into Datatables

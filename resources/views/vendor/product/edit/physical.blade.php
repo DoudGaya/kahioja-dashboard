@@ -269,7 +269,7 @@
 													</div>
 													<div class="col-lg-12">
 														<div class="img-upload  custom-image-upload">
-															<div id="image-preview" class="img-preview" style="background: url({{ $data->photo ? asset('assets/images/products/'.$data->photo):asset('assets/images/noimage.png') }});">
+															<div id="image-preview" class="img-preview" style="background: url({{ ($data->photo) ? (asset('assets/images/products/'.$data->photo)) : (asset('assets/images/noimage.png')) }});">
 																<label for="image-upload" class="img-label" id="image-label"><i class="icofont-upload-alt"></i>{{ $langg->lang512 }}</label>
 																<input type="file" name="photo" class="img-upload" id="image-upload" >
 															</div>
@@ -527,8 +527,6 @@ $('.cropme').simpleCropper();
   <script type="text/javascript">
   $(document).ready(function() {
 
-    let html = `<img src="{{ empty($data->photo) ? asset('assets/images/noimage.png') : filter_var($data->photo, FILTER_VALIDATE_URL) ? $data->photo :asset('assets/images/products/'.$data->photo) }}" alt="">`;
-    $(".span4.cropme").html(html);
 
     $.ajaxSetup({
         headers: {

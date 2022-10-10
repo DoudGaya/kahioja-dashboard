@@ -44,7 +44,7 @@
                                                 <tr>
                                                     <th class="45%" width="45%">{{ $langg->lang551 }}</th>
                                                     <td width="10%">:</td>
-                                                    <td class="45%" width="45%">{{$order->order_number}}jjjj</td>
+                                                    <td class="45%" width="45%">{{$order->order_number}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th width="45%">{{ $langg->lang552 }}</th>

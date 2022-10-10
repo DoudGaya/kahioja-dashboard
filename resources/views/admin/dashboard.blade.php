@@ -30,7 +30,7 @@
             <div class="mycard bg1">
                 <div class="left">
                     <h5 class="title">{{ __('Total Earning') }} </h5>
-                    <span class="number">₦{{ number_format((float)(App\Models\Order::sum('pay_amount')),2,'.','') }}</span>
+                    <span class="number">₦{{ number_format((float)(App\Models\Order::where('payment_status', 'completed')->sum('pay_amount')),2,'.','') }}</span>
                     <a href="{{route('admin-order-index')}}" class="link">{{ __('View All') }}</a>
                 </div>
                 <div class="right d-flex align-self-center">
@@ -44,7 +44,7 @@
             <div class="mycard bg3">
                 <div class="left">
                     <h5 class="title">{{ __('Profit') }} </h5>
-                    <span class="number">₦{{ number_format((float)(App\Models\Order::sum('pay_amount') - (App\Models\VendorOrder::sum('price') + App\Models\VendorOrder::sum('ship_fee'))),2,'.','') }}</span>
+                    <span class="number">₦{{ number_format((float)(App\Models\Order::where('payment_status', 'completed')->sum('pay_amount') - (App\Models\VendorOrder::sum('price') + App\Models\VendorOrder::sum('ship_fee'))),2,'.','') }}</span>
                 </div>
                 <div class="right d-flex align-self-center">
                     <div class="icon">
