@@ -36,6 +36,7 @@
 									                        <th>Stock</th>
 									                        <th>Delivery Fee</th>
 									                        <th>{{ $langg->lang610 }}</th>
+									                        <!-- <th>Whole Sale Price</th> -->
 									                        <th>{{ $langg->lang611 }}</th>
 									                        <th>{{ $langg->lang612 }}</th>
 														</tr>
@@ -171,6 +172,7 @@
                         { data: 'stock', name: 'stock' },
                         { data: 'ship_fee', name: 'ship_fee' },
                         { data: 'price', name: 'price' },
+                        // { data: 'whole_sale_price', name: 'whole_sale_price' },
                         { data: 'status', searchable: false, orderable: false},
             			{ data: 'action', searchable: false, orderable: false }
 

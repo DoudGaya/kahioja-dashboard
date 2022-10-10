@@ -10,6 +10,7 @@ use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\Attribute;
+use App\Models\Wholesale;
 use App\Models\AttributeOption;
 use Auth;
 use DB;
@@ -60,9 +61,37 @@ class ProductController extends Controller
                             ->editColumn('price', function(Product $data) {
                                 $sign = Currency::where('is_default','=',1)->first();
                                 $price = round($data->price * $sign->value , 2);
-                                $price = $sign->sign.$price ;
+                                $price = $sign->sign.$price;
                                 return  $price;
                             })
+                            // ->editColumn('whole_sale_price', function(Product $data) {
+                            //     // $whole_sale_qty = $data->whole_sell_qty;
+                            //     // $whole_sale_discount = $data->whole_sell_discount;
+                            //     // if($whole_sale_qty == null){
+                            //     //     $sign = Currency::where('is_default','=',1)->first();
+                            //     //     $price = round($data->price * $sign->value , 2);
+                            //     //     $price = $sign->sign.$price;
+                            //     //     return $price;
+                            //     // }else{
+                            //     //     // return $whole_sale_qty[1];
+                            //     //     $whole_sale_price = '';
+                            //     //     $whole_sale_disc = '';
+                                    
+                            //     //     foreach($whole_sale_qty as $qty){
+                            //     //         $whole_sale_price .= $qty;
+                            //     //     }
+
+                            //     //     // foreach($whole_sale_discount as $discount){
+                            //     //     //     $whole_sale_disc .= $discount;
+                            //     //     // }
+
+                            //     //     // return str_replace(array('[',']'), '', $whole_sale_price);
+                            //     //     return $whole_sale_price;
+
+                            //     // }
+                            //     // else
+                            //         // return json_encode($data->whole_sell_qty);
+                            // })
                             ->editColumn('ship_fee', function(Product $data) {
                                 $sign = Currency::where('is_default','=',1)->first();
                                 $ship_fee = round($data->ship_fee * $sign->value , 2);
@@ -522,8 +551,8 @@ class ProductController extends Controller
             else{
                 if(in_array(null, $request->whole_sell_qty) || in_array(null, $request->whole_sell_discount))
                 {
-                $input['whole_sell_qty'] = null;
-                $input['whole_sell_discount'] = null;
+                    $input['whole_sell_qty'] = null;
+                    $input['whole_sell_discount'] = null;
                 }
                 else
                 {
@@ -531,7 +560,6 @@ class ProductController extends Controller
                     $input['whole_sell_discount'] = implode(',', $request->whole_sell_discount);
                 }
             }
-
 
             // Check Color
             if(empty($request->color_check))
@@ -663,6 +691,7 @@ class ProductController extends Controller
             
             $slug = str_slug($input['name'],'-').'-'.strtolower($input['sku']);
             
+            // dd($input['whole_sell_qty']);
             
             Product::create([
                 'name' => $input['name'],
@@ -675,6 +704,7 @@ class ProductController extends Controller
                 'ship_fee' => $input['ship_fee'],
                 'ship' => $input['ship'],
                 'stock' => $input['stock'],
+                // 'whole_sell_qty' => json_encode($data),
                 'details' => $input['details'],
                 'meta_tag' => $input['meta_tag'],
                 'meta_description' => $input['meta_description'],
@@ -683,22 +713,39 @@ class ProductController extends Controller
                 'user_id' => $input['user_id'],
             ]);
             
-            // Add To Gallery If any
-                
-                $prod = Product::latest('id')->first();
-                $lastid = $prod->id;
-                if ($files = $request->file('gallery')){
-                    foreach($files as $file){
-                        
-                        $gallery = new Gallery;
-                        
-                        $name = time().str_replace(' ', '', $file->getClientOriginalName());
-                       $file->move('assets/images/galleries', $name);           
-                        $gallery['photo'] = $name;
-                        $gallery['product_id'] = $lastid;
-                        $gallery->save();
-                    }
+            
+            $prod = Product::latest('id')->first();
+            $lastid = $prod->id;
+            
+            // Add wholesale 
+            $data = Array(
+                'whole_sell_qty' => $input['whole_sell_qty'],
+                'whole_sell_discount' => $input['whole_sell_discount'],
+            );
+
+            if($wholesale = $data['whole_sell_qty']){
+                for($x=0; $x<count($wholesale); $x++){
+                    $sale_price = new Wholesale;
+                    $sale_price['product_id'] = $lastid;
+                    $sale_price['qty'] = $data['whole_sell_qty'][$x];
+                    $sale_price['discount'] = $data['whole_sell_discount'][$x];
+                    $sale_price->save();
                 }
+            }
+
+            // Add To Gallery If any
+            if($files = $request->file('gallery')){
+                foreach($files as $file){
+                    
+                    $gallery = new Gallery;
+                    
+                    $name = time().str_replace(' ', '', $file->getClientOriginalName());
+                    $file->move('assets/images/galleries', $name);           
+                    $gallery['photo'] = $name;
+                    $gallery['product_id'] = $lastid;
+                    $gallery->save();
+                }
+            }
         //logic Section Ends
 
         //--- Redirect Section
