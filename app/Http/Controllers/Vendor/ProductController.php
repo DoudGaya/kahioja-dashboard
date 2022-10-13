@@ -1087,8 +1087,6 @@ class ProductController extends Controller
                 'whole_sell_discount' => explode(',', $input['whole_sell_discount']),
             );
 
-            // dd(count($wholesale_array['whole_sell_qty']));
-
             if($wholesale = $wholesale_array['whole_sell_qty']){
                 for($x=0; $x<count($wholesale); $x++){
                     $sale_price = new Wholesale;

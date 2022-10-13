@@ -147,14 +147,14 @@
 									<div class="col-lg-12">
 										<ul class="list">
 											<li>
-												<input class="checkclick1" name="whole_check" type="checkbox" id="whole_check" value="1" {{ !empty($wholesale) ? "checked":"" }}>
+												<input class="checkclick1" name="whole_check" type="checkbox" id="whole_check" value="1" {{ !empty($data->whole_check) ? "checked":"" }}>
 												<label for="whole_check">{{ $langg->lang660 }}</label>
 											</li>
 										</ul>
 									</div>
 								</div>
 
-								<div class="{{ !empty($wholesale) ? "":"showbox" }}">
+								<div class="{{ !empty($data->whole_check) ? "":"showbox" }}">
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
