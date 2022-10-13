@@ -773,13 +773,6 @@ class ProductController extends Controller
         $sign = Currency::where('is_default','=',1)->first();
         $wholesale = Wholesale::where('product_id', $id)->get();
 
-        // foreach($wholesale as $sale){
-        //     echo $sale['qty'];
-        // }
-
-        // dd($wholesale);
-
-
         if($data->type == 'Digital')
             return view('vendor.product.edit.digital',compact('cats','data','sign'));
         elseif($data->type == 'License')
@@ -827,6 +820,7 @@ class ProductController extends Controller
 
         //-- Logic Section
         $data = Product::findOrFail($id);
+        // $wholesale = Wholesale::where('product_id', $id)->get();
         $sign = Currency::where('is_default','=',1)->first();
         $input = $request->all();
         
@@ -928,8 +922,8 @@ class ProductController extends Controller
         else{
             if(in_array(null, $request->whole_sell_qty) || in_array(null, $request->whole_sell_discount))
             {
-            $input['whole_sell_qty'] = null;
-            $input['whole_sell_discount'] = null;
+                $input['whole_sell_qty'] = null;
+                $input['whole_sell_discount'] = null;
             }
             else
             {
@@ -1078,57 +1072,39 @@ class ProductController extends Controller
          }
          $input['ship'] = $request->ship;
          
-         $data->update($input);
+        $data->update($input);
+        
+        // $wholesale->update($input);
+
+        // Updating Wholesale table 
+        if(!empty($request->whole_check)){
+
+            $delete_previous_record = Wholesale::where('product_id', $id)->delete();
+            
+            // Add wholesale 
+            $wholesale_array = Array(
+                'whole_sell_qty' => explode(',', $input['whole_sell_qty']),
+                'whole_sell_discount' => explode(',', $input['whole_sell_discount']),
+            );
+
+            // dd(count($wholesale_array['whole_sell_qty']));
+
+            if($wholesale = $wholesale_array['whole_sell_qty']){
+                for($x=0; $x<count($wholesale); $x++){
+                    $sale_price = new Wholesale;
+                    $sale_price['product_id'] = $id;
+                    $sale_price['qty'] = $data['whole_sell_qty'][$x];
+                    $sale_price['discount'] = $data['whole_sell_discount'][$x];
+                    $sale_price->save();
+                }
+            }
+        }
         //-- Logic Section Ends
 
-                $prod = Product::find($data->id);
+        $prod = Product::find($data->id);
 
         // Set SLug
         $prod->slug = str_slug($data->name,'-').'-'.strtolower($data->sku);
-
-                // Set Photo
-                // $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(800, null, function ($c) {
-                //     $c->aspectRatio();
-                // });
-                // $photo = time().str_random(8).'.jpg';
-                // $resizedImage->save(public_path().'/assets/images/products/'.$photo);
-
-                
-
-                // Set Thumbnail
-
-                // $background = Image::canvas(300, 300);
-                // $resizedImage = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(300, 300, function ($c) {
-                //     $c->aspectRatio();
-                //     $c->upsize();
-                // });
-                // // insert resized image centered into background
-                // $background->insert($resizedImage, 'center');
-                // // save or do whatever you like
-                // $thumbnail = time().str_random(8).'.jpg';
-                // $background->save(public_path().'/assets/images/thumbnails/'.$thumbnail);
-
-
-                // $prod->thumbnail  = $thumbnail;
-                // $prod->photo  = $photo;
-        
-        // $update_product = Product::where('id', $data->id)->update([
-        //     'name' => $input['name'],
-        //     'sku' => $input['sku'],
-        //     'category_id' => $input['category_id'],
-        //     'subcategory_id' => $input['subcategory_id'],
-        //     'childcategory_id' => $input['childcategory_id'],
-        //     'slug' => $prod->slug,
-        //     'photo' => $name,
-        //     'ship_fee' => $input['ship_fee'],
-        //     'stock' => $input['stock'],
-        //     'details' => $input['details'],
-        //     'meta_tag' => $input['meta_tag'],
-        //     'meta_description' => $input['meta_description'],
-        //     'price' => $input['price'],
-        //     'previous_price' => $input['previous_price'],
-        //     'user_id' => $input['user_id'],
-        // ]);
         $prod->update();
 
         //--- Redirect Section
