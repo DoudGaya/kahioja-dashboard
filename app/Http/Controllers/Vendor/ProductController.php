@@ -773,7 +773,11 @@ class ProductController extends Controller
         $sign = Currency::where('is_default','=',1)->first();
         $wholesale = Wholesale::where('product_id', $id)->get();
 
-        dd($wholesale);
+        // foreach($wholesale as $sale){
+        //     echo $sale['qty'];
+        // }
+
+        // dd($wholesale);
 
 
         if($data->type == 'Digital')
@@ -781,7 +785,7 @@ class ProductController extends Controller
         elseif($data->type == 'License')
             return view('vendor.product.edit.license',compact('cats','data','sign'));
         else
-            return view('vendor.product.edit.physical',compact('cats','data','sign'));
+            return view('vendor.product.edit.physical',compact('cats','data','sign','wholesale'));
     }
 
 
