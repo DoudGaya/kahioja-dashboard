@@ -43,7 +43,7 @@
 				<div class="header">
 					<div class="container-fluid">
 						<div class="d-flex justify-content-between">
-						<a class="admin-logo" href="{{ route('vendor-dashboard') }}">
+						<a class="admin-logo" href="https://kahioja.com">
 								<img src="{{asset('assets/images/'.$gs->logo)}}" alt="">
 							</a>
 							<div class="menu-toggle-button">
