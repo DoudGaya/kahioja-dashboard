@@ -138,7 +138,75 @@
 									
 
 									
-								
+									<div class="row">
+									<div class="col-lg-12">
+										<div class="left-area">
+
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<ul class="list">
+											<li>
+												<input class="checkclick1" name="whole_check" type="checkbox" id="whole_check" value="1" {{ !empty($data->whole_sell_qty) ? "checked":"" }}>
+												<label for="whole_check">{{ $langg->lang660 }}</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="{{ !empty($data->whole_sell_qty) ? "":"showbox" }}">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="left-area">
+
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="featured-keyword-area">
+												<div class="feature-tag-top-filds" id="whole-section">
+													@if(!empty($data->whole_sell_qty))
+
+														 @foreach($data->whole_sell_qty as $key => $data1)
+
+													<div class="feature-area">
+														<span class="remove whole-remove"><i class="fas fa-times"></i></span>
+														<div class="row">
+															<div class="col-lg-6">
+															<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" min="0" value="{{ $data->whole_sell_qty[$key] }}" required="">
+															</div>
+
+															<div class="col-lg-6">
+															<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}" min="0" value="{{ $data->whole_sell_discount[$key] }}" required="">
+															</div>
+														</div>
+													</div>
+
+
+															@endforeach
+													@else
+
+
+													<div class="feature-area">
+														<span class="remove whole-remove"><i class="fas fa-times"></i></span>
+														<div class="row">
+															<div class="col-lg-6">
+															<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" min="0">
+															</div>
+
+															<div class="col-lg-6">
+															<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}" min="0" />
+															</div>
+														</div>
+													</div>
+
+													@endif
+												</div>
+
+												<a href="javascript:;" id="whole-btn" class="add-fild-btn"><i class="icofont-plus"></i> {{ $langg->lang663 }}</a>
+											</div>
+										</div>
+									</div>
+								</div>
 
 
 									<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">

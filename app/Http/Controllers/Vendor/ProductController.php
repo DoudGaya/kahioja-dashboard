@@ -717,19 +717,21 @@ class ProductController extends Controller
             $prod = Product::latest('id')->first();
             $lastid = $prod->id;
             
-            // Add wholesale 
-            $data = Array(
-                'whole_sell_qty' => $input['whole_sell_qty'],
-                'whole_sell_discount' => $input['whole_sell_discount'],
-            );
-
-            if($wholesale = $data['whole_sell_qty']){
-                for($x=0; $x<count($wholesale); $x++){
-                    $sale_price = new Wholesale;
-                    $sale_price['product_id'] = $lastid;
-                    $sale_price['qty'] = $data['whole_sell_qty'][$x];
-                    $sale_price['discount'] = $data['whole_sell_discount'][$x];
-                    $sale_price->save();
+            if(!empty($request->whole_check)){
+                // Add wholesale 
+                $data = Array(
+                    'whole_sell_qty' => $input['whole_sell_qty'],
+                    'whole_sell_discount' => $input['whole_sell_discount'],
+                );
+    
+                if($wholesale = $data['whole_sell_qty']){
+                    for($x=0; $x<count($wholesale); $x++){
+                        $sale_price = new Wholesale;
+                        $sale_price['product_id'] = $lastid;
+                        $sale_price['qty'] = $data['whole_sell_qty'][$x];
+                        $sale_price['discount'] = $data['whole_sell_discount'][$x];
+                        $sale_price->save();
+                    }
                 }
             }
 
@@ -769,6 +771,9 @@ class ProductController extends Controller
         $cats = Category::all();
         $data = Product::findOrFail($id);
         $sign = Currency::where('is_default','=',1)->first();
+        $wholesale = Wholesale::where('product_id', $id)->get();
+
+        dd($wholesale);
 
 
         if($data->type == 'Digital')
