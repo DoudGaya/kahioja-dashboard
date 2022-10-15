@@ -326,10 +326,10 @@ $("#whole-btn").on('click', function(){
                                 '<span class="remove whole-remove"><i class="fas fa-times"></i></span>'+
                                     '<div  class="row">'+
                                         '<div class="col-lg-6">'+
-                                            '<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="Enter Quantity" min="0" required>'+
+                                            '<input type="text" name="whole_sell_qty[]" class="input-field" placeholder="Enter Quantity" min="0" required>'+
                                         '</div>'+
                                         '<div class="col-lg-6">'+
-                                            '<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="Enter Discount Percentage" min="0" required>'+
+                                            '<input type="text" name="whole_sell_discount[]" class="input-field" placeholder="Enter Discount Percentage" min="0" required>'+
                                         '</div>'+
                                     '</div>'+
                             '</div>'

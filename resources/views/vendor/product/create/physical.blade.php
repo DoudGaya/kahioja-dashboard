@@ -139,7 +139,7 @@
 												<li>
 													<input class="checkclick1" name="whole_check" type="checkbox"
 														id="whole_check" value="1">
-													<label for="whole_check">{{ $langg->lang660 }}</label>
+													<label for="whole_check">Allow Product Wholesale</label>
 												</li>
 											</ul>
 										</div>
@@ -160,15 +160,15 @@
 																	class="fas fa-times"></i></span>
 															<div class="row">
 																<div class="col-lg-6">
-																	<input type="number" name="whole_sell_qty[]"
+																	<input type="text" name="whole_sell_qty[]"
 																		class="input-field" placeholder="{{ $langg->lang661 }}"
-																		min="0">
+																		>
 																</div>
 		
 																<div class="col-lg-6">
-																	<input type="number" name="whole_sell_discount[]"
+																	<input type="text" name="whole_sell_discount[]"
 																		class="input-field" placeholder="{{ $langg->lang662 }}"
-																		min="0" />
+																		 />
 																</div>
 															</div>
 														</div>
@@ -343,8 +343,8 @@
 											</div>
 										</div>
 										<div class="col-lg-12">
-											<input name="price" step="0.1" type="number" class="input-field"
-												placeholder="{{ $langg->lang666 }}" required="" min="0">
+											<input name="price"  type="text" class="input-field"
+												placeholder="{{ $langg->lang666 }}" required="" >
 										</div>
 									</div>
 		
@@ -356,8 +356,8 @@
 											</div>
 										</div>
 										<div class="col-lg-12">
-											<input name="previous_price" step="0.1" type="number" class="input-field"
-												placeholder="{{ $langg->lang666 }}" min="0">
+											<input name="previous_price"  type="text" class="input-field"
+												placeholder="{{ $langg->lang666 }}" >
 										</div>
 									</div>
 
@@ -369,8 +369,8 @@
 											</div>
 										</div>
 										<div class="col-lg-12">
-											<input name="ship_fee" step="0.01" type="number" class="input-field"
-												placeholder="{{ __('e.g 200') }}" min="0">
+											<input name="ship_fee"  type="text" class="input-field"
+												placeholder="{{ __('e.g 200') }}">
 										</div>
 									</div>
 
@@ -382,7 +382,7 @@
 											</div>
 										</div>
 										<div class="col-lg-12">
-											<input required name="ship" step="1" type="number" class="input-field"
+											<input required name="ship"  type="text" class="input-field"
 												placeholder="{{ __('e.g 1') }}" min="1">
 										</div>
 									</div>

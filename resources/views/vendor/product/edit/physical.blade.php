@@ -148,7 +148,7 @@
 										<ul class="list">
 											<li>
 												<input class="checkclick1" name="whole_check" type="checkbox" id="whole_check" value="1" {{ !empty($data->whole_check) ? "checked":"" }}>
-												<label for="whole_check">{{ $langg->lang660 }}</label>
+												<label for="whole_check">Allow Product Wholesale</label>
 											</li>
 										</ul>
 									</div>
@@ -171,11 +171,11 @@
 																<span class="remove whole-remove"><i class="fas fa-times"></i></span>
 																<div class="row">
 																	<div class="col-lg-6">
-																	<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" min="0" value="{{ $sale['qty'] }}" required="">
+																	<input type="text" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}"  value="{{ $sale['qty'] }}" required="">
 																	</div>
 
 																	<div class="col-lg-6">
-																	<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}" min="0" value="{{ $sale['discount'] }}" required="">
+																	<input type="text" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}"  value="{{ $sale['discount'] }}" required="">
 																	</div>
 																</div>
 															</div>
@@ -185,11 +185,11 @@
 															<span class="remove whole-remove"><i class="fas fa-times"></i></span>
 															<div class="row">
 																<div class="col-lg-6">
-																<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" min="0">
+																<input type="number" name="whole_sell_qty[]" class="input-field" placeholder="{{ $langg->lang661 }}" >
 																</div>
 
 																<div class="col-lg-6">
-																<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}" min="0" />
+																<input type="number" name="whole_sell_discount[]" class="input-field" placeholder="{{ $langg->lang662 }}"  />
 																</div>
 															</div>
 														</div>
@@ -371,7 +371,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->price * $sign->value , 2)}}" required="" min="0">
+														<input name="price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->price * $sign->value , 2)}}" required="" >
 													</div>
 												</div>
 
@@ -383,7 +383,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->previous_price * $sign->value , 2)}}" min="0">
+														<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->previous_price * $sign->value , 2)}}" >
 													</div>
 												</div>
 
@@ -395,7 +395,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="ship_fee" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->ship_fee * $sign->value , 2)}}" min="0">
+														<input name="ship_fee" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->ship_fee * $sign->value , 2)}}" >
 													</div>
 												</div>
 
