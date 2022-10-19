@@ -553,6 +553,7 @@ class ProductController extends Controller
                 {
                     $input['whole_sell_qty'] = null;
                     $input['whole_sell_discount'] = null;
+                    $input['whole_check'] = 0;
                 }
                 else
                 {
@@ -918,6 +919,7 @@ class ProductController extends Controller
         {
             $input['whole_sell_qty'] = null;
             $input['whole_sell_discount'] = null;
+            $input['whole_check'] = 0;
         }
         else{
             if(in_array(null, $request->whole_sell_qty) || in_array(null, $request->whole_sell_discount))
@@ -1074,8 +1076,6 @@ class ProductController extends Controller
          
         $data->update($input);
         
-        // $wholesale->update($input);
-
         // Updating Wholesale table 
         if(!empty($request->whole_check)){
 
@@ -1096,6 +1096,8 @@ class ProductController extends Controller
                     $sale_price->save();
                 }
             }
+        }else{
+            $delete_previous_record = Wholesale::where('product_id', $id)->delete();
         }
         //-- Logic Section Ends
 
