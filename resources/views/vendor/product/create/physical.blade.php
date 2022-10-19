@@ -197,6 +197,18 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
+												<h4 class="heading">Minimum Order Quantity (MOQ)*</h4>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<input name="minimum_order_qty" type="text" class="input-field"
+												placeholder="e.g 100">
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="left-area">
 												<h4 class="heading">
 													{{ $langg->lang680 }}
 												</h4>

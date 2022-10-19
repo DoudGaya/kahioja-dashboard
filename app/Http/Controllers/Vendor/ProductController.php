@@ -689,8 +689,7 @@ class ProductController extends Controller
              $input['attributes'] = $jsonAttr;
            }
 
-            
-            $slug = str_slug($input['name'],'-').'-'.strtolower($input['sku']);
+           $slug = str_slug($input['name'],'-').'-'.strtolower($input['sku']);
             
             // dd($input['whole_sell_qty']);
             
@@ -698,14 +697,12 @@ class ProductController extends Controller
                 'name' => $input['name'],
                 'sku' => $input['sku'],
                 'category_id' => $input['category_id'],
-                // 'subcategory_id' => $input['subcategory_id'],
-                // 'childcategory_id' => $input['childcategory_id'],
                 'slug' => $slug,
                 'photo' => $name,
                 'ship_fee' => $input['ship_fee'],
                 'ship' => $input['ship'],
                 'stock' => $input['stock'],
-                // 'whole_sell_qty' => json_encode($data),
+                'minimum_order_qty' => $input['minimum_order_qty'],
                 'details' => $input['details'],
                 'meta_tag' => $input['meta_tag'],
                 'meta_description' => $input['meta_description'],

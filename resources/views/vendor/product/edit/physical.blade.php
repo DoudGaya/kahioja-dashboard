@@ -203,7 +203,7 @@
 								</div>
 
 
-									<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">
+								<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="left-area">
@@ -215,8 +215,20 @@
 											<input name="stock" type="text" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{ $data->stock }}">
 										</div>
 									</div>
+								</div>
 
+								<div>
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="left-area">
+													<h4 class="heading">Minimum Order Quantity (MOQ)*</h4>
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<input name="minimum_order_qty" type="text" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{ $data->minimum_order_qty }}">
+										</div>
 									</div>
+								</div>
 
 								<div class="{{ $data->measure == null ? 'showbox' : '' }}">
 
